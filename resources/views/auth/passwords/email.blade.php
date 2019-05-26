@@ -9,7 +9,7 @@
                 <div class="card bg-secondary shadow border-0">
                     <div class="card-body px-lg-5 py-lg-5">
                         <div class="text-center text-muted mb-4">
-                            <small>{{ __('Reset password') }}</small>
+                            <small>{{ __('Resetar senha') }}</small>
                         </div>
 
                         @if (session('status'))
@@ -19,7 +19,7 @@
                         @endif
 
                         <form role="form" method="POST" action="{{ route('password.email') }}">
-                            @csrf
+                            {{csrf_field()}}
 
                             <div class="form-group{{ $errors->has('email') ? ' has-danger' : '' }} mb-3">
                                 <div class="input-group input-group-alternative">
@@ -35,7 +35,7 @@
                                 @endif
                             </div>
                             <div class="text-center">
-                                <button type="submit" class="btn btn-primary my-4">{{ __('Send Password Reset Link') }}</button>
+                                <button type="submit" class="btn btn-primary my-4">{{ __('Enviar link de reset') }}</button>
                             </div>
                         </form>
                     </div>
