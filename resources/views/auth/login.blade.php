@@ -7,7 +7,7 @@
         <div class="row justify-content-center">
             <div class="col-lg-5 col-md-7">
                 <div class="card bg-secondary shadow border-0">
-                    <div class="card-header bg-transparent pb-5">
+                    <!-- <div class="card-header bg-transparent pb-5">
                         <div class="text-muted text-center mt-2 mb-3"><small>{{ __('Sign in with') }}</small></div>
                         <div class="btn-wrapper text-center">
                             <a href="#" class="btn btn-neutral btn-icon">
@@ -19,7 +19,7 @@
                                 <span class="btn-inner--text">{{ __('Google') }}</span>
                             </a>
                         </div>
-                    </div>
+                    </div> -->
                     <div class="card-body px-lg-5 py-lg-5">
                         <div class="text-center text-muted mb-4">
                             <small>
@@ -67,23 +67,23 @@
                                 </label>
                             </div>
                             <div class="text-center">
-                                <button type="submit" class="btn btn-primary my-4">{{ __('Sign in') }}</button>
+                                <button type="submit" class="btn btn-primary my-4">{{ __('Login') }}</button>
                             </div>
                         </form>
                     </div>
                 </div>
                 <div class="row mt-3">
-                    <div class="col-6">
+                    <div class="col-12 text-center">
                         @if (Route::has('password.request'))
                             <a href="{{ route('password.request') }}" class="text-light">
-                                <small>{{ __('Forgot password?') }}</small>
+                                <small>{{ __('Esqueceu a senha?') }}</small>
                             </a>
                         @endif
                     </div>
                     <div class="col-6 text-right">
-                        <a href="{{ route('register') }}" class="text-light">
+                       <!--  <a href="{{ route('register') }}" class="text-light">
                             <small>{{ __('Create new account') }}</small>
-                        </a>
+                        </a> -->
                     </div>
                 </div>
             </div>

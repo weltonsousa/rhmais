@@ -2974,8 +2974,8 @@ fieldset:disabled a.btn
 .btn-primary
 {
     color: #fff;
-    border-color: #5e72e4;
-    background-color: #5e72e4;
+    border-color: #091d59;
+    background-color: #091d59;
     box-shadow: 0 4px 6px rgba(50, 50, 93, .11), 0 1px 3px rgba(0, 0, 0, .08);
 }
 .btn-primary:hover
@@ -8031,7 +8031,7 @@ button.bg-dark:focus
 
 .bg-default
 {
-    background-color: #172b4d !important;
+    background-color: #091d59 !important;
 }
 
 a.bg-default:hover,
@@ -15402,7 +15402,7 @@ button.section-darker:focus
 
 .bg-gradient-primary
 {
-    background: linear-gradient(87deg, #5e72e4 0, #825ee4 100%) !important;
+    background: linear-gradient(87deg, #ffffff 0, #aeacb5 100%) !important;
 }
 
 .bg-gradient-secondary
@@ -15542,7 +15542,7 @@ button.section-darker:focus
 
 .fill-default
 {
-    fill: #172b4d;
+    fill: #091d59;
 }
 
 .stroke-default
@@ -17576,7 +17576,7 @@ a.btn-icon-only
 {
     position: absolute;
     z-index: 1;
-    top: 0;
+    top: 60px;
     left: 0;
 
     width: 100%;
@@ -19003,7 +19003,7 @@ textarea[resize='horizontal']
 }
 .navbar-horizontal .navbar-brand img
 {
-    height: 30px;
+    height: 80px;
 }
 
 .navbar-horizontal .navbar-dark .navbar-brand
