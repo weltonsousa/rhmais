@@ -14,6 +14,19 @@
 Route::get('/', function () {
     return view('auth.login');
 });
+
+Route::get('/usuarios', function () {
+    return view('cadastros.usuarios');
+});
+
+Route::get('/instituicao', function () {
+    return view('cadastros.instituicao');
+});
+
+Route::get('/concedente', function () {
+    return view('cadastros.concedente');
+});
+
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
