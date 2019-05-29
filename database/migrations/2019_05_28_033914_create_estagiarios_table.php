@@ -14,16 +14,16 @@ class CreateEstagiariosTable extends Migration
     public function up()
     {
         Schema::create('estagiarios', function (Blueprint $table) {
-            $table->increments('id_estagiario');
-           $table->String('serie_ctps');
-           $table->date('dt_nascimento');
-           $table->String('cor_raca');
+           $table->increments('id_estagiario');
+           $table->string('serie_ctps');
+           $table->string('cor_raca');
            $table->date('dt_cadastro');
-           $table->String('unid_concedente');
-           $table->String('agente_int');
-           $table->String('ctps');
-           $table->String('numero_pis');
-           $table->String('pessoal_responsavel');
+           $table->string('unid_concedente');
+           $table->string('agente_int');
+           $table->string('ctps');
+           $table->string('numero_pis');
+           $table->string('pessoa_responsavel');
+
         });
     }
 

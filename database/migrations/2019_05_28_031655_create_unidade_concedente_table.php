@@ -15,21 +15,21 @@ class CreateUnidadeConcedenteTable extends Migration
     {
         Schema::create('unidade_concedente', function (Blueprint $table) {
             $table->increments('id_unidade_concedente');
-            $table->String('razao_social');
-            $table->String('nome_fantasia');
-            $table->String('cnpj_cpf');
-            $table->String('insc_estadual');
-            $table->String('telefone') ;
-            $table->String('celular_contato');
-            $table->String('nome_representante');
-            $table->String('cpf_representante');
-            $table->String('email_representante');
-            $table->String('agente_intregacao');
-            $table->String('celular');
-            $table->String('nome_contato');
-            $table->String('email_contato');
-            $table->String('celular_representamte');
-            $table->String('rg_representante');
+            $table->string('razao_social');
+            $table->string('nome_fantasia');
+            $table->string('cnpj_cpf');
+            $table->string('insc_estadual');
+            $table->string('telefone') ;
+            $table->string('celular_contato');
+            $table->string('nome_representante');
+            $table->string('cpf_representante');
+            $table->string('email_representante');
+            $table->string('agente_intregacao');
+            $table->string('celular');
+            $table->string('nome_contato');
+            $table->string('email_contato');
+            $table->string('celular_representamte');
+            $table->string('rg_representante');
         });
     }
 

@@ -2391,6 +2391,8 @@ class ComposerStaticInit86215c67376e582994c67fcf565dc62e
         'PHP_Token_YIELD_FROM' => __DIR__ . '/..' . '/phpunit/php-token-stream/src/Token.php',
         'ParseError' => __DIR__ . '/..' . '/symfony/polyfill-php70/Resources/stubs/ParseError.php',
         'Parsedown' => __DIR__ . '/..' . '/erusev/parsedown/Parsedown.php',
+        'PerfilUsersTableSeeder' => __DIR__ . '/../..' . '/database/seeds/PerfilUsersTableSeeder.php',
+        'PersilUsersTableSeeder' => __DIR__ . '/../..' . '/database/seeds/PersilUsersTableSeeder.php',
         'PharIo\\Manifest\\Application' => __DIR__ . '/..' . '/phar-io/manifest/src/values/Application.php',
         'PharIo\\Manifest\\ApplicationName' => __DIR__ . '/..' . '/phar-io/manifest/src/values/ApplicationName.php',
         'PharIo\\Manifest\\Author' => __DIR__ . '/..' . '/phar-io/manifest/src/values/Author.php',

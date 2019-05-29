@@ -15,21 +15,20 @@ class CreateInstituicaoEnsinoTable extends Migration
     {
         Schema::create('instituicao_ensino', function (Blueprint $table) {
             $table->increments('id_ensino');
-            $table->String('razao_social');
-            $table->String('cnpj');
-            $table->String('insc_estadual');
-            $table->String('mantenedor');
-            $table->String('telefone');
-            $table->String('nome_contato');
-            $table->String('email_contato');
-            $table->String('insc_estadual');
-            $table->String('cel_representante');
-            $table->String('rg_representante');
-            $table->String('site_url');
-            $table->String('celular_contato');
-            $table->String('nome_representante');
-            $table->String('cpf_representante');
-            $table->String('email_representante');
+            $table->string('razao_social');
+            $table->string('cnpj');
+            $table->string('insc_estadual');
+            $table->string('mantenedor');
+            $table->string('telefone');
+            $table->string('nome_contato');
+            $table->string('email_contato');
+            $table->string('cel_representante');
+            $table->string('rg_representante');
+            $table->string('site_url');
+            $table->string('celular_contato');
+            $table->string('nome_representante');
+            $table->string('cpf_representante');
+            $table->string('email_representante');
         });
     }
 

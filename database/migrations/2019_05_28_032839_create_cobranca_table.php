@@ -20,13 +20,17 @@ class CreateCobrancaTable extends Migration
             $table->float('cob_valor_fixo');
             $table->float('custo_unitario');
             $table->float('proporcional');
-            $table->int('ativo');
+            $table->integer('ativo');
             $table->date('dia_vcto_pg_boleto');
-            $table->String('quant_tce_plano');
+            $table->string('quant_tce_plano');
             $table->float('valor_adicional');
             $table->date('dias_comerciais');
-            $table->String('roda_folha');
+            $table->string('roda_folha');
             $table->text('obs');
+            $table->integer('user_id');
+            $table->integer('unidade_concedente_id');
+
+
         });
     }
 
