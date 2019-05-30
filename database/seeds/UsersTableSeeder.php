@@ -25,7 +25,7 @@ class UsersTableSeeder extends Seeder
             'sexo'=>'Masc',
             'pai'=>'Pedro Jorge',
             'mae'=>'Maria Francisca',
-            'id_perfil_users'=>'1',
+            'perfil_users_id'=>'1',
             'created_at' => now(),
             'updated_at' => now()
         ]);

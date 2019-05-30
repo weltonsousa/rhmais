@@ -2053,7 +2053,6 @@ return array(
     'ParseError' => $vendorDir . '/symfony/polyfill-php70/Resources/stubs/ParseError.php',
     'Parsedown' => $vendorDir . '/erusev/parsedown/Parsedown.php',
     'PerfilUsersTableSeeder' => $baseDir . '/database/seeds/PerfilUsersTableSeeder.php',
-    'PersilUsersTableSeeder' => $baseDir . '/database/seeds/PersilUsersTableSeeder.php',
     'PharIo\\Manifest\\Application' => $vendorDir . '/phar-io/manifest/src/values/Application.php',
     'PharIo\\Manifest\\ApplicationName' => $vendorDir . '/phar-io/manifest/src/values/ApplicationName.php',
     'PharIo\\Manifest\\Author' => $vendorDir . '/phar-io/manifest/src/values/Author.php',

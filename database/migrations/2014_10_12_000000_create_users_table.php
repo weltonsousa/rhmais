@@ -15,6 +15,7 @@ class CreateUsersTable extends Migration
     {
         Schema::create('users', function (Blueprint $table) {
             $table->increments('id');
+            $table->integer('perfil_users_id')->unsigned();
             $table->string('name');
             $table->string('email')->unique();
             $table->string('email_verified_at')->unique();
@@ -28,13 +29,10 @@ class CreateUsersTable extends Migration
             $table->enum('sexo', ['Masc'], ['Fem']);
             $table->string('pai');
             $table->string('mae');
-            $table->integer('id_perfil_users');
-            $table->integer('id_ensino')->nullable();
-            $table->integer('id_unidade_concedente')->nullable();
             $table->timestamps();
 
 
-        });
+            });
     }
 
     /**

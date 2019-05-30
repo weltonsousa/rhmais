@@ -14,7 +14,7 @@ class CreateCobrancaTable extends Migration
     public function up()
     {
         Schema::create('cobranca', function (Blueprint $table) {
-            $table->increments('`id_cobranca');
+            $table->increments('id');
             $table->date('dia_pg_estagio');
             $table->date('dia_fechamento');
             $table->float('cob_valor_fixo');
@@ -27,9 +27,6 @@ class CreateCobrancaTable extends Migration
             $table->date('dias_comerciais');
             $table->string('roda_folha');
             $table->text('obs');
-            $table->integer('user_id');
-            $table->integer('unidade_concedente_id');
-
 
         });
     }

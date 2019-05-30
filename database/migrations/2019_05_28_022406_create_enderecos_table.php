@@ -14,7 +14,10 @@ class CreateEnderecosTable extends Migration
     public function up()
     {
         Schema::create('enderecos', function (Blueprint $table) {
-            $table->increments('id_enderecos');
+            $table->increments('id');
+            $table->unsignedInteger('users_id')->unsigned();
+            $table->unsignedInteger('instituicao_ensino_id_ensino')->unsigned();
+            $table->unsignedInteger('unidade_concedente_id_unidade_concedente')->unsigned();
             $table->string('endereco');
             $table->integer('numero');
             $table->string('bairro');
@@ -22,9 +25,6 @@ class CreateEnderecosTable extends Migration
             $table->string('estado');
             $table->string('cep');
             $table->string('complemento');
-            $table->integer('id_user');
-            $table->integer('id_ensino');
-            $table->integer('id_unidade_concedente');
 
           });
     }

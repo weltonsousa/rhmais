@@ -14,7 +14,8 @@ class CreateUnidadeConcedenteTable extends Migration
     public function up()
     {
         Schema::create('unidade_concedente', function (Blueprint $table) {
-            $table->increments('id_unidade_concedente');
+            $table->increments('id');
+            $table->unsignedInteger('users_id')->unsigned();
             $table->string('razao_social');
             $table->string('nome_fantasia');
             $table->string('cnpj_cpf');
@@ -30,6 +31,8 @@ class CreateUnidadeConcedenteTable extends Migration
             $table->string('email_contato');
             $table->string('celular_representamte');
             $table->string('rg_representante');
+
+
         });
     }
 

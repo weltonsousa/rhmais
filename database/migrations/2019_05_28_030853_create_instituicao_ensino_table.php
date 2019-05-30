@@ -14,7 +14,7 @@ class CreateInstituicaoEnsinoTable extends Migration
     public function up()
     {
         Schema::create('instituicao_ensino', function (Blueprint $table) {
-            $table->increments('id_ensino');
+            $table->increments('id');
             $table->string('razao_social');
             $table->string('cnpj');
             $table->string('insc_estadual');
@@ -29,6 +29,7 @@ class CreateInstituicaoEnsinoTable extends Migration
             $table->string('nome_representante');
             $table->string('cpf_representante');
             $table->string('email_representante');
+
         });
     }
 
