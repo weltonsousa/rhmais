@@ -22,15 +22,6 @@ class AvaliacaoSuperController extends Controller
     public function index()
     {
         $empresas = Empresa::all();
-
-        // $supervisores = DB::table('empresa')
-        //     ->join('estagiario', 'empresa.id', '=', 'estagiario.empresa_id')
-        //     ->join('supervisor', 'empresa.id', '=', 'supervisor.empresa_id')
-        //     ->leftjoin('tce_contrato', 'empresa.id', '=', 'tce_contrato.empresa_id')
-        //     ->select('supervisor.nome', 'empresa.nome_fantasia', 'estagiario.nome As estagiario', 'tce_contrato.data_inicio', 'tce_contrato.data_fim')
-        //     ->get();
-
-        // dd($supervisores);
         return view('avaliacao_supervisor.index', ['empresas' => $empresas]);
     }
 

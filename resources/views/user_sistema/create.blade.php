@@ -12,7 +12,7 @@
         <div class="animate form login_form">
             <section class="login_content">
                 <form method="POST" action="{{ route('user_sistema.store') }}" enctype="multipart/form-data">
-                    {{csrf_field()}}
+                  @csrf
                     <h1>Criar Conta</h1>
                     <div>
                         <input id="name" type="text" class="form-control " placeholder="Usuario" required=""

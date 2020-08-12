@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Beneficio;
+use App\TceContrato;
 use Illuminate\Http\Request;
 
 class BeneficioController extends Controller
@@ -50,18 +51,7 @@ class BeneficioController extends Controller
         $beneficio->save();
 
         return redirect()->route('beneficio.index')
-            ->with('success', 'Cadastrado com sucesso.');
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Beneficio  $beneficio
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Beneficio $beneficio)
-    {
-        //
+            ->with('success', 'CADASTRADO COM SUCESSO');
     }
 
     /**
@@ -95,7 +85,7 @@ class BeneficioController extends Controller
         $beneficio->tipo = $request->get('tipo');
         $beneficio->save();
 
-        $request->session()->flash('success', 'Atualizado com sucesso!');
+        $request->session()->flash('success', 'ATUALIZADO COM SUCESSO');
         return redirect('beneficio');
     }
 
@@ -105,11 +95,22 @@ class BeneficioController extends Controller
      * @param  \App\Beneficio  $beneficio
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Request $request, Beneficio $beneficio)
+    public function destroy(Request $request, $id)
     {
+        if (TceContrato::where('beneficio_id', $id)->first()) {
+            $request->session()->flash('warning', 'BENEFÍCIO NÃO PODE SER REMOVIDO');
+            return redirect('beneficio');
+        } else {
+            $beneficio = Beneficio::find($id);
+            $beneficio->delete();
+            $request->session()->flash('warning', 'BENEFÍCIO REMOVIDO');
+            return redirect('beneficio');
+        }
+    }
 
-        $beneficio->delete();
-        $request->session()->flash('warning', 'Removido com sucesso!');
-        return redirect('beneficio');
+    public function beneficioAjax()
+    {
+        $beneficio = Beneficio::pluck('nome', 'id');
+        return json_encode($beneficio);
     }
 }

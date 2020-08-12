@@ -27,9 +27,8 @@
                             <div class="clearfix"></div>
                         </div>
                         <div class="x_content">
-                            <form action="{{ route('cce_convenio.store') }}" id="myForm" role="form"
-                                data-toggle="validator" method="post" accept-charset="utf-8">
-                                {{csrf_field()}}
+                            <form action="{{ route('cce_convenio.store') }}" id="myForm" role="form" data-toggle="validator" method="post" accept-charset="utf-8">
+                                @csrf
                                 <!-- SmartWizard html -->
                                 <div>
                                     <div>

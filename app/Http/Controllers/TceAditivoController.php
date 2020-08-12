@@ -37,7 +37,7 @@ class TceAditivoController extends Controller
             ->join('instituicao', 'instituicao.id', '=', 'tce_contrato.instituicao_id')
             ->select(
                 'estagiario.nome',
-                'estagiario.id',
+                'estagiario.id As estagiario_id',
                 'empresa.nome_fantasia',
                 'instituicao.nome_instituicao',
                 'tce_contrato.bolsa',
@@ -50,7 +50,7 @@ class TceAditivoController extends Controller
                 'tce_contrato.aditivo'
             )
             ->get();
-        return view('tce_aditivo.index', compact('tcesad', $tcesad));
+        return view('tce_aditivo.index', compact('tcesad'));
     }
 
     /**
@@ -71,19 +71,43 @@ class TceAditivoController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'estagiario_id' => 'required|unique:tce_aditivo',
+            'empresa_id' => 'required',
+            'instituicao_id' => 'required',
+        ]);
 
-    }
+        $date_doc = $request->get('data_doc');
+        $date_inicio = $request->get('data_inicio');
+        $date_fim = $request->get('data_fim');
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\TceAditivo  $tceAditivo
-     * @return \Illuminate\Http\Response
-     */
-    public function show(TceAditivo $tceAditivo)
-    {
-        //
+        $valor = str_replace(',', '.', str_replace('.', '', $request->bolsa));
+
+        $contrato = new TceAditivo();
+        $contrato->estagiario_id = $request->get('estagiario_id');
+        $contrato->empresa_id = $request->get('empresa_id');
+        $contrato->instituicao_id = $request->get('instituicao_id');
+        $contrato->data_doc = Carbon::createFromFormat('d/m/Y', $date_doc)->format('Y-m-d');
+        $contrato->data_inicio = Carbon::createFromFormat('d/m/Y', $date_inicio)->format('Y-m-d');
+        $contrato->data_fim = Carbon::createFromFormat('d/m/Y', $date_fim)->format('Y-m-d');
+        $contrato->beneficio_id = $request->get('beneficio_id');
+        $contrato->apolice_id = $request->get('apolice_id');
+        $contrato->horario_id = $request->get('horario_id');
+        $contrato->setor_id = $request->get('setor_id');
+        $contrato->atividade_id = $request->get('atividade_id');
+        $contrato->orientador_id = $request->get('orientador_id');
+        $contrato->supervisor_id = $request->get('supervisor_id');
+        $contrato->bolsa = $valor;
+        $contrato->obrigatorio = $request->get('obrigatorio');
+        $contrato->obs = $request->get('obs');
+        $contrato->save();
+
+        $tce_contrato = TceContrato::where('estagiario_id', $request->estagiario_id)
+            ->update(['aditivo' => 1, 'bolsa' => $valor]);
+
+        return redirect()->route('tce_aditivo.index')
+            ->with('success', 'CADASTRADO COM SUCESSO');
+
     }
 
     /**
@@ -92,33 +116,28 @@ class TceAditivoController extends Controller
      * @param  \App\TceAditivo  $tceAditivo
      * @return \Illuminate\Http\Response
      */
-    public function edit(TceAditivo $tceAditivo)
+    public function edit($id)
     {
+
+        $tceAditivo = DB::table('tce_contrato')
+            ->join('estagiario', 'estagiario.id', '=', 'tce_contrato.estagiario_id')
+            ->join('empresa', 'empresa.id', '=', 'tce_contrato.empresa_id')
+            ->join('instituicao', 'instituicao.id', '=', 'tce_contrato.instituicao_id')
+            ->where('tce_contrato.id', '=', $id)
+            ->get();
+
         $estagiarios = Estagiario::all();
         $instituicoes = Instituicao::all();
         $empresas = Empresa::all();
-        $beneficios = Beneficio::all();
         $supervisor = Supervisor::all();
-        $orientador = Orientador::all();
-        $setores = Setor::all();
-        $atividades = Atividade::all();
         $horarios = Horario::all();
+        $atividades = Atividade::all();
+        $orientador = Orientador::all();
         $apolices = Seguradora::all();
+        $beneficios = Beneficio::all();
+        $setores = Setor::all();
 
-        // dd($beneficios);
-        return view('tce_aditivo.edit', compact([
-            'tceAditivo',
-            'estagiarios',
-            'instituicoes',
-            'empresas',
-            'beneficios',
-            'supervisor',
-            'orientador',
-            'setores',
-            'atividades',
-            'horarios',
-            'apolices',
-            $tceAditivo]));
+        return view('tce_aditivo.edit', compact('tceAditivo', 'estagiarios', 'instituicoes', 'empresas', 'supervisor', 'horarios', 'orientador', 'atividades', 'apolices', 'beneficios', 'setores', 'atividades'));
     }
 
     /**
@@ -140,6 +159,8 @@ class TceAditivoController extends Controller
         $date_inicio = $request->get('data_inicio');
         $date_fim = $request->get('data_fim');
 
+        $valor = str_replace(',', '.', str_replace('.', '', $request->bolsa));
+
         $contrato = TceContrato::find($id);
         $contrato->estagiario_id = $request->get('estagiario_id');
         $contrato->empresa_id = $request->get('empresa_id');
@@ -154,27 +175,15 @@ class TceAditivoController extends Controller
         $contrato->atividade_id = $request->get('atividade_id');
         $contrato->orientador_id = $request->get('orientador_id');
         $contrato->supervisor_id = $request->get('supervisor_id');
-        $contrato->bolsa = $request->get('bolsa');
+        $contrato->bolsa = $valor;
         $contrato->obrigatorio = $request->get('obrigatorio');
         $contrato->obs = $request->get('obs');
         $contrato->aditivo = 1;
-        // $contrato->curso = $request->get('curso');
-        // dd($contrato);
         $contrato->save();
 
         return redirect()->route('tce_aditivo.index')
-            ->with('success', 'Cadastro realizado com sucesso');
+            ->with('success', 'ATUALIZADO COM SUCESSO');
 
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\TceAditivo  $tceAditivo
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(TceAditivo $tceAditivo)
-    {
-        //
-    }
 }

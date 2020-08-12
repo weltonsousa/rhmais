@@ -45,9 +45,6 @@
                                             <th>Data Fim
                                                 <input type="text" class="form-control" style="width:100px;">
                                             </th>
-                                            {{-- <th>Situação
-                                                <input type="text" class="form-control" style="width:100px;">
-                                            </th> --}}
                                             <th>Opções</th>
                                         </tr>
                                     </thead>
@@ -58,30 +55,18 @@
                                             <td>{{$cce->instituicao->cidade}}</td>
                                             <td>{{date('d/m/Y', strtotime($cce->data_inicio))}}</td>
                                             <td>{{date('d/m/Y', strtotime($cce->data_fim))}}</td>
-                                            {{-- <td>
-                                                @if ($cce->situacao != 1)
-                                                Não Assinado
-                                                @else
-                                                Assinado
-                                                @endif
-                                            </td> --}}
                                               <td style="width:22%;">
                                                 <a href="{{ route('cce_convenio.edit', [$cce->id]) }}"
                                                     class="btn btn-primary" title="Editar"> <i class="fa fa-pencil"> </i></a>
-                                                {{-- <a href="{{ route('cce_convenio.assinar', [$cce->id]) }}"
-                                                    class="btn btn-primary" title="Marcar contrato como assinado"> <i
-                                                        class="fa fa-star"></i> </a> --}}
-                                                <form class="col-md-3"
-                                                    action="{{route('cce_convenio.destroy', [$cce->id])}}"
-                                                    method="POST">
-                                                    <input type="hidden" name="_method" value="DELETE">
-                                                    <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                                                <form class="col-md-3" action="{{route('cce_convenio.destroy', [$cce->id])}}" method="POST">
+                                                    @csrf
+                                                    @method("DELETE")
                                                     <button type="submit" class="btn btn-danger" title="Excluir"
                                                         onclick="return confirm('Tem certeza que deseja deletar o Convênio selecionado?')">
                                                         <i class="fa fa-trash"></i>
                                                     </button>
                                                 </form>
-                                                <a class="btn btn-warning" title="Contrato" href="{{ action('PdfController@generateCce', $cce->id) }}" target="_blank"><i
+                                                <a class="btn btn-warning" title="Contrato" href="{{ action('PdfController@cce', $cce->id) }}" target="_blank"><i
                                                         class="fa fa-print" title="Imprimir"></i> </a>
                                             </td>
                                         </tr>

@@ -50,18 +50,7 @@ class MotivoController extends Controller
         $motivo->save();
 
         return redirect()->route('motivo.index')
-            ->with('success', 'Cadastrado com sucesso.');
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Motivo  $motivo
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Motivo $motivo)
-    {
-        //
+            ->with('success', 'CADASTRADO COM SUCESSO');
     }
 
     /**
@@ -94,7 +83,7 @@ class MotivoController extends Controller
         $motivo->descricao = $request->get('descricao');
         $motivo->save();
 
-        $request->session()->flash('success', 'Atualizado com sucesso!');
+        $request->session()->flash('success', 'ATUALIZADO COM SUCESSO');
         return redirect('motivo');
     }
 
@@ -107,7 +96,7 @@ class MotivoController extends Controller
     public function destroy(Request $request, Motivo $motivo)
     {
         $motivo->delete();
-        $request->session()->flash('warning', 'Removido com sucesso!');
+        $request->session()->flash('warning', 'REMOVIDO COM SUCESSO');
         return redirect('motivo');
     }
 }

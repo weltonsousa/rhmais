@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Empresa;
 use App\Supervisor;
+use App\TceContrato;
+use DB;
 use Illuminate\Http\Request;
 
 class SupervisorController extends Controller
@@ -20,7 +22,6 @@ class SupervisorController extends Controller
     public function index()
     {
         $supervisores = Supervisor::all();
-        // $empresa = Empresa::all();
         return view('supervisor.index', compact('supervisores'));
     }
 
@@ -31,7 +32,7 @@ class SupervisorController extends Controller
      */
     public function create()
     {
-        $empresas = Empresa::all();
+        $empresas = Empresa::all(['id', 'nome_fantasia']);
         return view('supervisor.create', compact('empresas', 'cursos'));
     }
 
@@ -55,7 +56,6 @@ class SupervisorController extends Controller
         $supervisores->cpf = $request->get('cpf');
         $supervisores->telefone = $request->get('telefone');
         $supervisores->celular = $request->get('celular');
-        $supervisores->agente_integracao = $request->get('agente_integracao');
         $supervisores->cidade = $request->get('cidade');
         $supervisores->estado = $request->get('estado');
         $supervisores->formacao = $request->get('formacao');
@@ -70,18 +70,7 @@ class SupervisorController extends Controller
         $supervisores->save();
 
         return redirect()->route('supervisor.index')
-            ->with('success', 'Cadastrado com sucesso.');
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Supervisor  $supervisor
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Supervisor $supervisor)
-    {
-        //
+            ->with('success', 'CADASTRADOR COM SUCESSO');
     }
 
     /**
@@ -93,7 +82,7 @@ class SupervisorController extends Controller
     public function edit($id)
     {
         $supervisor = Supervisor::find($id);
-        $empresa = Empresa::all();
+        $empresa = Empresa::all(['id', 'nome_fantasia']);
 
         return view('supervisor.edit', compact('supervisor', 'empresa', $supervisor));
     }
@@ -118,7 +107,6 @@ class SupervisorController extends Controller
         $supervisores->cpf = $request->get('cpf');
         $supervisores->telefone = $request->get('telefone');
         $supervisores->celular = $request->get('celular');
-        $supervisores->agente_integracao = $request->get('agente_integracao');
         $supervisores->cidade = $request->get('cidade');
         $supervisores->estado = $request->get('estado');
         $supervisores->formacao = $request->get('formacao');
@@ -129,10 +117,9 @@ class SupervisorController extends Controller
         $supervisores->numero = $request->get('numero');
         $supervisores->cargo = $request->get('cargo');
         $supervisores->id_profissional = $request->get('id_profissional');
-        $supervisores->empresa_id = $request->get('empresa_id');
         $supervisores->save();
 
-        $request->session()->flash('success', 'Atualizado com sucesso!');
+        $request->session()->flash('success', 'ATUALIZADO COM SUCESSO');
         return redirect('supervisor');
     }
 
@@ -142,10 +129,27 @@ class SupervisorController extends Controller
      * @param  \App\Supervisor  $supervisor
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Request $request, Supervisor $supervisor)
+    public function destroy(Request $request, $id)
     {
-        $supervisor->delete();
-        $request->session()->flash('warning', 'Removido com sucesso!');
-        return redirect('supervisor');
+        if (TceContrato::where('supervisor_id', $id)->first()) {
+            $request->session()->flash('warning', 'SUPERVISOR NÃO PODE SER REMOVIDO');
+            return redirect('supervisor');
+        } else {
+            $supervisor = Supervisor::find($id);
+            $supervisor->delete();
+            $request->session()->flash('warning', 'REMOVIDO COM SUCESSO');
+            return redirect('supervisor');
+        }
+    }
+
+    public function supervisorAjax($id)
+    {
+        $supervisor = DB::table('supervisor')
+            ->join('empresa', 'empresa.id', '=', 'supervisor.empresa_id')
+            ->where("supervisor.empresa_id", $id)
+            ->select("supervisor.id", "supervisor.nome")
+            ->get();
+
+        return json_encode($supervisor);
     }
 }

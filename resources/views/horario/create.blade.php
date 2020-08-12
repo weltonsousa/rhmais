@@ -37,33 +37,29 @@
                                             <div id="form-step-0" role="form" data-toggle="validator">
                                                 <div class="row" style="width:960px; margin: 20px auto;">
                                                     <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
+                                                        <label for="">Descrição do Horário</label>
                                                         <input type="text" class="form-control has-feedback-left"
-                                                            placeholder="Descrição do Horário:" name="descricao">
+                                                            placeholder="Descrição do Horário" name="descricao">
                                                         <span class="fa fa-user form-control-feedback left"
                                                             aria-hidden="true"></span>
                                                     </div>
                                                     <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
+                                                        <label for="">Quantidade Horas</label>
                                                         <input type="text" class="form-control has-feedback-left"
-                                                            placeholder="Quantidade Horas:" name="qtd_horas">
+                                                            placeholder="Quantidade Horas" name="qtd_horas">
                                                         <span class="fa fa-user form-control-feedback left"
                                                             aria-hidden="true"></span>
                                                     </div>
                                                     <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
+                                                        <label for="">Unidade</label>
                                                         <select class="form-control has-feedback-left"
                                                             name="empresa_id">
-                                                            <option>Selecione Unidade Concedente:</option>
+                                                            <option>Selecione Unidade Concedente</option>
                                                             @foreach ($empresas as $empresa)
                                                             <option value="{{ $empresa->id }}">
                                                                 {{ $empresa->nome_fantasia }}</option>
                                                             @endforeach
                                                         </select>
-                                                        <span class="fa fa-home form-control-feedback left"
-                                                            aria-hidden="true"></span>
-                                                    </div>
-                                                    <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
-                                                        <input type="text" class="form-control has-feedback-left"
-                                                            value="KOSTER E KOSTER CONSULTORIA EM RH LTDA - RH MAIS TALENTOS" readonly placeholder="Agente de Integração"
-                                                            name="agente_integracao">
                                                         <span class="fa fa-home form-control-feedback left"
                                                             aria-hidden="true"></span>
                                                     </div>

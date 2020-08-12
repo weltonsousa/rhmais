@@ -138,13 +138,14 @@
     <div class="borda"></div>
     <div>
         <h5 class="titulo fonte-8"><strong>Agente de Integração : </strong></h5>
+        @foreach ($rhmais as $rh)
         <table class="table">
             <tbody>
                 <tr>
-                    <td colspan="3">
+                    <td colspan="4">
                         <span class="fonte-8"> Razão Social: </span>
                         <span class="fonte-10">
-                        <strong> KOSTER E KOSTER CONSULTORIA EM RH LTDA  </strong>
+                        <strong> {{$rh->razao_social}} </strong>
                         </span>
                     </td>
                 </tr>
@@ -152,13 +153,13 @@
                     <td>
                         <span class="fonte-8"> CNPJ: </span>
                         <span class="fonte-10">
-                        <strong>  <strong> 22.282.192/0001-09 </strong>  </strong>
+                        <strong>{{$rh->cnpj}}</strong>
                         </span>
                     </td>
-                    <td>
+                     <td colspan="2">
                         <span class="fonte-8"> Telefone: </span>
                         <span class="fonte-10">
-                        <strong> (00)0000-0000 </strong>
+                        <strong> {{$rh->telefone}} </strong>
                         </span>
                     </td>
                 </tr>
@@ -166,19 +167,19 @@
                     <td colspan="2">
                         <span class="fonte-8"> Endereço: </span>
                         <span class="fonte-10">
-                        <strong> AVENIDA DOUTOR MORAES SALES </strong>
+                        <strong> {{$rh->endereco}} </strong>
                         </span>
                     </td>
                     <td>
                         <span class="fonte-8"> Nº: </span>
                         <span class="fonte-10">
-                        <strong> 1172 </strong>
+                        <strong> {{$rh->numero}} </strong>
                         </span>
                     </td>
                     <td>
                         <span class="fonte-8"> Bairro: </span>
                         <span class="fonte-10">
-                        <strong> Centro </strong>
+                        <strong> {{$rh->bairro}} </strong>
                         </span>
                     </td>
                 </tr>
@@ -186,38 +187,39 @@
                     <td>
                         <span class="fonte-8"> Cidade: </span>
                         <span class="fonte-10">
-                        <strong> Campinas </strong>
+                        <strong>{{$rh->cidade}} </strong>
                         </span>
                     </td>
                     <td>
                         <span class="fonte-8"> Estado: </span>
                         <span class="fonte-10">
-                        <strong> SP </strong>
+                        <strong> {{$rh->estado}} </strong>
                         </span>
                     </td>
-                    <td width="30%">
+                    <td width="20%">
                         <span class="fonte-8"> CEP: </span>
                         <span class="fonte-10">
-                        <strong> 13.010-001 </strong>
+                        <strong> {{$rh->cep}} </strong>
                         </span>
                     </td>
                 </tr>
                 <tr>
-                    <td>
-                        <span class="fonte-8"> Representante: </span>
+                    <td colspan="2">
+                        <span class="fonte-8"> Representante Legal: </span>
                         <span class="fonte-10">
-                        <strong>Koster </strong>
+                        <strong> {{$rh->representante}} </strong>
                         </span>
                     </td>
-                    <td>
+                    <td colspan="2">
                         <span class="fonte-8"> Email: </span>
                         <span class="fonte-10">
-                        <strong> TABAJARA@CLADE.COM.BR </strong>
+                        <strong> {{$rh->email}} </strong>
                         </span>
                     </td>
                 </tr>
             </tbody>
        </table>
+       @endforeach
     </div>
     <div class="borda"></div>
     <p>
@@ -357,7 +359,7 @@
         deficiência;
     </p>
     <p>
-        CLÁUSULA 10a - A partir da data de sua assinatura, o presente convênio terá vigência de 01/04/2019 a 13/04/2019,
+        CLÁUSULA 10a - A partir da data de sua assinatura, o presente convênio terá vigência de {{date('d/m/Y', strtotime($cont->data_inicio))}} a {{date('d/m/Y', strtotime($cont->data_fim))}},
         podendo, porém, ser denunciado
         por qualquer uma das partes, mediante comunicado por escrito, com antecedência mínima de 30 (trinta) dias;
     </p>
@@ -375,7 +377,7 @@
         date_default_timezone_set('America/Sao_Paulo');
         @endphp --}}
     {{-- <p> Campinas, {{ strftime('%A, %d de %B de %Y', strtotime($cont->data_doc))}}. </p> --}}
-    <p> Campinas, {{ date('d/m/Y', strtotime($cont->data_doc))}}. </p>
+    <p class="pull-right"> Campinas, {{ date('d/m/Y', strtotime($cont->data_doc))}}. </p>
     <div style="height:70px;"></div>
     <div class="row">
             <p class="pull-right" style="margin-left:10px;">

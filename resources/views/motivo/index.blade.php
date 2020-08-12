@@ -52,8 +52,8 @@
                                                 </div>
                                                 <form class="col-md-3" style="margin-left:10px;"
                                                     action="{{route('motivo.destroy', [$motivo->id])}}" method="POST">
-                                                    <input type="hidden" name="_method" value="DELETE">
-                                                    <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                                                    @csrf
+                                                    @method("DELETE")
                                                     <button type="submit" class="btn btn-danger" data-toggle="tooltip"
                                                         data-placement="top" title="Excluir"
                                                         onclick="return confirm('Tem certeza que deseja deletar o motivo selecionado?')">

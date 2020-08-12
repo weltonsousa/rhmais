@@ -24,7 +24,6 @@ class AvaliacaoController extends Controller
      */
     public function index()
     {
-
         $estagiarios = DB::table('tce_contrato')
             ->join('estagiario', 'tce_contrato.estagiario_id', '=', 'estagiario.id')
             ->get();

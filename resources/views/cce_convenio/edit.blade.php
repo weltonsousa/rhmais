@@ -29,8 +29,8 @@
                         <div class="x_content">
                             <form action="{{url('cce_convenio', [$cce->id])}}" id="myForm" role="form"
                                 data-toggle="validator" method="post" accept-charset="utf-8">
-                                <input type="hidden" name="_method" value="PUT">
-                                <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                                @csrf
+                                @method("PUT")
                                 <!-- SmartWizard html -->
                                 <div>
                                     <div>
@@ -53,13 +53,6 @@
                                                         <span class="fa fa-home form-control-feedback left"
                                                             aria-hidden="true"></span>
                                                     </div>
-                                                    {{-- <div class="col-md-12 col-sm-12 col-xs-12 form-group has-feedback">
-                                                        <input type="text" value="{{$apolices->nome}}"
-                                                            class="form-control has-feedback-left"
-                                                            placeholder="Apólice/Seguradora" name="seguradora_id">
-                                                        <span class="fa fa-home form-control-feedback left"
-                                                            aria-hidden="true"></span>
-                                                    </div> --}}
                                                     <div class="col-md-4 col-sm-4 col-xs-12 form-group has-feedback">
                                                         <label for="">Data Documento</label>
                                                         <input type="text" value="{{date('d/m/Y', strtotime ($cce->data_doc))}}"

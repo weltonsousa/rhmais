@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Cce;
 use App\Estado;
 use App\Instituicao;
 use Illuminate\Http\Request;
@@ -70,7 +71,7 @@ class InstituicaoController extends Controller
         $instituicoes->save();
 
         return redirect()->route('instituicao.index')
-            ->with('success', 'Cadastrado com sucesso.');
+            ->with('success', 'CADASTRADO COM SUCESSO');
     }
 
     /**
@@ -137,7 +138,7 @@ class InstituicaoController extends Controller
         $instituicoes->complemento = $request->get('complemento');
         $instituicoes->save();
 
-        $request->session()->flash('success', 'Atualizado com sucesso!');
+        $request->session()->flash('success', 'ATUALIZADO COM SUCESSO');
         return redirect('instituicao');
     }
 
@@ -147,10 +148,16 @@ class InstituicaoController extends Controller
      * @param  \App\Instituicao  $instituicoes
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Request $request, Instituicao $instituicoes)
+    public function destroy(Request $request, $id)
     {
-        $instituicoes->delete();
-        $request->session()->flash('warning', 'Removido com sucesso!');
-        return redirect('instituicao');
+        if ($instituicoes = Cce::where('instituicao_id', $id)->first()) {
+            $request->session()->flash('warning', 'INSTITUIÇÃO POSSUI CONTRATO ATIVO');
+            return redirect('instituicao');
+        } else {
+            $instituicoes = Instituicao::find($id);
+            $instituicoes->delete();
+            $request->session()->flash('warning', 'REMOVIDO COM SUCESSO!');
+            return redirect('instituicao');
+        }
     }
 }

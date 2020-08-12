@@ -71,16 +71,6 @@ class FolhaRescisaoController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
@@ -97,7 +87,6 @@ class FolhaRescisaoController extends Controller
         $rescisao->estagiario_id = $request->get('estagiario_id');
         $rescisao->empresa_id = $request->get('empresa_id');
         $rescisao->valor_bolsa = $request->get('valor_bolsa');
-
     }
 
     /**
@@ -108,7 +97,11 @@ class FolhaRescisaoController extends Controller
      */
     public function show(FolhaRescisao $folhaRescisao)
     {
-        //
+        $rescisao = FolhaRescisao::all();
+        $estagiario = Estagiario::all();
+        $empresa = Empresa::all();
+
+        return view('folha_rescisao.listar-rescisao', compact('rescisao', 'estagiario', 'empresa'));
     }
 
     /**
@@ -127,7 +120,7 @@ class FolhaRescisaoController extends Controller
 
         $mesAtual = date("m");
         $users = DB::table('beneficio_estagiario')->where('estagiario_id', $folha->estagiario_id)->whereMonth('created_at', '=', date('m'))->get();
-// dd($users);
+
         $mes = date("m");
         if ($mes == 1 || $mes == 3 || $mes == 5 || $mes == 7 || $mes == 8 || $mes == 10 || $mes == 12) {
             $dias_considerados = 31;
@@ -137,31 +130,7 @@ class FolhaRescisaoController extends Controller
             $dias_considerados = 30;
         }
 
-        // dd($users);
         return view('folha_rescisao.edit', ['folha' => $folha, 'empresa' => $empresa, 'estagiario' => $estagiario, 'contrato' => $contrato, 'dias_considerados' => $dias_considerados, 'beneficios' => $beneficios, 'users' => $users]);
-
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\FolhaRescisao  $folhaRescisao
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, FolhaRescisao $folhaRescisao)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\FolhaRescisao  $folhaRescisao
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(FolhaRescisao $folhaRescisao)
-    {
-        //
-    }
 }

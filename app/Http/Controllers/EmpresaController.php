@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Cau;
 use App\Empresa;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -16,7 +17,6 @@ class EmpresaController extends Controller
     public function index()
     {
         $empresas = Empresa::all();
-
         return view('empresa.index', compact('empresas', $empresas));
     }
 
@@ -45,6 +45,8 @@ class EmpresaController extends Controller
             'cnpj' => 'required',
         ]);
 
+        $valor = str_replace(',', '.', str_replace('.', '', $request->custo_unitario));
+
         $empresas = new empresa();
         $empresas->razao_social = $request->get('razao_social');
         $empresas->nome_fantasia = $request->get('nome_fantasia');
@@ -71,15 +73,12 @@ class EmpresaController extends Controller
         $empresas->data_estagiario = $request->get('data_estagiario');
         $empresas->data_fechamento = $request->get('data_fechamento');
         $empresas->data_boleto = $request->get('data_boleto');
-        $empresas->custo_unitario = $request->get('custo_unitario');
+        $empresas->custo_unitario = $valor;
         $empresas->ativo = $request->get('ativo');
-        // if ($empresas->ativo == 'on') {
-        //     $empresas->ativo = 1;
-        // }
         $empresas->save();
 
         return redirect()->route('empresa.index')
-            ->with('success', 'Cadastrado com sucesso.');
+            ->with('success', 'CADASTRADO COM SUCESSO');
     }
 
     /**
@@ -138,6 +137,8 @@ class EmpresaController extends Controller
             'cnpj' => 'required',
         ]);
 
+        $valor = str_replace(',', '.', str_replace('.', '', $request->custo_unitario));
+
         $empresas = Empresa::find($id);
         $empresas->razao_social = $request->get('razao_social');
         $empresas->nome_fantasia = $request->get('nome_fantasia');
@@ -164,15 +165,13 @@ class EmpresaController extends Controller
         $empresas->data_estagiario = $request->get('data_estagiario');
         $empresas->data_fechamento = $request->get('data_fechamento');
         $empresas->data_boleto = $request->get('data_boleto');
-        $empresas->custo_unitario = $request->get('custo_unitario');
-        // $empresas->ativo = $request->get('ativo');
+        $empresas->custo_unitario = $valor;
         if ($empresas->ativo == 'on') {
             $empresas->ativo = 1;
         }
-        // dd($empresas);
         $empresas->save();
 
-        $request->session()->flash('success', 'Atualizado com sucesso!');
+        $request->session()->flash('success', 'ATUALIZADO COM SUCESSO');
         return redirect('empresa');
     }
 
@@ -184,10 +183,14 @@ class EmpresaController extends Controller
      */
     public function destroy(Request $request, $id)
     {
-        $empresa = Empresa::find($id);
-        $empresa->delete();
-
-        $request->session()->flash('warning', 'Removido com sucesso!');
-        return redirect('empresa');
+        if ($empresa = Cau::where('empresa_id', $id)->first()) {
+            $request->session()->flash('warning', 'EMPRESA POSSUI CONTRATO ATIVO');
+            return redirect('empresa');
+        } else {
+            $empresa = Empresa::find($id);
+            $empresa->delete();
+            $request->session()->flash('warning', 'REMOVIDO COM SUCESSO');
+            return redirect('empresa');
+        }
     }
 }

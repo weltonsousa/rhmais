@@ -57,15 +57,21 @@
                     <td colspan="2">
                         <span class="fonte-8"> Razão Social: </span>
                         <span class="fonte-10">
-                        <strong> {{$inst->nome_instituicao}} </strong>
+                        <strong> {{$inst->razao_social}} </strong>
                         </span>
                     </td>
                 </tr>
                 <tr>
-                    <td>
+                    <td colspan="2">
                         <span class="fonte-8"> CNPJ: </span>
                         <span class="fonte-10">
                         <strong> {{$inst->cnpj}} </strong>
+                        </span>
+                    </td>
+                      <td>
+                        <span class="fonte-8"> Telefone: </span>
+                        <span class="fonte-10">
+                        <strong> {{$inst->telefone}} </strong>
                         </span>
                     </td>
                 </tr>
@@ -106,12 +112,6 @@
                         <span class="fonte-8"> CEP: </span>
                         <span class="fonte-10">
                         <strong> {{$inst->cep}} </strong>
-                        </span>
-                    </td>
-                    <td>
-                        <span class="fonte-8"> Telefone: </span>
-                        <span class="fonte-10">
-                        <strong> {{$inst->telefone}} </strong>
                         </span>
                     </td>
                 </tr>
@@ -129,21 +129,21 @@
                     <td colspan="3">
                         <span class="fonte-8"> Razão Social: </span>
                         <span class="fonte-10">
-                        <strong> {{$inst->razao_social}} </strong>
+                        <strong> {{$emp->razao_social}} </strong>
                         </span>
                     </td>
                 </tr>
                 <tr>
                     <td colspan="2">
-                        <span class="fonte-8"> CPJ: </span>
+                        <span class="fonte-8"> CNPJ: </span>
                         <span class="fonte-10">
-                        <strong> {{$inst->cnpj}} </strong>
+                        <strong> {{$emp->cnpj}} </strong>
                         </span>
                     </td>
                     <td>
                         <span class="fonte-8"> Telefone: </span>
                         <span class="fonte-10">
-                        <strong> {{$inst->telefone}} </strong>
+                        <strong> {{$emp->telefone}} </strong>
                         </span>
                     </td>
                 </tr>
@@ -151,19 +151,19 @@
                     <td>
                         <span class="fonte-8"> Endereço: </span>
                         <span class="fonte-10">
-                        <strong> {{$inst->rua}} </strong>
+                        <strong> {{$emp->rua}} </strong>
                         </span>
                     </td>
                     <td>
                         <span class="fonte-8"> Nº: </span>
                         <span class="fonte-10">
-                        <strong> {{$inst->numero}} </strong>
+                        <strong> {{$emp->numero}} </strong>
                         </span>
                     </td>
                     <td>
                         <span class="fonte-8"> Bairro: </span>
                         <span class="fonte-10">
-                        <strong> {{$inst->bairro}} </strong>
+                        <strong> {{$emp->bairro}} </strong>
                         </span>
                     </td>
                 </tr>
@@ -171,19 +171,19 @@
                     <td>
                         <span class="fonte-8"> Cidade: </span>
                         <span class="fonte-10">
-                        <strong> {{$inst->cidade}} </strong>
+                        <strong> {{$emp->cidade}} </strong>
                         </span>
                     </td>
                     <td>
                         <span class="fonte-8"> Estado: </span>
                         <span class="fonte-10">
-                        <strong> {{$inst->estado}} </strong>
+                        <strong> {{$emp->estado}} </strong>
                         </span>
                     </td>
                     <td>
                         <span class="fonte-8"> CEP: </span>
                         <span class="fonte-10">
-                        <strong> {{$inst->cep}} </strong>
+                        <strong> {{$emp->cep}} </strong>
                         </span>
                     </td>
                 </tr>
@@ -212,7 +212,7 @@
                     </td>
                 </tr>
                 <tr>
-                    <td>
+                    <td colspan="2">
                         <span class="fonte-8"> Endereço: </span>
                         <span class="fonte-10">
                         <strong> {{$est->rua}} </strong>
@@ -238,7 +238,7 @@
                         <strong> {{$est->cidade}} </strong>
                         </span>
                     </td>
-                    <td>
+                    <td  colspan="2">
                         <span class="fonte-8"> Estado: </span>
                         <span class="fonte-10">
                         <strong> {{$est->estado}} </strong>
@@ -258,7 +258,7 @@
                         <strong> {{$est->cpf}} </strong>
                         </span>
                     </td>
-                    <td>
+                    <td colspan="2">
                         <span class="fonte-8"> Telefone: </span>
                         <span class="fonte-10">
                         <strong> {{$est->telefone}} </strong>
@@ -271,51 +271,57 @@
     <div class="borda"></div>
     @endforeach
     <p class="text-justify"> Comunicado de Conclusão / Rescisão do - TCE, termos e condições a seguir: </p>
-    <p class="text-justify"> 1) Período Estagiado: de:
-        {{-- @foreach ($horarios as $hor)
-            {{$hor->descricao}}
-        @endforeach --}}
+    @foreach($tceRescisao as $tce)
+      <span class="fonte-10">
+    <p class="text-justify"> 1) Período Estagiado: de <strong> {{date('d/m/Y', strtotime($tce->data_inicio))}} </strong> a <strong> {{date('d/m/Y', strtotime($tce->ultimo_dia))}} </strong>
+    </span>
+        @endforeach
     </p>
     <p class="text-justify">
-        2) Motivo da Rescisão :
-        {{-- @foreach ($motivos as $mot)
-            {{$mot->nome}}
-        @endforeach --}}
-    </p>
-    <p class="text-justify">
-        3) Atividade do Estagiário(a):
-        {{-- @foreach ($atividades as $ativ)
-            {{$ativ->nome}}
-        @endforeach --}}
-        Supervisor(a) do estágio:
-        {{-- @foreach ($supervisores as $sup)
-            {{$sup->nome}} Email:  {{$sup->email}}
-        @endforeach --}}
-    </p>
-    <p class="pull-right"> Campinas, 05/12/2018.</p>
-    <div style="height:50px;"></div>
+        @foreach ($motivos as $mot)
+            <span class="fonte-10">
+        2) Motivo da Rescisão : <strong>  {{$mot->nome}} </strong>
+            </span>
+        @endforeach
 
+    </p>
+    <p class="text-justify">
+        @foreach($atividades as $ativ)
+           <span class="fonte-10">
+        3) Atividade do Estagiário(a): <strong>{{$ativ->nome}}</strong>
+           </span>
+        @endforeach
+    </p>
+    @foreach($tceRescisao as $tce)
+    <p class="pull-right"> Campinas, {{ date('d/m/Y', strtotime($tce->data_doc))}}.</p>
+    <div style="height:50px;"></div>
+@endforeach
+    @foreach($empresas as $emp)
     <div class="row">
             <p class="pull-left">________________________________________________________
             <br>
-            LIFE ACADEMIA BRASIL EIRELI- EPP <br><br>
+            {{$emp->razao_social}} <br>
         <span>(assinatura e carimbo) </span>
-
+@endforeach
             </p>
+                @foreach($instituicoes as $inst)
             <p class="pull-left" style="margin-left:40px; width:320px!important;">
                 __________________________________________________________ <br>
-                ESCOLA TECNICA ESTADUAL BENTO QUIRINO <br><br>
+                {{$inst->razao_social}} <br>
         <span>(assinatura e carimbo) </span>
-
+@endforeach
             </p>
         </div>
+            @foreach($estagiarios as $est)
         <div style="height:100px;"></div>
         <div class="row">
             <p style="margin-left:10px;">
-                ____________________________________________________________ <br>
+                __________________________________________________________ <br>
+                {{$est->nome}}<br>
                 (assinatura do(a) estagiário)
             </p>
         </div>
+        @endforeach
 </body>
 
 </html>

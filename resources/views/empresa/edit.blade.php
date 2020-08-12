@@ -27,8 +27,9 @@
                             <div class="clearfix"></div>
                         </div>
                         <div class="x_content">
-                            {!! Form::open(['route' => ['empresa.update', $empresa->id], 'method' => 'patch']) !!}
-
+                        <form action="{{route('empresa.update',  $empresa->id)}}" method="POST">
+                            @csrf
+                            @method("PUT")
                             <!-- SmartWizard html -->
                             <div id="smartwizard">
                                 <ul>
@@ -157,15 +158,6 @@
                                                     <span class="fa fa-at form-control-feedback left"
                                                         aria-hidden="true"></span>
                                                 </div>
-
-                                                <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
-                                                    <input type="text" class="form-control has-feedback-left"
-                                                        placeholder="KOSTER E KOSTER CONSULTORIA EM RH LTDA - RH MAIS TALENTOS"
-                                                        value="KOSTER E KOSTER CONSULTORIA EM RH LTDA - RH MAIS TALENTOS"
-                                                        name="agente_integracao">
-                                                    <span class="fa fa-user form-control-feedback left"
-                                                        aria-hidden="true"></span>
-                                                </div>
                                                 <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
                                                     <input type="text" class="form-control has-feedback-left"
                                                         placeholder="Nome Fantasia" name="nome_fantasia"
@@ -265,7 +257,7 @@
                                             <div class="row" style="width:960px; margin: 0 auto;">
                                                 <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
                                                     <label for="">Custo unitário </label>
-                                                    <input type="text" class="form-control has-feedback-left"
+                                                    <input type="text" class="form-control has-feedback-left dinheiro"
                                                         placeholder="Custo Unitário" name="custo_unitario"
                                                          value="{{$empresa->custo_unitario }}">
                                                     <span class="fa fa-money form-control-feedback left"
@@ -296,8 +288,8 @@
                                     </div>
                                 </div>
                             </div>
-                            {!! Form::close() !!}
-                            {{-- </form> --}}
+                            {{-- {!! Form::close() !!} --}}
+                            </form>
                         </div>
                     </div>
                 </div>

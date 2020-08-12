@@ -66,14 +66,13 @@
                                     <tbody>
                                         <tr>
                                             @foreach ($tcesad as $tcead)
-                                        {{-- <tr> --}}
                                             <td>{{ $tcead->nome }}</td>
                                             <td>{{ $tcead->nome_fantasia }}</td>
                                             <td>{{ $tcead->nome_instituicao }}</td>
-                                            <td>R$ {{ $tcead->bolsa }}</td>
+                                            <td class="dinheiro">{{ $tcead->bolsa }}</td>
                                             <td>{{ date('d/m/Y', strtotime($tcead->data_inicio)) }}</td>
                                             <td>{{date('d/m/Y', strtotime($tcead->data_fim))}}</td>
-                                            <td>
+                                            <td id="aditivo">
                                                 @if ( $tcead->aditivo  == 1)
                                                 Sim
                                                 @else
@@ -88,7 +87,7 @@
                                                 @endif
                                             </td>
                                             <td>
-                                                  @if ( $tcead->obrigatorio  == '1')
+                                                @if ( $tcead->obrigatorio  == '1')
                                                 Sim
                                                 @else
                                                 Não
@@ -98,8 +97,12 @@
                                                 <a class="btn btn-primary" title="Adicionar"
                                                     href="{{ route('tce_aditivo.edit',[$tcead->id])}}"><i
                                                         class="fa fa-plus"></i></a>
-                                            <a href="{{action('EstagiarioController@contratoAditivoTce', $tcead->id)}}"
+                                                      @if ($tcead->aditivo  == 1)
+                                            <a href="{{action('PdfController@contratoAditivoTce', $tcead->estagiario_id)}}"
                                                     class="btn btn-success" title="Imprimir Aditivo" target="_blank"> <i class="fa fa-print"> </i></a></td>
+                                                    @else
+                                            <div href="#" class="btn btn-success" title="Imprimir Aditivo" target="_blank"> <i class="fa fa-print"> </i></div></td>
+                                                    @endif
                                             </tr>
                                         @endforeach
                                     </tbody>

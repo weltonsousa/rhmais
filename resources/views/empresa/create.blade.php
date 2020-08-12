@@ -27,15 +27,13 @@
                   </div>
                   <div class="x_content">
                   <form action="{{ route('empresa.store') }}" id="myForm" role="form" data-toggle="validator" method="post" accept-charset="utf-8">
-                  {{csrf_field()}}
-
+                  @csrf
                       <!-- SmartWizard html -->
                       <div id="smartwizard">
                           <ul>
                               <li><a href="#step-1">Passo 1<br /><small>Cadastro Empresa</small></a></li>
                               <li><a href="#step-2">Passo 2<br /><small>Cadastro de Endereço</small></a></li>
                           </ul>
-
                           <div>
                               <div id="step-1">
                                     <br>
@@ -91,10 +89,6 @@
                             <span class="fa fa-at form-control-feedback left" aria-hidden="true"></span>
                           </div>
 
-                          {{-- <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
-                            <input type="text" class="form-control has-feedback-left" placeholder="KOSTER E KOSTER CONSULTORIA EM RH LTDA - RH MAIS TALENTOS" value="KOSTER E KOSTER CONSULTORIA EM RH LTDA - RH MAIS TALENTOS" name="agente_integracao">
-                            <span class="fa fa-user form-control-feedback left" aria-hidden="true"></span>
-                          </div> --}}
                           <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
                             <input type="text" class="form-control has-feedback-left" placeholder="Nome Fantasia" name="nome_fantasia" value="{{old('nome_fantasia')}}" required>
                             <span class="fa fa-home form-control-feedback left" aria-hidden="true"></span>
@@ -158,6 +152,7 @@
                           </div>
                         <div class="row" style="width:960px; margin: 0 auto;">
                           <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
+                             <label for="">Custo unitário</label>
                             <input type="text" class="form-control has-feedback-left dinheiro" placeholder="Custo Unitário" name="custo_unitario" value="{{old('custo_unitario')}}">
                             <span class="fa fa-money form-control-feedback left" aria-hidden="true"></span>
                           </div>

@@ -5,7 +5,9 @@
     </div>
     <div class="x_content">
 
-        {!! Form::open(['route' => ['estagiario.update', $estagiario->id], 'method' => 'patch']) !!}
+    <form action="{{route('estagiario.update', $estagiario->id)}}" method="POST">
+        @csrf
+        @method("PUT")
 
         <!-- SmartWizard html -->
         <div id="smartwizard">
@@ -123,11 +125,7 @@
                             <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
                                 <select class="form-control has-feedback-left" name="empresa_id">
                                       <option value="{{ $estagiario->empresa_id }}">
-                                            @foreach ($empresas as $empresa)
-                                                @if ($estagiario->empresa_id == $empresa->id)
-                                                {{$empresa->nome_fantasia}}
-                                                @endif
-                                            @endforeach
+                                                {{$estagiario->empresa->nome_fantasia}}
                                     </option>
                                     @foreach ($empresas as $empresa)
                                     <option value="{{ $empresa->id }}">{{ $empresa->nome_fantasia }}</option>
@@ -153,15 +151,14 @@
                                     name="mae" value="{{ $estagiario->mae }}">
                                 <span class="fa fa-user form-control-feedback left" aria-hidden="true"></span>
                             </div>
-
-                            <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
-                                <input type="text" class="form-control has-feedback-left" placeholder="Série Ctps:"
-                                    name="serie_ctps" value="{{ $estagiario->serie_ctps }}">
+                              <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
+                                <input type="text" class="form-control has-feedback-left" placeholder="Ctps" name="ctps"
+                                    value="{{ $estagiario->ctps }}">
                                 <span class="fa fa-user form-control-feedback left" aria-hidden="true"></span>
                             </div>
                             <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
-                                <input type="text" class="form-control has-feedback-left" placeholder="Ctps" name="ctps"
-                                    value="{{ $estagiario->ctps }}">
+                                <input type="text" class="form-control has-feedback-left" placeholder="Série Ctps"
+                                    name="serie_ctps" value="{{ $estagiario->serie_ctps }}">
                                 <span class="fa fa-user form-control-feedback left" aria-hidden="true"></span>
                             </div>
                             <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
@@ -170,14 +167,8 @@
                                 <span class="fa fa-user form-control-feedback left" aria-hidden="true"></span>
                             </div>
                             <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
-                                <input type="text" class="form-control has-feedback-left" value="KOSTER E KOSTER CONSULTORIA EM RH LTDA - RH MAIS TALENTOS" readonly
-                                    placeholder="Agente de Integração" name="agente_int">
-                                <span class="fa fa-home form-control-feedback left" aria-hidden="true"></span>
-                            </div>
-                            <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
                                 <select class="form-control has-feedback-left" name="nacionalidade">
                                     <option value="{{ $estagiario->nacionalidade }}">{{ $estagiario->nacionalidade }}</option>
-                                    <option>Selecione Nacionalidade</option>
                                     <option>Brasileiro(a)</option>
                                 </select>
                                 <span class="fa fa-graduation-cap form-control-feedback left" aria-hidden="true"></span>
@@ -249,11 +240,7 @@
                         <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
                             <select class="form-control has-feedback-left" name="instituicao_id">
                                    <option value="{{ $estagiario->instituicao_id }}">
-                                            @foreach ($instituicoes as $instituicao)
-                                                @if ($estagiario->empresa_id == $instituicao->id)
-                                                {{$instituicao->nome_instituicao}}
-                                                @endif
-                                            @endforeach
+                                                {{$estagiario->instituicao->nome_instituicao}}
                                     </option>
                                     @foreach ($instituicoes as $instituicao)
                                     <option value="{{ $instituicao->id }}">{{ $instituicao->nome_instituicao }}</option>
@@ -275,13 +262,7 @@
                                 value="{{ date('d/m/Y', strtotime($estagiario->termino_curso))}}">
                             <span class="fa fa-calendar form-control-feedback left" aria-hidden="true"></span>
                         </div>
-                        {{-- <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
-                            <label for="">Previsão Término Curso</label>
-                            <input type="text" class="form-control has-feedback-left"
-                                placeholder="Previsão Término Curso" name="termino_curso"
-                                value="{{ date('d/m/Y', strtotime($estagiario->termino_curso)) }}">
-                            <span class="fa fa-calendar form-control-feedback left" aria-hidden="true"></span>
-                        </div> --}}
+
                     </div>
                 </div>
             </div>
@@ -324,9 +305,7 @@
                 </div>
             </div>
         </div>
-
-        {!! Form::close() !!}
     </div>
-    {{-- </form> --}}
+    </form>
 </div>
 </div>

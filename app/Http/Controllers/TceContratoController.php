@@ -31,7 +31,6 @@ class TceContratoController extends Controller
      */
     public function index()
     {
-
         $tces = TceContrato::all();
         return view('tce_contrato.index', compact('tces'));
     }
@@ -63,7 +62,6 @@ class TceContratoController extends Controller
      */
     public function store(Request $request)
     {
-
         $request->validate([
             'estagiario_id' => 'required|unique:tce_contrato',
             'empresa_id' => 'required',
@@ -74,8 +72,9 @@ class TceContratoController extends Controller
         $date_inicio = $request->get('data_inicio');
         $date_fim = $request->get('data_fim');
 
+        $bolsa = str_replace(',', '.', str_replace('.', '', $request->bolsa));
+
         $contrato = new TceContrato();
-        $contrato->agente_integracao = $request->get('agente_integracao');
         $contrato->estagiario_id = $request->get('estagiario_id');
         $contrato->empresa_id = $request->get('empresa_id');
         $contrato->instituicao_id = $request->get('instituicao_id');
@@ -89,14 +88,13 @@ class TceContratoController extends Controller
         $contrato->atividade_id = $request->get('atividade_id');
         $contrato->orientador_id = $request->get('orientador_id');
         $contrato->supervisor_id = $request->get('supervisor_id');
-        $contrato->bolsa = $request->get('bolsa');
+        $contrato->bolsa = $bolsa;
         $contrato->obrigatorio = $request->get('obrigatorio');
         $contrato->obs = $request->get('obs');
-        // dd($contrato);
         $contrato->save();
 
         return redirect()->route('tce_contrato.index')
-            ->with('success', 'Cadastrado com sucesso.');
+            ->with('success', 'CADASTRADO COM SUCESSO');
     }
 
     /**
@@ -131,6 +129,7 @@ class TceContratoController extends Controller
                 'tce_contrato.data_doc',
                 'tce_contrato.horario_id',
                 'tce_contrato.apolice_id',
+                'tce_contrato.setor_id',
                 'tce_contrato.obrigatorio',
                 'tce_contrato.supervisor_id',
                 'tce_contrato.orientador_id',
@@ -164,9 +163,10 @@ class TceContratoController extends Controller
         $horarios = Horario::all();
         $apolices = Seguradora::all();
         $beneficios = Beneficio::all();
+        $atividades = Atividade::all();
         $setores = Setor::all();
 
-        return view('tce_contrato.edit', compact('tceContrato', 'motivos', 'supervisor', 'horarios', 'apolices', 'beneficios', 'setores', $tceContrato));
+        return view('tce_contrato.edit', compact('tceContrato', 'motivos', 'supervisor', 'horarios', 'apolices', 'beneficios', 'setores', 'atividades'));
     }
 
     /**
@@ -179,28 +179,35 @@ class TceContratoController extends Controller
     public function update(Request $request, $id)
     {
 
-        // $request->validate([
-        //     'estagiario_id' => 'required|unique:tce_contrato',
-        //     'empresa_id' => 'required',
-        //     'instituicao_id' => 'required',
-        // ]);
+        $request->validate([
+            'estagiario_id' => 'required',
+            'empresa_id' => 'required',
+            'instituicao_id' => 'required',
+        ]);
 
         $date_doc = $request->get('data_doc');
         $date_inicio = $request->get('data_inicio');
         $date_fim = $request->get('data_fim');
 
+        $bolsa = str_replace(',', '.', str_replace('.', '', $request->bolsa));
+
         $contrato = TceContrato::find($id);
         $contrato->data_doc = Carbon::createFromFormat('d/m/Y', $date_doc)->format('Y-m-d');
         $contrato->data_inicio = Carbon::createFromFormat('d/m/Y', $date_inicio)->format('Y-m-d');
         $contrato->data_fim = Carbon::createFromFormat('d/m/Y', $date_fim)->format('Y-m-d');
-        $contrato->bolsa = $request->get('bolsa');
+        $contrato->beneficio_id = $request->get('beneficio_id');
+        $contrato->horario_id = $request->get('horario_id');
+        $contrato->setor_id = $request->get('setor_id');
+        $contrato->atividade_id = $request->get('atividade_id');
+        $contrato->orientador_id = $request->get('orientador_id');
+        $contrato->bolsa = $bolsa;
+        // $contrato->bolsa_aditivo = $valor_aditivo;
         $contrato->obrigatorio = $request->get('obrigatorio');
         $contrato->obs = $request->get('obs');
-        // dd($contrato);
         $contrato->save();
 
         return redirect()->route('tce_contrato.index')
-            ->with('success', 'Cadastrado com sucesso.');
+            ->with('success', 'ATUALIZADO COM SUCESSO');
 
     }
 

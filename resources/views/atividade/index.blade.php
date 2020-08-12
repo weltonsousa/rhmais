@@ -37,9 +37,6 @@
                                             <th>Unidade
                                                 <input type="text" class="form-control">
                                             </th>
-                                            <th>Ag. Integração
-                                                <input type="text" class="form-control">
-                                            </th>
                                             <th>Opções</th>
                                         </tr>
                                     </thead>
@@ -47,10 +44,7 @@
                                         <tr>
                                             @foreach ($atividades as $atividade)
                                             <td>{{$atividade->nome}}</td>
-                                            <td>
-                                                {{$atividade->empresa->nome_fantasia}}
-                                                </td>
-                                            <td>{{$atividade->agente_integracao}}</td>
+                                            <td>{{$atividade->empresa->nome_fantasia}}</td>
                                             <td style="width:15%;">
                                                 <div class="col-md-3">
                                                     <a href="{{route('atividade.edit', [$atividade->id])}}"
@@ -59,18 +53,18 @@
                                                 <form class="col-md-3" style="margin-left:10px;"
                                                     action="{{route('atividade.destroy', [$atividade->id])}}"
                                                     method="POST">
-                                                    <input type="hidden" name="_method" value="DELETE">
-                                                    <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                                                    @csrf
+                                                    @method("DELETE")
                                                     <button type="submit" class="btn btn-danger" data-toggle="tooltip"
                                                         data-placement="top" title="Excluir"
                                                         onclick="return confirm('Tem certeza que deseja deletar a atividade selecionado?')">
                                                         <i class="fa fa-trash"></i>
                                                     </button>
                                                 </form>
-                            </div>
-                        </div>
-                        </td>
-                        </tr>
+                                            </div>
+                                          </div>
+                                      </td>
+                                  </tr>
                         @endforeach
                         </tbody>
                         </table>

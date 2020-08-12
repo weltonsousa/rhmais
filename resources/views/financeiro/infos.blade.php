@@ -64,9 +64,6 @@
                                             <th>Situação
                                                 <input type="text" class="form-control" style="width:75px;">
                                             </th>
-                                            {{-- <th>Estagiário
-                                                <input type="text" class="form-control" style="width:100px;">
-                                            </th> --}}
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -74,13 +71,13 @@
                                         <td># {{$contrato->id}}</td>
                                         <td>{{$contrato->nome_fantasia}}</td>
                                         <td>{{$contrato->referencia}}</td>
-                                            <td>{{date('d/m/Y', strtotime($contrato->data_inicio))}} {{date('d/m/Y', strtotime($contrato->data_fim))}}</td>
-                                            <td>{{date('d/m/Y', strtotime($contrato->data_inicio))}} {{date('d/m/Y', strtotime($contrato->data_fim))}}</td>
-                                            <td></td>
-                                        <td>{{"R$ " .number_format($contrato->total_custo, 2)}}</td>
-                                            <td>{{"R$ " .number_format($contrato->custo_unitario, 2)}}</td>
-                                            <td></td>
-                                            <td></td>
+                                        <td>{{date('d/m/Y', strtotime($contrato->data_inicio))}} {{date('d/m/Y', strtotime($contrato->data_fim))}}</td>
+                                        <td>{{date('d/m/Y', strtotime($contrato->data_inicio))}} {{date('d/m/Y', strtotime($contrato->data_fim))}}</td>
+                                        <td></td>
+                                        <td>{{number_format($contrato->total_custo, 2)}}</td>
+                                        <td>{{number_format($contrato->custo_unitario, 2)}}</td>
+                                        <td></td>
+                                        <td></td>
                                         </tr>
                                         @endforeach
                                     </tbody>

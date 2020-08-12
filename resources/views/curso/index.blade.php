@@ -18,7 +18,6 @@
             <div class="">
                 <!-- <a href="{{url('curso/exportar')}}">Print  PDF</a> -->
                 <div class="clearfix"></div>
-
                 <div class="row">
                     <div class="col-md-12 col-sm-12 col-xs-12">
                         @include('layout.alerta.flash-message')
@@ -52,10 +51,9 @@
                                                     <a href="{{ route('curso.edit',$curso->id) }}"
                                                         class="btn btn-primary" title="Editar"> <i class="fa fa-pencil"> </i></a>
                                                 </div>
-                                                <form class="col-md-3" style="margin-left:10px;"
-                                                    action="{{url('curso', [$curso->id])}}" method="POST">
-                                                    <input type="hidden" name="_method" value="DELETE">
-                                                    <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                                                <form class="col-md-3" style="margin-left:10px;" action="{{url('curso', [$curso->id])}}" method="POST">
+                                                    @csrf
+                                                     @method("DELETE")
                                                     <button type="submit" class="btn btn-danger" data-toggle="tooltip"
                                                         data-placement="top" title="Excluir"
                                                         onclick="return confirm('Tem certeza que deseja deletar o curso selecionado?')">

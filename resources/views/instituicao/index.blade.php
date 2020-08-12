@@ -63,11 +63,10 @@
                                                     <a href="{{ route('instituicao.edit',[$instituicao->id])}}"
                                                         class="btn btn-primary" title="Editar"> <i class="fa fa-pencil"> </i></a>
                                                 </div>
-                                                <form class="col-md-3" style="margin-left:10px;"
-                                                    action="{{route('instituicao.destroy', [$instituicao->id])}}"
+                                                <form class="col-md-3" style="margin-left:10px;" action="{{route('instituicao.destroy', [$instituicao->id])}}"
                                                     method="POST">
-                                                    <input type="hidden" name="_method" value="DELETE">
-                                                    <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                                                    @csrf
+                                                    @method("DELETE")
                                                     <button type="submit" class="btn btn-danger" title="Excluir"
                                                         onclick="return confirm('Tem certeza que deseja deletar a instituição selecionada?')">
                                                         <i class="fa fa-trash"></i>

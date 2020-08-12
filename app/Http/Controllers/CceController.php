@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Cce;
 use App\Instituicao;
-use App\Seguradora;
 use Carbon\Carbon;
 use DB;
 use Illuminate\Http\Request;
@@ -33,8 +32,7 @@ class CceController extends Controller
      */
     public function create()
     {
-        $instituicoes = Instituicao::all();
-        $seguro = Seguradora::all();
+        $instituicoes = Instituicao::all(['id', 'nome_instituicao']);
         return view('cce_convenio.create', compact('instituicoes', 'seguro'));
     }
 
@@ -56,29 +54,14 @@ class CceController extends Controller
 
         $cce = new cce();
         $cce->instituicao_id = $request->get('instituicao_id');
-        $cce->agente_integracao = $request->get('agente_integracao');
         $cce->data_inicio = Carbon::createFromFormat('d/m/Y', $date_inicio)->format('Y-m-d');
         $cce->data_fim = Carbon::createFromFormat('d/m/Y', $date_fim)->format('Y-m-d');
         $cce->data_doc = Carbon::createFromFormat('d/m/Y', $date_doc)->format('Y-m-d');
         $cce->obs = $request->get('obs');
         $cce->save();
 
-        $request->session()->flash('success', 'Cadastrado com sucesso!');
+        $request->session()->flash('success', 'CADASTRADO COM SUCESSO');
         return redirect('cce_convenio');
-
-        // return redirect()->route('cce_convenio.index')
-        //     ->with('success', 'Cadastrado com sucesso.');
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Cce  $cce
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Cce $cce)
-    {
-        //
     }
 
     /**
@@ -89,9 +72,8 @@ class CceController extends Controller
      */
     public function edit($id)
     {
-        $cce = DB::table('cce')->where('id', $id)->first();
+        $cce = Cce::find($id);
         $instituicoes = DB::table('instituicao')->where('id', '=', $cce->instituicao_id)->get()->first();
-        // $apolices = DB::table('seguradora')->where('id', '=', $cce->seguradora_id)->get()->first();
         return view('cce_convenio.edit', compact('cce', 'instituicoes'));
     }
 
@@ -119,7 +101,7 @@ class CceController extends Controller
         $cce->obs = $request->get('obs');
         $cce->save();
 
-        $request->session()->flash('success', 'Atualizado com sucesso!');
+        $request->session()->flash('success', 'ATUALIZADO COM SUCESSO');
         return redirect('cce_convenio');
     }
 
@@ -134,7 +116,7 @@ class CceController extends Controller
         $cce = Cce::find($id);
         $cce->delete();
 
-        $request->session()->flash('warning', 'Removido com sucesso!');
+        $request->session()->flash('warning', 'REMOVIDO COM SUCESSO');
         return redirect('cce_convenio');
 
     }

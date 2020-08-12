@@ -38,6 +38,7 @@
                 <ul class="nav child_menu">
                     <li><a href="/folha_pagamento">Gerar Folha Pagamento</a></li>
                     <li><a href="/folha_rescisao">Gerar Folha de Rescisão</a></li>
+                    <li><a href="{{route('listar-rescisao')}}">Rescisões Realizadas</a></li>
                 </ul>
             </li>
             <li><a><i class="fa fa-graduation-cap"></i> Avaliações <span class="fa fa-chevron-down"></span></a>
@@ -50,16 +51,17 @@
             </li>
             <li><a><i class="fa fa-cogs"></i> Configurações <span class="fa fa-chevron-down"></span></a>
                 <ul class="nav child_menu">
-                    <li><a href="/user_sistema">Usuários do Sistema</a></li>
-                    <li><a href="/curso">Cursos</a></li>
-                    <li><a href="/motivo">Motivos <br> Resição / Recesso</a></li>
-                    <li><a href="/setor">Setores</a></li>
                     <li><a href="/atividade">Atividades</a></li>
                     <li><a href="/beneficio">Benefícios</a></li>
+                    <li><a href="/curso">Cursos</a></li>
+                    <li><a href="/rhmais">RHMAIS</a></li>
                     <li><a href="/horario">Horários</a></li>
+                     <li><a href="/motivo">Motivos <br> Rescisão / Recesso</a></li>
                     <li><a href="/orientador">Orientador</a></li>
                     <li><a href="/seguro">Seguro</a></li>
+                     <li><a href="/setor">Setores</a></li>
                     <li><a href="/supervisor">Supervisor</a></li>
+                    <li><a href="/user_sistema">Usuários do Sistema</a></li>
                 </ul>
             </li>
         </ul>

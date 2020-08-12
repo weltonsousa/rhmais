@@ -67,14 +67,12 @@
                                         @foreach($estagiarios as $estagiario)
                                         <tr>
                                             <td>{{$estagiario->nome}}</td>
-                                            <td>{{$estagiario->nome_fantasia}}</td>
+                                            <td>{{$estagiario->empresa->nome_fantasia}}</td>
                                             <td>{{$estagiario->celular}}</td>
                                             <td>{{$estagiario->cpf}}</td>
                                             <td>{{$estagiario->cidade}}</td>
                                             <td>{{date('d/m/Y', strtotime($estagiario->data_nascimento))}}</td>
-                                            <td>
-                                               {{$estagiario->curso}}
-                                            </td>
+                                            <td>{{$estagiario->curso}}</td>
                                             <td>{{date('d/m/Y', strtotime($estagiario->termino_curso))}}</td>
                                             <td>
                                                 @if ($estagiario->ativo == '1')
@@ -88,11 +86,10 @@
                                                     <a href="{!! route('estagiario.edit', [$estagiario->id]) !!}"
                                                         class='btn btn-primary' title="Editar"><i class="fa fa-pencil"></i></a>
                                                 </div>
-                                                <form class="col-md-3" style="margin-left:20px;"
-                                                    action="{{route('estagiario.destroy', [$estagiario->id])}}"
+                                                <form class="col-md-3" style="margin-left:20px;" action="{{route('estagiario.destroy', [$estagiario->id])}}"
                                                     method="POST">
-                                                    <input type="hidden" name="_method" value="DELETE">
-                                                    <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                                                    @csrf
+                                                    @method("DELETE")
                                                     <button type="submit" class="btn btn-danger" title="Excluir" data-toggle="tooltip"
                                                         data-placement="top"
                                                         onclick="return confirm('Tem certeza que deseja deletar o estagiário selecionado?')">

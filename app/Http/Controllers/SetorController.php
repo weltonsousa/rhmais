@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Setor;
+use App\TceContrato;
 use Illuminate\Http\Request;
 
 class SetorController extends Controller
@@ -51,18 +52,7 @@ class SetorController extends Controller
         $setor->save();
 
         return redirect()->route('setor.index')
-            ->with('success', 'Cadastrado com sucesso.');
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Setor  $setor
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Setor $setor)
-    {
-        //
+            ->with('success', 'CADASTRADO COM SUCESSO');
     }
 
     /**
@@ -95,7 +85,7 @@ class SetorController extends Controller
         $setor->sigla = $request->get('sigla');
         $setor->save();
 
-        $request->session()->flash('success', 'Atualizado com sucesso!');
+        $request->session()->flash('success', 'ATUALIZADO COM SUCESSO');
         return redirect('setor');
     }
 
@@ -105,10 +95,22 @@ class SetorController extends Controller
      * @param  \App\Setor  $setor
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Request $request, Setor $setor)
+    public function destroy(Request $request, $id)
     {
-        $setor->delete();
-        $request->session()->flash('warning', 'Removido com sucesso!');
-        return redirect('setor');
+        if (TceContrato::where('setor_id', $id)->first()) {
+            $request->session()->flash('warning', 'SETOR NÃO PODE SER REMOVIDO');
+            return redirect('setor');
+        } else {
+            $setor = Setor::find($id);
+            $setor->delete();
+            $request->session()->flash('warning', 'REMOVIDO COM SUCESSO');
+            return redirect('setor');
+        }
+    }
+
+    public function setorAjax()
+    {
+        $setor = Setor::pluck('nome', 'id');
+        return json_encode($setor);
     }
 }

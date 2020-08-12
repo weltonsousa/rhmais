@@ -34,13 +34,10 @@
                                             <th>Descrição do Horário
                                                 <input type="text" class="form-control">
                                             </th>
-                                            <th>Qtade Horas
+                                            <th>Qtd. Horas
                                                 <input type="text" class="form-control" style="width:100px;">
                                             </th>
                                             <th>Unidade
-                                                <input type="text" class="form-control">
-                                            </th>
-                                            <th>Ag de Integração
                                                 <input type="text" class="form-control">
                                             </th>
                                             <th>Opções</th>
@@ -51,19 +48,15 @@
                                             @foreach ($horarios as $horario)
                                             <td>{{$horario->descricao}}</td>
                                             <td>{{$horario->qtd_horas}}</td>
-                                            <td>
-                                                {{$horario->empresa->nome_fantasia}}
-                                            </td>
-                                            <td>{{$horario->agente_integracao}}</td>
+                                            <td>{{$horario->empresa->nome_fantasia}}</td>
                                             <td style="width:15%;">
                                                 <div class="col-md-3">
                                                     <a href="{{ route('horario.edit',[$horario->id])}}"
                                                         class="btn btn-primary" title="Editar"> <i class="fa fa-pencil"> </i></a>
                                                 </div>
-                                                <form class="col-md-3"
-                                                    action="{{route('horario.destroy', [$horario->id])}}" method="POST">
-                                                    <input type="hidden" name="_method" value="DELETE">
-                                                    <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                                                <form class="col-md-3" action="{{route('horario.destroy', [$horario->id])}}" method="POST">
+                                                    @csrf
+                                                    @method("DELETE")
                                                     <button type="submit" class="btn btn-danger" title="Excluir"
                                                         onclick="return confirm('Tem certeza que deseja deletar o horário selecionada?')">
                                                         <i class="fa fa-trash"></i>

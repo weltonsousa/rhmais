@@ -30,8 +30,7 @@
                         <div class="x_content">
                             <form action="{{ route('instituicao.store') }}" id="myForm" role="form"
                                 data-toggle="validator" method="post" accept-charset="utf-8">
-                                {{csrf_field()}}
-
+                              @csrf
                                 <!-- SmartWizard html -->
                                 <div id="smartwizard">
                                     <ul>

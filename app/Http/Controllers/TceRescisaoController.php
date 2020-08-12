@@ -35,18 +35,7 @@ class TceRescisaoController extends Controller
             )
             ->get();
 
-        // dd($rescisao);
         return view('tce_rescisao.index', compact('rescisao', $rescisao));
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
     }
 
     /**
@@ -69,6 +58,8 @@ class TceRescisaoController extends Controller
         $ultimo_dia = $request->get('ultimo_dia');
         $data_doc = $request->get('data_doc');
 
+        $valor = str_replace(',', '.', str_replace('.', '', $request->bolsa));
+
         $tce = new TceRescisao();
         $tce->estagiario_id = $request->get('estagiario_id');
         $tce->empresa_id = $request->get('empresa_id');
@@ -81,9 +72,10 @@ class TceRescisaoController extends Controller
         $tce->horario_id = $request->get('horario_id');
         $tce->apolice_id = $request->get('apolice_id');
         $tce->beneficio_id = $request->get('beneficio_id');
+        $tce->atividade_id = $request->get('atividade_id');
         $tce->setor_id = $request->get('setor_id');
         $tce->supervisor_id = $request->get('supervisor_id');
-        $tce->bolsa = $request->get('bolsa');
+        $tce->bolsa = $valor;
         $tce->motivo_id = $request->get('motivo_id');
         $tce->obs = $request->get('obs');
         $tce->ativo = 1;
@@ -94,57 +86,10 @@ class TceRescisaoController extends Controller
             DB::update('update plano_estagio set ativo = 2 where estagiario_id = ?', [$request->get('estagiario_id')]);
             DB::update('update estagiario set ativo = 2 where id = ?', [$request->get('estagiario_id')]);
         }
-        // dd($tce);
         $tce->save();
 
         return redirect()->route('tce_rescisao.index')
             ->with('success', 'Cadastrado com sucesso.');
-
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\TceRescisao  $tceRescisao
-     * @return \Illuminate\Http\Response
-     */
-    public function show(TceRescisao $tceRescisao)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\TceRescisao  $tceRescisao
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(TceRescisao $tceRescisao)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\TceRescisao  $tceRescisao
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, TceRescisao $tceRescisao)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\TceRescisao  $tceRescisao
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(TceRescisao $tceRescisao)
-    {
-        //
     }
 
 }

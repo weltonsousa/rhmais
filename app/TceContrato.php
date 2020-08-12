@@ -6,8 +6,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class TceContrato extends Model
 {
-    protected $fillable = ['agente_integracao', 'estagiario_id', 'empresa_id', 'instituicao_id', ' beneficio',
-        'seguro', 'setor', 'bolsa', 'contrato', 'assinado', 'obrigatorio', 'status', 'data_inicio', 'data_fim', 'horario', 'atividade', 'orientador', 'supervisor', 'data_doc', 'curso'];
+    protected $fillable = ['estagiario_id', 'empresa_id', 'instituicao_id', ' beneficio',
+        'seguro', 'setor', 'bolsa', 'contrato', 'assinado', 'obrigatorio', 'status', 'data_inicio', 'data_fim', 'horario', 'atividade', 'orientador', 'supervisor', 'data_doc', 'curso', 'aditivo'];
 
     protected $table = 'tce_contrato';
 

@@ -56,17 +56,6 @@ class CursoController extends Controller
     }
 
     /**
-     * Display the specified resource.
-     *
-     * @param  \App\Curso  $curso
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Curso $curso)
-    {
-        //
-    }
-
-    /**
      * Show the form for editing the specified resource.
      *
      * @param  \App\Curso  $curso
@@ -87,11 +76,6 @@ class CursoController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $request->validate([
-            'nome' => 'required',
-            'nivel' => 'required',
-        ]);
-
         $request->validate([
             'nome' => 'required',
             'nivel' => 'required',

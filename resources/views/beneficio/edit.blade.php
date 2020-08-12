@@ -27,14 +27,16 @@
                             <div class="clearfix"></div>
                         </div>
                         <div class="x_content">
-                            {!! Form::model($beneficios, array('route' => array('beneficio.update', $beneficios->id)))
-                            !!} @method('PUT')
+                        <form action="{{route('beneficio.update', $beneficios->id)}}" method="POST">
+                          @csrf
+                             @method('PUT')
                             <div>
                                 <div>
                                     <div>
                                         <div id="form-step-0" role="form" data-toggle="validator">
                                             <div class="row" style="width:960px; margin: 20px auto;">
                                                 <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
+                                                    <label for="">Nome do Benefício</label>
                                                     <input type="text" value="{{$beneficios->nome}}"
                                                         class="form-control has-feedback-left"
                                                         placeholder="Nome do Benefício:" name="nome">
@@ -42,33 +44,13 @@
                                                         aria-hidden="true"></span>
                                                 </div>
                                                 <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
+                                                    <label for="">Sigla do Benefício</label>
                                                     <input type="text" value="{{$beneficios->sigla}}"
                                                         class="form-control has-feedback-left"
                                                         placeholder="Sigla do Benefício:" name="sigla">
                                                     <span class="fa fa-user form-control-feedback left"
                                                         aria-hidden="true"></span>
                                                 </div>
-                                                {{-- <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
-                                                    @foreach ($empresas as $empresa)
-                                                        @if ($beneficios->empresa_id == $empresa->id)
-                                                        <input type="text" value="{{ $empresa->nome_fantasia }}"
-                                                            class="form-control has-feedback-left"
-                                                            placeholder="Unidade concedente*" name="empresa_id">
-                                                        @endif
-                                                    @endforeach
-                                                        <span class="fa fa-home form-control-feedback left"
-                                                            aria-hidden="true"></span>
-
-                                                    <span class="fa fa-home form-control-feedback left"
-                                                        aria-hidden="true"></span>
-                                                </div>
-                                                <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
-                                                    <input type="text" value="{{$beneficios->agente_integracao}}"
-                                                        class="form-control has-feedback-left" value="KOSTER E KOSTER CONSULTORIA EM RH LTDA - RH MAIS TALENTOS" readonly
-                                                        placeholder="Agente de Integração" name="agente_integracao">
-                                                    <span class="fa fa-home form-control-feedback left"
-                                                        aria-hidden="true"></span>
-                                                </div>--}}
                                                 <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
                                                 <label for="">Selecione o Tipo</label>
                                                     <select class="form-control has-feedback-left" name="tipo">
@@ -85,7 +67,7 @@
                                        <a href="/beneficio" class="btn btn-danger" style="margin-top:20px!important;">Voltar</a>
                                     </div>
                                 </div>
-                                {!! Form::close() !!}
+                               </form>
                             </div>
                         </div>
                     </div>

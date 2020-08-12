@@ -75,7 +75,7 @@
                                             aria-hidden="true"></span>
                                     </div>
                                     {!! Form::open(['route' => ['folha_pagamento.editar'], 'method' => 'post']) !!}
-                                    <input type="hidden" name="folha_id" value="{{$folha->id}}">
+                                    <input type="hidden" name="folha_id" id="folha-id" value="{{$folha->id}}">
                                     <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
                                         <label for="">Dias de Falta</label>
                                     <input type="number" value="{{$folha->faltas}}" class="form-control has-feedback-left"
@@ -138,12 +138,12 @@
           }
     });
 
-    var id_cliente = $("#estagiario_id").val();
+    var id_cliente = $("#folha-id").val();
     var table = $('.data-table').DataTable({
         oLanguage: {sUrl : '/br/br.txt'},
         processing: true,
         serverSide: true,
-        ajax: "http://rhmais.imugi.com.br/beneficio_estagiario/"+id_cliente,
+        ajax: "/beneficio_estagiario/"+id_cliente,
         columns: [
             {data: 'nome', name: 'nome'},
             {data: 'tipo_folha', name: 'tipo_folha'},

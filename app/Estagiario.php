@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Estagiario extends Model
 {
     protected $fillable = ['nome', 'rg', 'cpf', 'telefone', 'celular', 'email', 'data_nascimento', 'ctps', 'serie_ctps', 'numero_pis',
-        'dt_cadastro', 'agente_int', 'pessoa_responsavel', 'sexo', 'agente_int', 'sexo', 'ativo', 'empresa_id', 'instituicao_id',
+        'dt_cadastro', 'pessoa_responsavel', 'sexo', 'sexo', 'ativo', 'empresa_id', 'instituicao_id',
         'cep', 'rua', 'numero', 'bairro', 'complemento', 'cidade', 'estado', 'nacionalidade', 'obs', 'banco', 'conta', 'codigo_vaga', 'senha', 'matricula', 'curso', 'nivel', 'periodo', 'horario'];
 
     protected $table = 'estagiario';
@@ -22,17 +22,12 @@ class Estagiario extends Model
         return $this->hasOne(Cidade::class, 'estado_id', 'estado_id');
     }
 
-    public function estagiarioEmpresa()
-    {
-        return $this->hasOne('App\Empresa');
-    }
-
-    public function empresas()
+    public function empresa()
     {
         return $this->belongsTo('App\Empresa');
     }
 
-    public function instituicoes()
+    public function instituicao()
     {
         return $this->belongsTo('App\Instituicao');
     }
@@ -41,4 +36,15 @@ class Estagiario extends Model
     {
         return $this->hasOne('App\TceContrato', 'estagiario_id', 'id');
     }
+
+    public function cursos()
+    {
+        return $this->belongsTo('App\Curso');
+    }
+
+    public function rescisao()
+    {
+        return $this->hasOne('App\FolhaRescisao');
+    }
+
 }

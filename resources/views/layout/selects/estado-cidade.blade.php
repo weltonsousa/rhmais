@@ -32,6 +32,6 @@
 </div>
 <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
     <input type="text" class="form-control has-feedback-left" placeholder="Cidade" name="cidade"
-        value="{{old('cidade')}}">
+        value="{{old('cidade')}}" required>
     <span class="fa fa-map-marker form-control-feedback left" aria-hidden="true"></span>
 </div>

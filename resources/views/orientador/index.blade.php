@@ -46,12 +46,6 @@
                                             <th>Instituição
                                                 <input type="text" class="form-control" style="width:100px;">
                                             </th>
-                                            {{-- <th>Unidade
-                                                <input type="text" class="form-control">
-                                            </th> --}}
-                                            <th>Ag de Integração
-                                                <input type="text" class="form-control">
-                                            </th>
                                             <th>Opções</th>
                                         </tr>
                                     </thead>
@@ -65,23 +59,21 @@
                                             <td>
                                                 {{$orientador->instituicao->nome_instituicao}}
                                             </td>
-                                            <td>{{$orientador->agente_integracao}}</td>
                                             <td style="width:15%;">
                                                 <div class="col-md-3">
                                                     <a href="{{route('orientador.edit', [$orientador->id])}}"
                                                         class="btn btn-primary" title="Editar"> <i class="fa fa-pencil"> </i> </a>
                                                 </div>
-                                                <form class="col-md-3" style="margin-left:10px;"
-                                                    action="{{url('orientador', [$orientador->id])}}" method="POST">
-                                                    <input type="hidden" name="_method" value="DELETE">
-                                                    <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                                                <form class="col-md-3" style="margin-left:10px;" action="{{url('orientador', [$orientador->id])}}" method="POST">
+                                                    @csrf
+                                                    @method("DELETE")
                                                     <button type="submit" class="btn btn-danger" title="Excluir" onclick="return confirm('Tem certeza que deseja deletar o orientador selecionada?')">
                                                         <i class="fa fa-trash"></i>
                                                     </button>
                                                 </form>
-                            </div>
-                            </td>
-                            </tr>
+                                                </div>
+                                                </td>
+                                            </tr>
                             @endforeach
                             </tbody>
                             </table>

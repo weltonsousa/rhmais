@@ -59,7 +59,7 @@
                           <td>{{$empresa->cidade}}</td>
                           <td>{{$empresa->telefone}}</td>
                           <td>{{$empresa->cnpj}}</td>
-                          <td>R$ {{ $empresa->custo_unitario }}</td>
+                          <td class="dinheiro">{{ $empresa->custo_unitario }}</td>
                           <td>
                              @if ($empresa->ativo == '1')
                               Sim
@@ -72,8 +72,8 @@
                             <a href="{{ route('empresa.edit',[$empresa->id])}}" class="btn btn-primary" title="Editar"> <i class="fa fa-pencil"> </i> </a>
                           </div>
                           <form  class="col-md-3" style="margin-left:10px;" action="{{route('empresa.destroy', [$empresa->id])}}" method="POST">
-    		                  <input type="hidden" name="_method" value="DELETE">
-   		                    <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                            @csrf
+                            @method("DELETE")
    		                    <button type="submit" class="btn btn-danger" title="Excluir" onclick="return confirm('Tem certeza que deseja deletar a empresa selecionada?')">
                               <i class="fa fa-trash"></i>
                               </button>

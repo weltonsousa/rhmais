@@ -76,12 +76,15 @@
         </span>
     </p>
     @endforeach
+    @foreach ($setores as $str)
+   
     <p>
         Setor :
         <span class="fonte-10">
-            <strong> ADMINISTRATIVO </strong>
+            <strong>{{$str->nome}} </strong>
         </span>
     </p>
+     @endforeach
     @foreach ($supervisores as $sup)
 
     <p>
@@ -181,7 +184,7 @@
             @foreach ($instituicoes as $inst)
         <p style="margin-left:10px; word-wrap: break-word!important;">
         _________________________________________________________<br>
-        {{$inst->nome_instituicao}}<br><br>
+        {{$inst->razao_social}}<br><br>
         <span style="word-wrap: break-word!important;"> (assinatura e carimbo) </span>
         </div>
 @endforeach

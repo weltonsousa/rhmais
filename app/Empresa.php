@@ -41,9 +41,9 @@ class Empresa extends Model
 
     protected $table = 'empresa';
 
-    public function estagiarios()
+    public function estagiario()
     {
-        return $this->hasMany('App\Estagiario', 'empresa_id');
+        return $this->hasOne('App\Estagiario', 'empresa_id', 'id');
     }
     public function horario()
     {
@@ -56,7 +56,6 @@ class Empresa extends Model
     public function cau()
     {
         return $this->hasOne('App\Cau', 'empresa_id', 'id');
-
     }
     public function atividade()
     {

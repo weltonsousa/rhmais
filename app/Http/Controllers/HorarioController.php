@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Empresa;
 use App\Horario;
+use App\TceContrato;
 use Illuminate\Http\Request;
 
 class HorarioController extends Controller
@@ -20,7 +21,6 @@ class HorarioController extends Controller
     public function index()
     {
         $horarios = Horario::all();
-        // $empresas = Empresa::all();
         return view('horario.index', compact('horarios'));
     }
 
@@ -31,7 +31,7 @@ class HorarioController extends Controller
      */
     public function create()
     {
-        $empresas = Empresa::all();
+        $empresas = Empresa::all(['id', 'nome_fantasia']);
         return view('horario.create', compact('empresas'));
     }
 
@@ -51,12 +51,10 @@ class HorarioController extends Controller
         $horario->descricao = $request->get('descricao');
         $horario->qtd_horas = $request->get('qtd_horas');
         $horario->empresa_id = $request->get('empresa_id');
-        $horario->agente_integracao = $request->get('agente_integracao');
-
         $horario->save();
 
         return redirect()->route('horario.index')
-            ->with('success', 'Cadastrado com sucesso.');
+            ->with('success', 'CADASTRADO COM SUCESSO.');
     }
 
     /**
@@ -79,8 +77,7 @@ class HorarioController extends Controller
     public function edit($id)
     {
         $horarios = Horario::find($id);
-        $empresas = Empresa::all();
-        return view('horario.edit', compact('horarios', 'empresas', $horarios));
+        return view('horario.edit', compact('horarios'));
     }
 
     /**
@@ -100,10 +97,9 @@ class HorarioController extends Controller
         $horario->descricao = $request->get('descricao');
         $horario->qtd_horas = $request->get('qtd_horas');
         $horario->empresa_id = $request->get('empresa_id');
-        $horario->agente_integracao = $request->get('agente_integracao');
         $horario->save();
 
-        $request->session()->flash('success', 'Atualizado com sucesso!');
+        $request->session()->flash('success', 'ATUALIZADO COM SUCESSO.');
         return redirect('horario');
     }
 
@@ -113,10 +109,16 @@ class HorarioController extends Controller
      * @param  \App\Horario  $horario
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Request $request, Horario $horario)
+    public function destroy(Request $request, $id)
     {
-        $horario->delete();
-        $request->session()->flash('warning', 'Removido com sucesso!');
-        return redirect('horario');
+        if (TceContrato::where('horario_id', $id)->first()) {
+            $request->session()->flash('warning', 'HORÁRIO NÃO PODE SER REMOVIDO');
+            return redirect('horario');
+        } else {
+            $horario = Horario::find($id);
+            $horario->delete();
+            $request->session()->flash('warning', 'REMOVIDO COM SUCESSO');
+            return redirect('horario');
+        }
     }
 }

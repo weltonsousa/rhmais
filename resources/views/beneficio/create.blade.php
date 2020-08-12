@@ -37,36 +37,19 @@
                                             <div id="form-step-0" role="form" data-toggle="validator">
                                                 <div class="row" style="width:960px; margin: 20px auto;">
                                                     <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
+                                                         <label for="">Nome do Benefício</label>
                                                         <input type="text" class="form-control has-feedback-left"
-                                                            placeholder="Nome do Benefício:" name="nome">
+                                                            placeholder="Nome do Benefício" name="nome">
                                                         <span class="fa fa-user form-control-feedback left"
                                                             aria-hidden="true"></span>
                                                     </div>
                                                     <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
+                                                        <label for="">Sigla do Benefício</label>
                                                         <input type="text" class="form-control has-feedback-left"
-                                                            placeholder="Sigla do Benefício:" name="sigla">
+                                                            placeholder="Sigla do Benefício" name="sigla">
                                                         <span class="fa fa-user form-control-feedback left"
                                                             aria-hidden="true"></span>
                                                     </div>
-                                                    {{-- <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
-                                                        <select class="form-control has-feedback-left"
-                                                            name="empresa_id">
-                                                            <option>Selecione Unidade Concedente:</option>
-                                                            @foreach ($empresas as $empresa)
-                                                            <option value="{{ $empresa->id }}">
-                                                                {{ $empresa->nome_fantasia }}</option>
-                                                            @endforeach
-                                                        </select>
-                                                        <span class="fa fa-home form-control-feedback left"
-                                                            aria-hidden="true"></span>
-                                                    </div> --}}
-                                                    {{-- <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
-                                                        <input type="text" class="form-control has-feedback-left"
-                                                            value="KOSTER E KOSTER CONSULTORIA EM RH LTDA - RH MAIS TALENTOS" readonly placeholder="Agente de Integração"
-                                                            name="agente_integracao">
-                                                        <span class="fa fa-home form-control-feedback left"
-                                                            aria-hidden="true"></span>
-                                                    </div> --}}
                                                     <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
                                                         <h4><input type="radio" name="tipo" value="1"> Crédito
                                                         <input type="radio" name="tipo" value="2"> Débito

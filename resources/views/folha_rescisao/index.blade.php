@@ -25,9 +25,9 @@
                 <div class="row">
                     <div class="col-md-12 col-sm-12 col-xs-12">
                         <form action="{{route('processarRescisao')}}" id="frm-rescisao" method="POST">
-                            {{ csrf_field() }}
+                            @csrf
                             <div class="col-md-2">
-                                <label for="">Unidade:</label>
+                                <label for="">Unidade</label>
                                 <select name="unidade_id" id="unidade-id" class="form-control">
                                     <option value=""> Todas as Unidades</option>
                                      @foreach ($unidades as $unidade)
@@ -36,7 +36,7 @@
                                 </select>
                             </div>
                             <div class="col-md-2">
-                                <label for="">Período:</label>
+                                <label for="">Período</label>
                                 <select name="referencia" id="referencia" class="form-control">
                                     <option value=""> Periodo Ano</option>
                                     @foreach ($periodos as $periodo)
@@ -45,7 +45,7 @@
                                 </select>
                             </div>
                             <div class="col-md-2">
-                                <label for="">Dias Úteis:</label>
+                                <label for="">Dias Úteis</label>
                                 <select name="" class="form-control">
                                       <option> 01</option>
                                     <option> 02</option>
@@ -85,6 +85,7 @@
                                 <button type="submit" class="btn btn-primary" name="processar" id="processar">Processar</button>
                                 <button type="submit" class="btn btn-primary" name="grecibo" id="grecibo">G. Recibo</button>
                                 <button type="submit" class="btn btn-primary" name="grelacao" id="grelacao">G. Relação</button>
+                                {{-- <a href="{{route('listar-rescisao')}}" class="btn btn-danger">Recisões</a> --}}
                             </div>
                         </form>
                         <br>
@@ -98,7 +99,7 @@
                                 <table class="table table-striped list  table-bordered" style="zoom:0.9;">
                                     <thead>
                                         <tr>
-                                            <th>Status</th>
+                                            <th>Folha do Mês</th>
                                             <th>Referência
                                                 <input type="text" class="form-control" style="width:100px;">
                                             </th>
@@ -120,12 +121,11 @@
                                     <tbody>
                                         <tr>
                                             @foreach ($folhas as $folha)
-                                        {{-- <tr> --}}
                                             <td>
                                                 @if ($folha->status == 0)
-                                                Pendente
+                                              <button type="button" class="btn btn-warning">Pendente</button>
                                                 @else
-                                                Gerado
+                                                 <button type="button" class="btn btn-success">Gerado</button>
                                                 @endif
                                             </td>
                                             <td>{{ $folha->referencia }}</td>
@@ -147,18 +147,12 @@
                                                 }
                                                 @endphp
                                             </td>
-                                            <td> R$ {{ $folha->valor_bolsa }}
-                                            </td>
-                                            {{-- <td>{{ $folha->faltas }}</td> --}}
-                                            <td>R$ {{ $folha->valor_liquido }}
-                                            </td>
+                                            <td>{{ $folha->valor_bolsa }}</td>
+                                            <td>{{ $folha->valor_liquido }}</td>
                                             <td>
                                                 <form action="{{ route('folha_rescisao.edit', [$folha->id]) }}">
-                                                <button type="submit" class="btn btn-primary" title="Editar"><i class="fa fa-pencil"></i> </a>
+                                                <button type="submit" class="btn btn-primary" title="Gerar Rescisão"><i class="fa fa-pencil"></i> </a>
                                                 </button>
-                                                <a href="{{ route('rescisao-folha', $folha->id) }}" target="_blank" class="btn btn-success">
-                                                    <i class="fa fa-print" title="Imprimir"></i>
-                                                </a>
                                                 </form>
                                             </td>
                                         </tr>
@@ -181,38 +175,38 @@
 </div>
 </div>
 <script>
-var und = [];
-var ref = [];
+    var und = [];
+    var ref = [];
 
-$('#unidade-id').bind('change', function(){
-   und = $(this).val();
-});
-
-$('#referencia').bind('change', function(){
-   ref = $(this).val();
- });
-
-    $('#grecibo').click(function(e){
-        if(und > 0 && ref != null){
-            $('#frm-rescisao').attr("action", '{{route('grecibo-rescisao')}}').attr( 'target','_blank' );
-        }else {
-            e.preventDefault();
-            alert("Escolha ao lado");
-        }
-      });
-
-      $('#processar').click(function(){
-         $('#frm-rescisao').removeAttr('target');
-        $('#frm-rescisao').attr("action", '{{route('processarRescisao')}}');
+    $('#unidade-id').bind('change', function(){
+    und = $(this).val();
     });
 
-     $('#grelacao').click(function(e){
-          if(und > 0 && ref != null){
-        $('#frm-rescisao').attr("action", '{{route('grelacao-rescisao')}}').attr( 'target','_blank' );
-        }else {
-            e.preventDefault();
-            alert("Escolha ao lado");
-        }
+    $('#referencia').bind('change', function(){
+    ref = $(this).val();
     });
+
+        $('#grecibo').click(function(e){
+            if(und > 0 && ref != null){
+                $('#frm-rescisao').attr("action", '{{route('grecibo-rescisao')}}').attr( 'target','_blank' );
+            }else {
+                e.preventDefault();
+                alert("Escolha ao lado");
+            }
+        });
+
+        $('#processar').click(function(){
+            $('#frm-rescisao').removeAttr('target');
+            $('#frm-rescisao').attr("action", '{{route('processarRescisao')}}');
+        });
+
+        $('#grelacao').click(function(e){
+            if(und > 0 && ref != null){
+            $('#frm-rescisao').attr("action", '{{route('grelacao-rescisao')}}').attr( 'target','_blank' );
+            }else {
+                e.preventDefault();
+                alert("Escolha ao lado");
+            }
+        });
 </script>
 @endsection

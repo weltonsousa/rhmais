@@ -8,4 +8,10 @@ class Curso extends Model
 {
     protected $fillable = ['nome', 'nivel'];
     protected $table = 'curso';
+
+    public function estagiarios()
+    {
+        return $this->hasOne('App\Estagiario');
+    }
+
 }

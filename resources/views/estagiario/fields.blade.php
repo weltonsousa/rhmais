@@ -6,7 +6,7 @@
     <div class="x_content">
         <form action="{{ route('estagiario.store') }}" id="myForm" role="form" data-toggle="validator" method="post"
             accept-charset="utf-8">
-            {{csrf_field()}}
+            @csrf
 
             <!-- SmartWizard html -->
             <div id="smartwizard">
@@ -115,26 +115,20 @@
                                         name="mae" value="{{old('mae')}}">
                                     <span class="fa fa-user form-control-feedback left" aria-hidden="true"></span>
                                 </div>
-
-                                <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
-                                    <input type="text" class="form-control has-feedback-left" placeholder="Série Ctps:"
-                                        name="serie_ctps" value="{{old('serie_ctps')}}">
-                                    <span class="fa fa-user form-control-feedback left" aria-hidden="true"></span>
-                                </div>
                                 <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
                                     <input type="text" class="form-control has-feedback-left" placeholder="Ctps"
                                         name="ctps" value="{{old('ctps')}}">
                                     <span class="fa fa-user form-control-feedback left" aria-hidden="true"></span>
                                 </div>
                                 <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
-                                    <input type="text" class="form-control has-feedback-left" placeholder="Número PIS"
-                                        name="numero_pis" value="{{old('numero_pis')}}">
+                                    <input type="text" class="form-control has-feedback-left" placeholder="Série Ctps"
+                                        name="serie_ctps" value="{{old('serie_ctps')}}">
                                     <span class="fa fa-user form-control-feedback left" aria-hidden="true"></span>
                                 </div>
                                 <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
-                                    <input type="text" class="form-control has-feedback-left" value="KOSTER E KOSTER CONSULTORIA EM RH LTDA - RH MAIS TALENTOS" readonly
-                                        placeholder="Agente de Integração" name="agente_int">
-                                    <span class="fa fa-home form-control-feedback left" aria-hidden="true"></span>
+                                    <input type="text" class="form-control has-feedback-left" placeholder="Número PIS"
+                                        name="numero_pis" value="{{old('numero_pis')}}">
+                                    <span class="fa fa-user form-control-feedback left" aria-hidden="true"></span>
                                 </div>
                                 <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
                                     <select class="form-control has-feedback-left" name="nacionalidade"
@@ -216,7 +210,6 @@
                                 </div>
 
                                 <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
-                                    {{-- <label for="">Data de Término do Curso</label> --}}
                                     <input type="text" class="form-control data has-feedback-left"
                                         placeholder="Data de Término do Curso" name="termino_curso"
                                         value="{{old('termino_curso')}}">

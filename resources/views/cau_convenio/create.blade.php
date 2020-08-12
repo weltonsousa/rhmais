@@ -19,7 +19,6 @@
             <div class="clearfix"></div>
 
             <div class="row">
-
                 <div class="col-md-12 col-sm-12 col-xs-12">
                     <div class="x_panel">
                         <div class="x_title">
@@ -29,7 +28,7 @@
                         <div class="x_content">
                             <form action="{{ route('cau_convenio.store') }}" id="myForm" role="form"
                                 data-toggle="validator" method="post" accept-charset="utf-8">
-                                {{csrf_field()}}
+                                @csrf
                                 <!-- SmartWizard html -->
                                 <div>
                                     <div>
@@ -57,7 +56,7 @@
                                                             aria-hidden="true"></span>
                                                     </div>
                                                     <div class="col-md-4 col-sm-4 col-xs-12 form-group has-feedback">
-                                                        <label for="">Data inicio:</label>
+                                                        <label for="">Data inicio</label>
                                                         <input type="text"
                                                             class="form-control data has-feedback-left"
                                                             placeholder="Data de Inicio" name="data_inicio" value="">
@@ -65,7 +64,7 @@
                                                             aria-hidden="true"></span>
                                                     </div>
                                                     <div class="col-md-4 col-sm-4 col-xs-12 form-group has-feedback">
-                                                        <label for="">Data Fim:</label>
+                                                        <label for="">Data Fim</label>
                                                         <input type="text"
                                                             class="form-control data has-feedback-left"
                                                             placeholder="Data de Final" name="data_fim" value="">
@@ -73,7 +72,7 @@
                                                             aria-hidden="true"></span>
                                                     </div>
                                                     <div class="col-md-4 col-sm-4 col-xs-12 form-group has-feedback">
-                                                        <label for="">Data Documento:</label>
+                                                        <label for="">Data Documento</label>
                                                         <input type="text"
                                                             class="form-control data has-feedback-left"
                                                             placeholder="Data de Final" name="data_doc" value="">
@@ -81,7 +80,7 @@
                                                             aria-hidden="true"></span>
                                                     </div>
                                                     <div class="col-md-12 col-sm-12 col-xs-12 form-group has-feedback">
-                                                        <label for="">Observação:</label>
+                                                        <label for="">Observação</label>
                                                         <textarea class="form-control" placeholder="Sua observação" name="obs"></textarea>
                                                     </div>
                                                     <div class="col-md-12 col-sm-12 col-xs-12 form-group has-feedback">

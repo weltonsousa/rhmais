@@ -46,7 +46,6 @@
                                             <th>Data Fim
                                                 <input type="text" class="form-control" style="width:100px;">
                                             </th>
-                                            {{-- <th>Situação</th> --}}
                                             <th>Opções</th>
                                         </tr>
                                     </thead>
@@ -63,14 +62,14 @@
                                                 <form class="col-md-3"
                                                     action="{{route('cau_convenio.destroy', [$cau->id])}}"
                                                     method="POST">
-                                                    <input type="hidden" name="_method" value="DELETE">
-                                                    <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                                                    @csrf
+                                                    @method("DELETE")
                                                     <button type="submit" class="btn btn-danger" title="Excluir"
                                                         onclick="return confirm('Tem certeza que deseja deletar o Convênio selecionado?')">
                                                         <i class="fa fa-trash"></i>
                                                     </button>
                                                 </form>
-                                                <a class="btn btn-warning" href="{{ action('PdfController@generateCau', $cau->id) }}" target="_blank"><i
+                                                <a class="btn btn-warning" href="{{ action('PdfController@cau', $cau->id) }}" target="_blank"><i
                                                         class="fa fa-print" title="Imprimir"></i> </a>
                                             </td>
                                         </tr>

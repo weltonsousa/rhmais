@@ -29,8 +29,9 @@
                         <div class="x_content">
                             <form action="{{ route('orientador.update',  $orientador->id) }}" id="myForm" role="form"
                                 data-toggle="validator" method="post" accept-charset="utf-8">
-                                <input type="hidden" name="_method" value="PUT">
-                                <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                                @csrf
+                                @method("PUT")
+
                                 <!-- SmartWizard html -->
                                 <div>
                                     <div>
@@ -171,20 +172,11 @@
                                                             aria-hidden="true"></span>
                                                     </div>
                                                     <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
-                                                             @foreach ($instituicoes as $inst)
-                                                                @if ($orientador->instituicao_id == $inst->id)
-                                                                 <input type="text" value="{{ $inst->nome_instituicao }}"
-                                                             class="form-control has-feedback-left">
-                                                            <input type="hidden" name="instituicao_id" value="{{ $inst->id }}">
-                                                                 @endif
-                                                             @endforeach
-                                                    </div>
-                                                    <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
-                                                        <input type="text" class="form-control has-feedback-left"
-                                                            value="KOSTER E KOSTER CONSULTORIA EM RH LTDA - RH MAIS TALENTOS" readonly placeholder="Agente de Integração"
-                                                            name="agente_integracao">
-                                                        <span class="fa fa-home form-control-feedback left"
+                                                                 <input type="text" value="{{ $orientador->instituicao->nome_instituicao }}"
+                                                             class="form-control has-feedback-left" readonly>
+                                                             <span class="fa fa-graduation-cap form-control-feedback left"
                                                             aria-hidden="true"></span>
+                                                            <input type="hidden" name="instituicao_id" value="{{ $orientador->instituicao->id }}">
                                                     </div>
                                                 </div>
                                             </div>

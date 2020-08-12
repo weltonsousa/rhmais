@@ -127,25 +127,27 @@
                             <strong> {{$inst->nome_rep}} </strong>
                         </span>
                 </td>
+                  <td>
+                        <span class="fonte-8"> Telefone: </span>
+                        <span class="fonte-10">
+                            <strong> {{$inst->telefone}} </strong>
+                        </span>
+                </td>
+                @endforeach
+                <tr>
+                    @foreach($orientadores as $orient)
                 <td>
+                        <span class="fonte-8"> Orientador de Estágio: </span>
+                        <span class="fonte-10"></span>
+                        <strong> {{$orient->nome}} </strong>
+                        <span>
+                </td>
+                 <td>
                         <span class="fonte-8">
                         Cargo:
                         </span>
                         <span class="fonte-10">
-                            <strong> {{$inst->cargo_rep}} </strong>
-                        </span>
-                </td>
-                </tr>
-                <tr>
-                <td>
-                        <span class="fonte-8"> Orientador de Estágio: </span>
-                        <span class="fonte-10"></span>
-                        <span>
-                </td>
-                <td>
-                        <span class="fonte-8"> Telefone: </span>
-                        <span class="fonte-10">
-                            <strong> {{$inst->telefone}} </strong>
+                            <strong> {{$orient->cargo}} </strong>
                         </span>
                 </td>
                 </tr>
@@ -175,7 +177,7 @@
                     </td>
                 </tr>
                 <tr>
-                    <td>
+                    <td colspan="2">
                         <span class="fonte-8"> Endereço: </span>
                         <span class="fonte-10">
                             <strong> {{$emp->rua}} </strong>
@@ -185,7 +187,9 @@
                     <span class="fonte-8">
                          Nº:
                         </span>
-                        <span class="fonte-10"> </span>
+                        <span class="fonte-10">
+                        <strong> {{$emp->numero}} </strong>
+                        </span>
                     </td>
                     <td width="70%">
                         <span class="fonte-8"> Bairro:
@@ -227,18 +231,10 @@
                   </td>
                 </tr>
                 <tr>
-                  <td width="100%" colspan="2">
+                  <td width="100%" colspan="3">
                        <span class="fonte-8"> Representante: </span>
                         <span class="fonte-10">
                             <strong> {{$emp->nome_rep}} </strong>
-                        </span>
-                  </td>
-                  <td>
-                    <span class="fonte-8">
-                        Cargo:
-                        </span>
-                    <span class="fonte-10">
-                            <strong> {{$emp->cargo_rep}} </strong>
                         </span>
                   </td>
                 </tr>
@@ -276,107 +272,99 @@
     <div>
         @foreach ($estagiarios as $est)
         <h5 class="titulo fonte-8"><strong>A UNIDADE CONCEDENTE, juntamente com a INSTITUIÇÃO DE ENSINO, e o ESTUDANTE.</strong></h5>
+        {{-- Estagiario --}}
         <table class="table">
             <tbody>
                 <tr>
-                    <td>
+                <td width="100%" colspan="3">
                         <span class="fonte-8"> Estudante: </span>
                         <span class="fonte-10">
-                            <strong> {{$est->nome}} </strong>
+                        <strong> {{$est->nome}} </strong>
                         </span>
-                    </td>
+                </td>
                 </tr>
                 <tr>
-                    <td>
-                        <span class="fonte-8"> Endereço: </span>
+                <td>
+                        <span class="fonte-8"> CPF: </span>
                         <span class="fonte-10">
+                        <strong>{{$est->cpf}} </strong>
+                        </span>
+                </td>
+                 <td>
+                        <span class="fonte-8">RG:</span>
+                        <span class="fonte-10">
+                        <strong>  {{$est->rg}} </strong>
+                        </span>
+                </td>
+                <td>
+                     <span><span class="fonte-8"> RA:
+                      </span>
+                    <span class="fonte-10">
+                     <strong> {{$est->matricula}} </strong>
+                     </span>
+                </td>
+                </tr>
+                <tr>
+                <td colspan="2">
+                    <span class="fonte-8"> Endereço: </span>
+                    <span class="fonte-10">
                             <strong> {{$est->rua}} </strong>
                         </span>
-                    </td>
-                    <td>
-                        <span class="fonte-8">
-                        Nº:
+                </td>
+                <td>
+                        <span class="fonte-8"> Nº:
                         </span>
                         <span class="fonte-10">
                             <strong> {{$est->numero}} </strong>
                         </span>
-                    </td>
-                    <td>
-                        <span class="fonte-8">
+                </td>
+                <td width="50%">
+                    <span class="fonte-8">
                         Bairro:
                         </span>
                         <span class="fonte-10">
                             <strong> {{$est->bairro}} </strong>
                         </span>
-                    </td>
+                </td>
                 </tr>
                 <tr>
-                  <td>
+                <td>
                     <span class="fonte-8"> Cidade: </span>
                     <span class="fonte-10">
-                        <strong> {{$est->cidade}} </strong>
-                    </span>
-                  </td>
-                  <td>
-                    <span class="fonte-8">
-                        UF:
-                    </span>
-                    <span class="fonte-10">
-                        <strong> {{$est->estado}} </strong>
-                    </span>
-                  </td>
-                  <td>
-                        <span class="fonte-8">
-                        CEP:
+                    <strong> {{$est->cidade}} </strong>
+                     </span>
+                </td>
+                <td>
+                <span>
+                        <span class="fonte-8"> UF: </span>
+                        <span class="fonte-10">
+                            <strong> {{$est->estado}} </strong>
+                        </span>
+                </td>
+                <td>
+                <span>
+                        <span class="fonte-8"> CEP: </span>
                         </span>
                         <span class="fonte-10">
                             <strong> {{$est->cep}} </strong>
                         </span>
-                  </td>
+                </td>
                 </tr>
                 <tr>
-                  <td>
-                    <span class="fonte-8">  Telefone: </span>
-                    <span class="fonte-10">
-                        <strong> {{$est->celular}} </strong>
-                    </span>
-                  </td>
-                  <td>
-                       <span class="fonte-8">
-                        Email:
-                        </span>
+                  <td colspan="2">
+                        <span class="fonte-8"> Telefone: </span>
                         <span class="fonte-10">
-                            <strong> {{$est->email}} </strong>
+                            <strong> {{$est->celular}} </strong>
                         </span>
-                  </td>
-                </tr>
-                <tr>
-                 <td>
-                    <span class="fonte-8"> CPF: </span>
-                    <span class="fonte-10">
-                        <strong> {{$est->cpf}} </strong>
-                    </span>
-                 </td>
-                 <td>
-                 <span>
-                    <span class="fonte-8"> RG:
-                    </span>
-                    <span class="fonte-10">
-                        <strong> {{$est->rg}} </strong>
-                    </span>
-                 </td>
-                 <td>
-                     <span>
-                    <span class="fonte-8">
-                      RA:
-                      </span>
-                    <span class="fonte-10">
-                     <strong> {{$est->matricula}} </strong>
-                     </span>
-                 </td>
-                </tr>
-                <tr>
-                 <td>
+                </td>
+                 <td colspan="2">
+                        <span class="fonte-8"> Email: </span>
+                        <span class="fonte-10">
+                        <strong> {{$est->email}} </strong>
+                        </span>
+                </td>
+                 <tr>
+                 <td colspan="2">
                     <span class="fonte-8"> Curso:
                     </span>
                     <span class="fonte-10">
@@ -386,7 +374,6 @@
                  <td>
                      <span class="fonte-8">
                            Período/Ano:
-                    </span>
                     </span>
                     <span class="fonte-10">
                         <strong> {{$est->periodo}} </strong>
@@ -407,10 +394,9 @@
         @foreach ($horarios as $hor)
     <p class="text-justify"> 2) - Jornada: {{$hor->descricao}}</p>
 @endforeach
-    <p class="text-justify"> <strong>3) Atividade do Estagiário(a):
+    <p class="text-justify"> <strong>3) Atividade do Estagiário(a):</strong></p>
         @foreach ($atividades as $ativ)
-    <p class="text-justify">{{$ativ->nome}}
-    </p>
+    <p class="text-justify">{{$ativ->nome}} </p>
     @endforeach
      @foreach ($supervisores as $sup)
     <p class="text-justify"> <strong> Supervisor(a) do estágio: </strong>{{$sup->nome}}  - {{$sup->formacao}} - {{$sup->cargo}} - {{$sup->email}} - {{$sup->telefone}}
@@ -422,9 +408,30 @@
         +  {{$ben->nome}}  , pagos até o dia 10 do mês subsequente ao vencido.</p>
         @endforeach
     <p class="text-justify">
-        <strong> 5 - Apólice Coletiva de Acidentes Pessoais nº 651805, garantido pela SULAMÉRICA SEG. E PREVIDÊNCIA (R$16.131 MIL REAIS).
+        <strong> 5 - Apólice Coletiva de Acidentes Pessoais nº 651805, garantido pela SULAMÉRICA SEG. E PREVIDÊNCIA (R$16.131 MIL REAIS).</strong>
 
-    <p class="text-justify"> <strong>6 - Descrição do(s) Motivo(s) deste aditivo: Valor da Bolsa - A pedido da unidade concedente</strong> - Sempre que necessário, o estagiário deverá fornecer
+    <p class="text-justify"> <strong>6 - Descrição do(s) Motivo(s) deste aditivo: </strong>
+        {{-- @foreach ($contBeneficio as $cont)
+             @foreach ($aditivoBeneficio as $adi)
+               {{ $cont != $adi ? $adi->nome : ""}}
+        @endforeach
+     @endforeach
+     @foreach ($contBolsa as $cont)
+         @foreach ($aditivoBolsa as $adi)
+              {{ $cont != $adi ? " Valor da Bolsa R$ ".$adi : ""}}
+         @endforeach
+     @endforeach --}}
+      @foreach ($contrato as $cont)
+             @foreach ($aditivo as $adi)
+               {{ $cont->beneficio_nome != $adi->beneficio_nome ? $adi->beneficio_nome : ""}}
+               {{ $cont->bolsa_aditivo != $adi->bolsa ? " Valor da Bolsa R$ ".$adi->bolsa : ""}}
+              {{ $cont->atividade_nome != $adi->atividade_nome ? $adi->atividade_nome : ""}}
+              {{ $cont->supervisor_nome != $adi->supervisor_nome ? $adi->supervisor_nome : ""}}
+              {{ $cont->descricao != $adi->descricao ? $adi->descricao : ""}}
+              {{ $cont->data_fim != $adi->data_fim ? " Data fim ". date('d/m/Y', strtotime($adi->data_fim)) : ""}}
+        @endforeach
+     @endforeach
+         - A pedido da unidade concedente - Sempre que necessário, o estagiário deverá fornecer.</p>
 
         {{-- @php
         setlocale(LC_TIME, 'pt_BR', 'pt_BR.utf-8', 'pt_BR.utf-8', 'portuguese');
@@ -432,7 +439,7 @@
         @endphp --}}
         @foreach ($tceContrato as $tce)
         {{-- <p class="pull-right"> Campinas, <strong> {{ strftime('%A, %d de %B de %Y', strtotime($tce->data_doc))}}. </strong> </p> --}}
-        <p class="pull-right"> Campinas, <strong> {{ date('d/m/Y', strtotime($tce->data_doc)) }}. </strong> </p>
+        <p class="pull-right"> Campinas, {{ date('d/m/Y', strtotime($tce->data_doc)) }}.</p>
         @endforeach
         <div style="height:70px;"></div>
         <div class="row">

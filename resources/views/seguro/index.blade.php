@@ -43,9 +43,9 @@
                                             <th>Cobertura
                                                 <input type="text" class="form-control" style="width:100px;">
                                             </th>
-                                            <th>Ag. Integração
+                                            {{-- <th>Ag. Integração
                                                 <input type="text" class="form-control">
-                                            </th>
+                                            </th> --}}
                                             <th>Opções</th>
                                         </tr>
                                     </thead>
@@ -61,7 +61,7 @@
                                                 @endforeach
                                             </td> --}}
                                             <td>{{$seguro->cobertura}}</td>
-                                            <td>{{$seguro->agente_integracao}}</td>
+                                            {{-- <td>{{$seguro->agente_integracao}}</td> --}}
                                             <td style="width:15%;">
                                                 <div class="col-md-3">
                                                     <a href="{{route('seguro.edit', [$seguro->id])}}"

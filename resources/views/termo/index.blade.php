@@ -54,7 +54,7 @@
                                         <tr>
                                             <td>{{$recesso->nome}}</td>
                                             <td>{{$recesso->nome_fantasia}}</td>
-                                            <td>R$ {{$recesso->bolsa }}</td>
+                                            <td>{{$recesso->bolsa }}</td>
                                             <td>
                                                 {{date('d/m/Y', strtotime($recesso->data_inicio)) }}<br>
                                                 {{date('d/m/Y', strtotime($recesso->data_fim)) }}<br>
@@ -77,7 +77,6 @@
                                             </td>
                                             <td>
                                                 {{-- 733,33 --}}
-                                                R$
                                                 {{ App\Http\Controllers\RecessoController::valorFerias($recesso->data_inicio, $recesso->bolsa) }}
                                             </td>
                                             <td>
@@ -85,7 +84,7 @@
                                                 @php
                                                 foreach($listaRecessos as $listaRecesso){
                                                 if($recesso->id == $listaRecesso->estagiario_id){
-                                                echo "R$ ".$listaRecesso->vr_recebido;
+                                                echo $listaRecesso->vr_recebido;
                                                 }
                                                 }
                                                 @endphp
@@ -97,7 +96,7 @@
                                                 @php
                                                 foreach($listaRecessos as $listaRecesso){
                                                 if($recesso->id == $listaRecesso->estagiario_id){
-                                                echo "R$ ".$listaRecesso->vr_saldo;
+                                                echo $listaRecesso->vr_saldo;
                                                 }
                                                 }
                                                 @endphp

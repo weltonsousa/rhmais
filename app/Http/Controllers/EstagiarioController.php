@@ -7,10 +7,10 @@ use App\Empresa;
 use App\Estado;
 use App\Estagiario;
 use App\Instituicao;
+use App\TceContrato;
 use Carbon\Carbon;
 use DB;
 use Illuminate\Http\Request;
-use PDF;
 
 class EstagiarioController extends Controller
 {
@@ -25,256 +25,10 @@ class EstagiarioController extends Controller
      */
     public function index()
     {
-
-        $estagiarios = DB::table('estagiario')
-            ->join('empresa', 'estagiario.empresa_id', '=', 'empresa.id')
-            ->select(
-                'estagiario.nome',
-                'empresa.nome_fantasia',
-                'estagiario.celular',
-                'estagiario.cpf',
-                'estagiario.data_nascimento',
-                'estagiario.cidade',
-                'estagiario.estado',
-                'estagiario.curso',
-                'estagiario.id',
-                'estagiario.ativo',
-                'estagiario.termino_curso'
-            )
-            ->get();
-
+        $estagiarios = Estagiario::all();
         return view('estagiario.index', compact('estagiarios'));
     }
 
-    public function contratoTce(Estagiario $estagiarios, $id)
-    {
-        $estagiarios = DB::table('estagiario')
-            ->join('tce_contrato', 'estagiario.id', '=', 'tce_contrato.estagiario_id')
-            ->select(
-                'estagiario.nome',
-                'estagiario.rua',
-                'estagiario.numero',
-                'estagiario.bairro',
-                'estagiario.cidade',
-                'estagiario.estado',
-                'estagiario.cep',
-                'estagiario.celular',
-                'estagiario.cpf',
-                'estagiario.rg',
-                'estagiario.email',
-                'estagiario.curso',
-                'estagiario.matricula',
-                'estagiario.periodo'
-            )
-            ->where('estagiario.id', '=', $id)
-            ->get();
-
-        $empresas = DB::table('empresa')
-            ->join('tce_contrato', 'empresa.id', '=', 'tce_contrato.empresa_id')
-            ->select(
-                'empresa.razao_social',
-                'empresa.cnpj',
-                'empresa.numero',
-                'empresa.bairro',
-                'empresa.cidade',
-                'empresa.estado',
-                'empresa.cep',
-                'empresa.nome_rep',
-                'empresa.cargo_rep',
-                'empresa.telefone',
-                'empresa.rua'
-            )
-            ->where('tce_contrato.estagiario_id', '=', $id)
-            ->get();
-
-        $instituicoes = DB::table('instituicao')
-            ->join('tce_contrato', 'instituicao.id', '=', 'tce_contrato.instituicao_id')
-            ->select(
-                'instituicao.razao_social',
-                'instituicao.cnpj',
-                'instituicao.numero',
-                'instituicao.bairro',
-                'instituicao.cidade',
-                'instituicao.estado',
-                'instituicao.cep',
-                'instituicao.nome_rep',
-                'instituicao.cargo_rep',
-                'instituicao.telefone',
-                'instituicao.rua'
-            )
-            ->where('tce_contrato.estagiario_id', '=', $id)
-            ->get();
-
-        $horarios = DB::table('horario')
-            ->join('tce_contrato', 'horario.id', '=', 'tce_contrato.horario_id')
-            ->select('horario.descricao')
-            ->where('tce_contrato.estagiario_id', '=', $id)
-            ->get();
-
-        $atividades = DB::table('atividade')
-            ->join('tce_contrato', 'atividade.id', '=', 'tce_contrato.atividade_id')
-            ->select('atividade.nome')
-            ->where('tce_contrato.estagiario_id', '=', $id)
-            ->get();
-
-        $seguros = DB::table('seguradora')
-            ->join('tce_contrato', 'seguradora.id', '=', 'tce_contrato.apolice_id')
-            ->select('seguradora.nome')
-            ->where('tce_contrato.estagiario_id', '=', $id)
-            ->get();
-
-        $supervisores = DB::table('supervisor')
-            ->join('tce_contrato', 'supervisor.id', '=', 'tce_contrato.supervisor_id')
-            ->select('supervisor.nome', 'supervisor.cargo', 'supervisor.formacao')
-            ->where('tce_contrato.estagiario_id', '=', $id)
-            ->get();
-
-        $orientadores = DB::table('orientador')
-            ->join('tce_contrato', 'orientador.id', '=', 'tce_contrato.orientador_id')
-            ->select('orientador.nome')
-            ->where('tce_contrato.estagiario_id', '=', $id)
-            ->get();
-
-        $beneficios = DB::table('beneficio')
-            ->join('tce_contrato', 'beneficio.id', '=', 'tce_contrato.beneficio_id')
-            ->select('beneficio.nome')
-            ->where('tce_contrato.estagiario_id', '=', $id)
-            ->get();
-
-        $tceContrato = DB::table('tce_contrato')
-            ->select(
-                'tce_contrato.data_inicio',
-                'tce_contrato.data_fim',
-                'tce_contrato.bolsa',
-                'tce_contrato.obrigatorio',
-                'tce_contrato.data_doc',
-                'tce_contrato.created_at')
-            ->where('tce_contrato.estagiario_id', '=', $id)
-            ->get();
-
-        DB::update('update tce_contrato set assinado = 1 where estagiario_id = ?', [$id]);
-
-        $data = ['estagiarios' => $estagiarios, 'instituicoes' => $instituicoes,
-            'empresas' => $empresas, 'horarios' => $horarios, 'atividades' => $atividades,
-            'seguros' => $seguros, 'supervisores' => $supervisores, 'orientadores' => $orientadores,
-            'tceContrato' => $tceContrato, 'beneficios' => $beneficios];
-        $pdf = PDF::loadView('pdf.tce.index', $data);
-        return $pdf->stream('tce-pdf.pdf');
-    }
-
-    public function contratoAditivoTce(Estagiario $estagiarios, $id)
-    {
-        $estagiarios = DB::table('estagiario')
-            ->join('tce_contrato', 'estagiario.id', '=', 'tce_contrato.estagiario_id')
-            ->select(
-                'estagiario.nome',
-                'estagiario.rua',
-                'estagiario.numero',
-                'estagiario.bairro',
-                'estagiario.cidade',
-                'estagiario.estado',
-                'estagiario.cep',
-                'estagiario.celular',
-                'estagiario.cpf',
-                'estagiario.rg',
-                'estagiario.email',
-                'estagiario.curso',
-                'estagiario.matricula',
-                'estagiario.periodo'
-            )
-            ->where('tce_contrato.id', '=', $id)
-            ->get();
-
-        $empresas = DB::table('empresa')
-            ->join('tce_contrato', 'empresa.id', '=', 'tce_contrato.empresa_id')
-            ->select(
-                'empresa.razao_social',
-                'empresa.cnpj',
-                'empresa.numero',
-                'empresa.bairro',
-                'empresa.cidade',
-                'empresa.estado',
-                'empresa.cep',
-                'empresa.nome_rep',
-                'empresa.cargo_rep',
-                'empresa.telefone',
-                'empresa.rua'
-            )
-            ->where('tce_contrato.id', '=', $id)
-            ->get();
-
-        $instituicoes = DB::table('instituicao')
-            ->join('tce_contrato', 'instituicao.id', '=', 'tce_contrato.instituicao_id')
-            ->select(
-                'instituicao.razao_social',
-                'instituicao.cnpj',
-                'instituicao.numero',
-                'instituicao.bairro',
-                'instituicao.cidade',
-                'instituicao.estado',
-                'instituicao.cep',
-                'instituicao.nome_rep',
-                'instituicao.cargo_rep',
-                'instituicao.telefone',
-                'instituicao.rua'
-            )
-            ->where('tce_contrato.id', '=', $id)
-            ->get();
-
-        $horarios = DB::table('horario')
-            ->join('tce_contrato', 'horario.id', '=', 'tce_contrato.horario_id')
-            ->select('horario.descricao')
-            ->where('tce_contrato.id', '=', $id)
-            ->get();
-
-        $atividades = DB::table('atividade')
-            ->join('tce_contrato', 'atividade.id', '=', 'tce_contrato.atividade_id')
-            ->select('atividade.nome')
-            ->where('tce_contrato.id', '=', $id)
-            ->get();
-
-        $seguros = DB::table('seguradora')
-            ->join('tce_contrato', 'seguradora.id', '=', 'tce_contrato.apolice_id')
-            ->select('seguradora.nome')
-            ->where('tce_contrato.id', '=', $id)
-            ->get();
-
-        $supervisores = DB::table('supervisor')
-            ->join('tce_contrato', 'supervisor.id', '=', 'tce_contrato.supervisor_id')
-            ->select('supervisor.nome', 'supervisor.cargo', 'supervisor.formacao', 'supervisor.telefone', 'supervisor.email')
-            ->where('tce_contrato.id', '=', $id)
-            ->get();
-
-        $orientadores = DB::table('orientador')
-            ->join('tce_contrato', 'orientador.id', '=', 'tce_contrato.orientador_id')
-            ->select('orientador.nome')
-            ->where('tce_contrato.id', '=', $id)
-            ->get();
-
-        $beneficios = DB::table('beneficio')
-            ->join('tce_contrato', 'beneficio.id', '=', 'tce_contrato.beneficio_id')
-            ->select('beneficio.nome')
-            ->where('tce_contrato.id', '=', $id)
-            ->get();
-
-        $tceContrato = DB::table('tce_contrato')
-            ->select(
-                'tce_contrato.data_inicio',
-                'tce_contrato.data_fim',
-                'tce_contrato.bolsa',
-                'tce_contrato.obrigatorio',
-                'tce_contrato.data_doc',
-                'tce_contrato.created_at')
-            ->where('tce_contrato.id', '=', $id)
-            ->get();
-
-        $data = ['estagiarios' => $estagiarios, 'instituicoes' => $instituicoes,
-            'empresas' => $empresas, 'horarios' => $horarios, 'atividades' => $atividades,
-            'seguros' => $seguros, 'supervisores' => $supervisores, 'orientadores' => $orientadores,
-            'tceContrato' => $tceContrato, 'beneficios' => $beneficios];
-        $pdf = PDF::loadView('pdf.tce_aditivo.index', $data);
-        return $pdf->stream('aditivo-pdf.pdf');
-    }
     /**
      * Show the form for creating a new resource.
      *
@@ -284,8 +38,8 @@ class EstagiarioController extends Controller
     {
         $states = DB::table("estado")->pluck("nome", "id");
         $cursos = Curso::all();
-        $instituicoes = Instituicao::all();
-        $empresas = Empresa::all();
+        $instituicoes = Instituicao::all(['id', 'nome_instituicao']);
+        $empresas = Empresa::all(['id', 'nome_fantasia']);
         return view('estagiario.create', compact('states', 'empresas', 'cursos', 'instituicoes'));
     }
 
@@ -343,7 +97,6 @@ class EstagiarioController extends Controller
         $estagiarios->serie_ctps = $request->get('serie_ctps');
         $estagiarios->numero_pis = $request->get('numero_pis');
         $estagiarios->dt_cadastro = $request->get('dt_cadastro');
-        $estagiarios->agente_int = $request->get('agente_int');
         $estagiarios->pessoa_responsavel = $request->get('pessoa_responsavel');
         $estagiarios->sexo = $request->get('sexo');
         $estagiarios->cidade = $request->get('cidade');
@@ -373,22 +126,10 @@ class EstagiarioController extends Controller
         if ($request->ativo == 'on') {
             $estagiarios->ativo = 1;
         }
-        // dd($estagiarios);
         $estagiarios->save();
 
         return redirect()->route('estagiario.index')
-            ->with('success', 'Cadastrado com sucesso.');
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Estagiario  $estagiario
-     * @return \Illuminate\Http\Response
-     */
-    public function show()
-    {
-        // return view('estagiario.show', compact('estagiario', $estagiario));
+            ->with('success', 'CADASTRADO COM SUCESSO.');
     }
 
     /**
@@ -399,13 +140,11 @@ class EstagiarioController extends Controller
      */
     public function edit($id)
     {
-
-        $estagiario = DB::table('estagiario')->where('id', $id)->get()->first();
-
+        $estagiario = Estagiario::find($id);
         $estados = DB::table("estado")->pluck("nome", "id");
         $cursos = Curso::all();
-        $instituicoes = Instituicao::all();
-        $empresas = Empresa::all();
+        $instituicoes = Instituicao::all(['id', 'nome_instituicao']);
+        $empresas = Empresa::all(['id', 'nome_fantasia']);
 
         return view('estagiario.edit', [
             'estagiario' => $estagiario,
@@ -425,7 +164,6 @@ class EstagiarioController extends Controller
      */
     public function update(Request $request, $id)
     {
-
         $request->validate([
             'nome' => 'required',
             'email' => 'required',
@@ -446,7 +184,6 @@ class EstagiarioController extends Controller
         $estagiarios->serie_ctps = $request->get('serie_ctps');
         $estagiarios->numero_pis = $request->get('numero_pis');
         $estagiarios->dt_cadastro = $request->get('dt_cadastro');
-        $estagiarios->agente_int = $request->get('agente_int');
         $estagiarios->pessoa_responsavel = $request->get('pessoa_responsavel');
         $estagiarios->sexo = $request->get('sexo');
         $estagiarios->cidade = $request->get('cidade');
@@ -478,7 +215,7 @@ class EstagiarioController extends Controller
         }
         $estagiarios->save();
 
-        $request->session()->flash('success', 'Atualizado com sucesso!');
+        $request->session()->flash('success', 'ATUALIZADO COM SUCESSO.');
         return redirect('estagiario');
     }
 
@@ -490,9 +227,14 @@ class EstagiarioController extends Controller
      */
     public function destroy(Request $request, $id)
     {
-        $estagiario = Estagiario::find($id);
-        $estagiario->delete();
-        $request->session()->flash('warning', 'Removido com sucesso!');
-        return redirect('estagiario');
+        if (TceContrato::where('estagiario_id', $id)->first()) {
+            $request->session()->flash('warning', 'ESTAGIÁRIO POSSUI CONTRATO ATIVO');
+            return redirect('estagiario');
+        } else {
+            $estagiario = Estagiario::find($id);
+            $estagiario->delete();
+            $request->session()->flash('warning', 'REMOVIDO COM SUCESSO');
+            return redirect('estagiario');
+        }
     }
 }

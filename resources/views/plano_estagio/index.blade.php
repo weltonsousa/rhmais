@@ -75,8 +75,12 @@
                                             <td style="width:10%;">
                                                 <a href="{{ route('tce_contrato.show',[$plano->tceId])}}"
                                                     class="btn btn-primary" title="Editar"><i class="fa fa-pencil"></i></a>
+                                                       @if ( $plano->plano_estagio  == 1)
                                                 <a class="btn btn-warning" href="{{ action('PdfController@planoEstagio', $plano->id) }}" target="_blank"><i
                                                         class="fa fa-print" title="Imprimir"></i></a>
+                                                        @else
+                                                        <div class="btn btn-warning"><i class="fa fa-print" title="Imprimir"></i></div>
+                                                        @endif
                                             </td>
                                         </tr>
                                         @endforeach

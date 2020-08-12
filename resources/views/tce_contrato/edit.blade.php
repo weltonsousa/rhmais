@@ -28,7 +28,7 @@
                         </div>
                         <div class="x_content">
                             <form action="{{ route('tce_rescisao.store') }}" method="post">
-                                {{csrf_field()}}
+                                @csrf
 
                                 <!-- SmartWizard html -->
                                 <div>
@@ -118,11 +118,11 @@
                                                         @endforeach
                                                     </div>
                                                     <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
-                                                        <label for="">Atividade / Setor </label>
-                                                           @foreach ($setores as $setor)
-                                                                @if ($tce->setor_id == $setor->id)
-                                                            <textarea class="form-control" placeholder="Atividade / Setor">{{$setor->nome}}</textarea>
-                                                            <input type="hidden" name="setor_id" value="{{$setor->id}}">
+                                                        <label for="">Atividade </label>
+                                                           @foreach ($atividades as $ativ)
+                                                                @if ($tce->atividade_id == $ativ->id)
+                                                            <textarea class="form-control" placeholder="Atividade">{{$ativ->nome}}</textarea>
+                                                            <input type="hidden" name="atividade_id" value="{{$ativ->id}}">
                                                             @endif
                                                         @endforeach
                                                     </div>

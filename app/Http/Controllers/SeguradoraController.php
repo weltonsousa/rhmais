@@ -2,10 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Empresa;
 use App\Seguradora;
+use App\TceContrato;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
 
 class SeguradoraController extends Controller
 {
@@ -21,8 +20,7 @@ class SeguradoraController extends Controller
     public function index()
     {
         $seguros = Seguradora::all();
-        $empresas = Empresa::all();
-        return view('seguro.index', compact('seguros', 'empresas'));
+        return view('seguro.index', compact('seguros'));
     }
 
     /**
@@ -32,9 +30,7 @@ class SeguradoraController extends Controller
      */
     public function create()
     {
-        $empresas = Empresa::all();
-
-        return view('seguro.create', compact('empresas'));
+        return view('seguro.create');
     }
 
     /**
@@ -52,24 +48,11 @@ class SeguradoraController extends Controller
         $seguradora = new Seguradora();
         $seguradora->nome = $request->get('nome');
         $seguradora->n_apolice = $request->get('n_apolice');
-        $seguradora->agente_integracao = $request->get('agente_integracao');
         $seguradora->cobertura = $request->get('cobertura');
-
         $seguradora->save();
 
         return redirect()->route('seguro.index')
-            ->with('success', 'Cadastrado com sucesso.');
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Seguradora  $seguradora
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Seguradora $seguradora)
-    {
-        //
+            ->with('success', 'CADASTRADO COM SUCESSO.');
     }
 
     /**
@@ -80,12 +63,8 @@ class SeguradoraController extends Controller
      */
     public function edit($id)
     {
-        // $seguradora = Seguradora::find($id);
-        $seguro = DB::table('seguradora')->where('id', $id)->get()->first();
-
-        return view('seguro.edit', [
-            'seguro' => $seguro,
-        ]);
+        $seguro = Seguradora::find($id);
+        return view('seguro.edit', compact('seguro'));
     }
 
     /**
@@ -104,13 +83,9 @@ class SeguradoraController extends Controller
         $seguradora = Seguradora::find($id);
         $seguradora->nome = $request->get('nome');
         $seguradora->n_apolice = $request->get('n_apolice');
-        $seguradora->agente_integracao = $request->get('agente_integracao');
         $seguradora->cobertura = $request->get('cobertura');
-
-        // dd($seguradora);
-        // $seguro->update($request->all());
         $seguradora->save();
-        $request->session()->flash('success', 'Atualizado com sucesso!');
+        $request->session()->flash('success', 'ATUALIZADO COM SUCESSO.');
         return redirect('seguro');
     }
 
@@ -120,10 +95,17 @@ class SeguradoraController extends Controller
      * @param  \App\Seguradora  $seguradora
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Request $request, Seguradora $seguro)
+    public function destroy(Request $request, $id)
     {
-        $seguro->delete();
-        $request->session()->flash('warning', 'Removido com sucesso!');
-        return redirect('seguro');
+        if (TceContrato::where('apolice_id', $id)->first()) {
+            $request->session()->flash('warning', 'SEGURO NÃO PODE SER REMOVIDO');
+            return redirect('seguro');
+        } else {
+
+            $seguro = Seguradora::find($id);
+            $seguro->delete();
+            $request->session()->flash('warning', 'REMOVIDO COM SUCESSO.');
+            return redirect('seguro');
+        }
     }
 }

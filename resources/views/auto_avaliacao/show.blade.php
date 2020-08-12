@@ -112,17 +112,15 @@
                                                                             placeholder="Texto Obs.: " name="obs">
                                                                         </textarea>
                                                                         <div style="margin-top:20px;">
-                                                                    
+
                                                                         <a  href="/avaliacao-pdf" target="_blank" class="btn btn-success">
                                                                         <i class="fa fa-print"></i>
                                                                         Gerar
-                                                                        Avaliação</a>  
+                                                                        Avaliação</a>
                                                                          <a href="/auto_avaliacao" class="btn btn-primary">Voltar</a>
                                                                     </div>
                                                                     </div>
                                                                 </div>
-                                                                
-                                                                
                                                             </div>
                                                         </div>
                                                     </div>

@@ -55,12 +55,6 @@
                                             </td>
                                             <td>{{date('d/m/Y', strtotime($estagiario->data_inicio)) }} / {{date('d/m/Y', strtotime ($estagiario->data_fim)) }}</td>
                                             <td style="width:5%;">2</td>
-                                            {{-- <td>
-                                                <div class="col-md-3">
-                                                  <a href="{{route('auto_avaliacao.create')}}"
-                                                        class="btn btn-primary" title="Lançar"> <i class="fa fa-pencil"> </i></a>
-                                                </div>
-                                            </td> --}}
                                         </tr>
                                         @endforeach
                                     </tbody>

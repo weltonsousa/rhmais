@@ -28,7 +28,7 @@
                   </div>
                   <div class="x_content">
                 <form action="{{ route('avaliacao_supervisor.store') }}" id="myForm" role="form" data-toggle="validator" method="post" accept-charset="utf-8">
-                  {{csrf_field()}}
+                  @csrf
                       <!-- SmartWizard html -->
                       <div>
                           <div>
@@ -48,27 +48,18 @@
                                              <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
                                                 <select class="form-control has-feedback-left" name="instituicao_id">
                                                    <option>Selecione Instituição de Ensino:</option>
-                                                      {{-- @foreach ($instituicoes as $instituicao)
-                                                        <option value="{{ $instituicao->id }}">{{ $instituicao->nome_instituicao }}</option>
-                                                     @endforeach --}}
                                                 </select>
                                                 <span class="fa fa-graduation-cap form-control-feedback left" aria-hidden="true"></span>
                                             </div>
                                              <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
                                                 <select class="form-control has-feedback-left" name="empresa_id">
                                                     <option>Selecione Unidade Concedente:</option>
-                                                     {{-- @foreach ($empresas as $empresa)
-                                                        <option value="{{ $empresa->id }}">{{ $empresa->nome_fantasia }}</option>
-                                                     @endforeach --}}
                                                 </select>
                                                 <span class="fa fa-home form-control-feedback left" aria-hidden="true"></span>
                                             </div>
                                             <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
                                                 <select class="form-control has-feedback-left" name="supervisor_id" id="lista-supervisor">
                                                      <option>Selecione o Supervisor de Estágio:</option>
-                                                    {{--  @foreach ($supervisores as $supervisor)
-                                                        <option value="{{ $supervisor->id }}">{{ $supervisor->nome }}</option>
-                                                     @endforeach --}}
                                                 </select>
                                                 <span class="fa fa-graduation-cap form-control-feedback left" aria-hidden="true"></span>
                                             </div>
@@ -82,13 +73,10 @@
                                                 <input type="text" class="form-control has-feedback-left data" placeholder="Data Documento" name="data_doc" required>
                                                 <span class="fa fa-calendar form-control-feedback left" aria-hidden="true"></span>
                                             </div>
-
-
                                             <div class="col-md-12 col-sm-12 col-xs-12 form-group has-feedback">
                                                 <label for="">Descreva as Principais Atividades Desenvolvidas:</label>
                                                 <textarea class="form-control" placeholder="observação" name="obs"></textarea>
                                             </div>
-
                                             <div class="col-md-12 col-sm-6 col-xs-12 form-group has-feedback">
                                                 <br>
                                               <div class="checkbox">

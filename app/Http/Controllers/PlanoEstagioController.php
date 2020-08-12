@@ -44,16 +44,6 @@ class PlanoEstagioController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
@@ -80,6 +70,7 @@ class PlanoEstagioController extends Controller
         $plano->supervisor_id = $request->get('supervisor_id');
         $plano->orientador_id = $request->get('orientador_id');
         $plano->instituicao_id = $request->get('instituicao_id');
+        $plano->setor_id = $request->get('setor_id');
         $plano->curso = $request->get('curso');
         $plano->atividade = $request->get('atividade');
         $plano->obs = $request->get('obs');
@@ -88,18 +79,7 @@ class PlanoEstagioController extends Controller
         DB::update('update tce_contrato set plano_estagio = ?  where estagiario_id = ?', [1, $request->get('estagiario_id')]);
 
         return redirect()->route('plano_estagio.index')
-            ->with('success', 'Cadastrado com sucesso.');
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\PlanoEstagio  $planoEstagio
-     * @return \Illuminate\Http\Response
-     */
-    public function show(PlanoEstagio $planoEstagio)
-    {
-        //
+            ->with('success', 'CADASTRADO COM SUCESSO');
     }
 
     /**
@@ -116,26 +96,4 @@ class PlanoEstagioController extends Controller
         return view('plano_estagio.edit', compact('planoEstagio', $planoEstagio));
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\PlanoEstagio  $planoEstagio
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, PlanoEstagio $planoEstagio)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\PlanoEstagio  $planoEstagio
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(PlanoEstagio $planoEstagio)
-    {
-        //
-    }
 }

@@ -28,7 +28,7 @@
                         </div>
                         <div class="x_content">
                             <form action="{{ route('plano_estagio.store') }}" method="post">
-                                {{csrf_field()}}
+                                @csrf
 
                                 <!-- SmartWizard html -->
                                 <div>
@@ -40,6 +40,7 @@
                                                         <input type="text" value="{{$tce->nome}}"
                                                             class="form-control has-feedback-left" placeholder="Estágiario">
                                                     <input type="hidden" name="estagiario_id" value="{{$tce->id}}">
+                                                      <input type="hidden" name="setor_id" value="{{$tce->setor_id}}">
                                                         <span class="fa fa-user form-control-feedback left" aria-hidden="true"></span>
                                                     </div>
                                                     <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">

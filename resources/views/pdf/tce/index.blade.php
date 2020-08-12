@@ -86,7 +86,7 @@
                             <strong> {{$inst->numero}} </strong>
                         </span>
                 </td>
-                <td>
+                <td colspan="2">
                     <span class="fonte-8">
                         Bairro:
                         </span>
@@ -119,33 +119,36 @@
                 </td>
                 </tr>
                 <tr>
-                <td>
+                <td colspan="2">
                         <span class="fonte-8"> Representante: </span>
                         <span class="fonte-10">
                             <strong> {{$inst->nome_rep}} </strong>
                         </span>
                 </td>
-                <td>
-                        <span class="fonte-8">
-                        Cargo:
-                        </span>
-                        <span class="fonte-10">
-                            <strong> {{$inst->cargo_rep}} </strong>
-                        </span>
-                </td>
-                </tr>
-                <tr>
-                <td>
-                        <span class="fonte-8"> Orientador de Estágio: </span>
-                        <span class="fonte-10"></span>
-                        <span>
-                </td>
-                <td>
+                  <td colspan="2">
                         <span class="fonte-8"> Telefone: </span>
                         <span class="fonte-10">
                             <strong> {{$inst->telefone}} </strong>
                         </span>
                 </td>
+                </tr>
+                <tr>
+                    @foreach ($orientadores as $orient)
+                <td colspan="2">
+                        <span class="fonte-8"> Orientador de Estágio: </span>
+                        <span class="fonte-10"></span>
+                         <strong> {{$orient->nome}} </strong>
+                        <span>
+                </td>
+                 <td>
+                        <span class="fonte-8">
+                        Cargo:
+                        </span>
+                        <span class="fonte-10">
+                         <strong> {{$orient->cargo}} </strong>
+                        </span>
+                </td>
+                @endforeach
                 </tr>
             </tbody>
         </table>
@@ -173,7 +176,7 @@
                     </td>
                 </tr>
                 <tr>
-                    <td>
+                    <td colspan="2">
                         <span class="fonte-8"> Endereço: </span>
                         <span class="fonte-10">
                             <strong> {{$emp->rua}} </strong>
@@ -184,6 +187,7 @@
                          Nº:
                         </span>
                         <span class="fonte-10"> </span>
+                         <strong> {{$emp->numero}} </strong>
                     </td>
                     <td width="70%">
                         <span class="fonte-8"> Bairro:
@@ -225,21 +229,13 @@
                   </td>
                 </tr>
                 <tr>
-                  <td width="100%" colspan="2">
+                  <td colspan="3">
                        <span class="fonte-8"> Representante: </span>
                         <span class="fonte-10">
                             <strong> {{$emp->nome_rep}} </strong>
                         </span>
                   </td>
-                  <td>
-                    <span class="fonte-8">
-                        Cargo:
-                        </span>
-                    <span class="fonte-10">
-                            <strong> {{$emp->cargo_rep}} </strong>
-                        </span>
-                  </td>
-                </tr>
+
                 @endforeach
             @foreach ($supervisores as $sup)
                 <tr>

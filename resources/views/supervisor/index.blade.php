@@ -45,9 +45,6 @@
                                             <th>Unidade
                                                 <input type="text" class="form-control">
                                             </th>
-                                            <th>Ag. de Integração
-                                                <input type="text" class="form-control">
-                                            </th>
                                             <th>Opções</th>
                                         </tr>
                                     </thead>
@@ -61,17 +58,15 @@
                                             <td>
                                                 {{$supervisor->empresa->nome_fantasia}}
                                             </td>
-                                            <td>{{$supervisor->agente_integracao}}</td>
                                             <td style="width:15%;">
                                                 <div class="col-md-3">
                                                     <a href="{{route('supervisor.edit', [$supervisor->id])}}"
                                                         class="btn btn-primary" title="Editar"> <i class="fa fa-pencil"> </i></a>
                                                 </div>
-                                                <form class="col-md-3"  style="margin-left:10px;"
-                                                    action="{{route('supervisor.destroy', [$supervisor->id])}}"
+                                                <form class="col-md-3"  style="margin-left:10px;" action="{{route('supervisor.destroy', [$supervisor->id])}}"
                                                     method="POST">
-                                                    <input type="hidden" name="_method" value="DELETE">
-                                                    <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                                                    @csrf
+                                                    @method("DELETE")
                                                     <button type="submit" class="btn btn-danger" title="Excluir"
                                                         onclick="return confirm('Tem certeza que deseja deletar o supervisor selecionada?')">
                                                         <i class="fa fa-trash"></i>

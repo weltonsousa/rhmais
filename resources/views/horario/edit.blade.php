@@ -27,10 +27,9 @@
                             <div class="clearfix"></div>
                         </div>
                         <div class="x_content">
-                            <form action="{{ route('horario.update',  $horarios->id) }}" id="myForm" role="form"
-                                data-toggle="validator" method="post" accept-charset="utf-8">
-                                <input type="hidden" name="_method" value="PUT">
-                                <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                            <form action="{{ route('horario.update',  $horarios->id) }}" id="myForm" role="form" data-toggle="validator" method="post" accept-charset="utf-8">
+                                @csrf
+                                @method("PUT")
                                 <!-- SmartWizard html -->
                                 <div>
                                     <div>
@@ -38,31 +37,26 @@
                                             <div id="form-step-0" role="form" data-toggle="validator">
                                                 <div class="row" style="width:960px; margin: 20px auto;">
                                                     <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
+                                                        <label for="">Descrição do Horário</label>
                                                         <input type="text" value="{{$horarios->descricao}}"
                                                             class="form-control has-feedback-left"
-                                                            placeholder="Descrição do Horário:" name="descricao">
+                                                            placeholder="Descrição do Horário" name="descricao">
                                                         <span class="fa fa-user form-control-feedback left"
                                                             aria-hidden="true"></span>
                                                     </div>
                                                     <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
+                                                        <label for="">Quantidade Horas</label>
                                                         <input type="text" value="{{$horarios->qtd_horas}}"
                                                             class="form-control has-feedback-left"
-                                                            placeholder="Quantidade Horas:" name="qtd_horas">
+                                                            placeholder="Quantidade Horas" name="qtd_horas">
                                                         <span class="fa fa-user form-control-feedback left"
                                                             aria-hidden="true"></span>
                                                     </div>
                                                     <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
+                                                        <label for="">Unidade</label>
                                                         <input type="text" value="{{ $horarios->empresa->nome_fantasia }}"
-                                                            class="form-control has-feedback-left">
+                                                            class="form-control has-feedback-left" readonly>
                                                             <input type="hidden" name="empresa_id" value="{{ $horarios->empresa->id }}">
-                                                        <span class="fa fa-home form-control-feedback left"
-                                                            aria-hidden="true"></span>
-                                                    </div>
-                                                    <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
-                                                        <input type="text" value="{{$horarios->agente_integracao}}"
-                                                            class="form-control has-feedback-left" value="KOSTER E KOSTER CONSULTORIA EM RH LTDA - RH MAIS TALENTOS"
-                                                            readonly placeholder="Agente de Integração"
-                                                            name="agente_integracao">
                                                         <span class="fa fa-home form-control-feedback left"
                                                             aria-hidden="true"></span>
                                                     </div>

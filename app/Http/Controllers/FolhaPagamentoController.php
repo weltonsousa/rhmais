@@ -27,8 +27,10 @@ class FolhaPagamentoController extends Controller
 
         if (request('unidade_id') !== null || request('referencia') !== null) {
 
-            $folhaPeriodo = DB::table('folha_pagamento')
+            $folhas = DB::table('folha_pagamento')
                 ->join('empresa', 'empresa.id', '=', 'folha_pagamento.empresa_id')
+                ->select('folha_pagamento.id', 'folha_pagamento.referencia', 'folha_pagamento.estagiario_id', 'folha_pagamento.empresa_id',
+                    'folha_pagamento.valor_bolsa', 'folha_pagamento.faltas', 'folha_pagamento.valor_liquido', 'folha_pagamento.status', 'folha_pagamento.ativo')
                 ->where("empresa_id", $unidades)
                 ->where("referencia", $referencia)
                 ->get();
@@ -43,7 +45,7 @@ class FolhaPagamentoController extends Controller
             return view('folha_pagamento.index', [
                 'periodos' => $periodos,
                 'unidades' => $empresas = Empresa::where('id', request('unidades_id'))->get(),
-                'folhas' => $folhaPeriodo,
+                'folhas' => $folhas,
                 'estagiarios' => $estagiarios = Estagiario::all(),
                 'empresas' => $unidade,
                 'referencia' => $referencia,
@@ -52,7 +54,6 @@ class FolhaPagamentoController extends Controller
         } else {
 
             $unidades = DB::table('cau')->join('empresa', 'empresa.id', '=', 'cau.empresa_id')->select('empresa.id as empresa_id', 'empresa.nome_fantasia', 'cau.data_inicio', 'cau.data_fim', 'cau.situacao', 'cau.id AS id')->get();
-
             $estagiarios = DB::table('estagiario')->get();
             $contratos = DB::table("tce_contrato")->get();
 
@@ -83,36 +84,6 @@ class FolhaPagamentoController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {}
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\FolhaPagamento  $folhaPagamento
-     * @return \Illuminate\Http\Response
-     */
-    public function show(FolhaPagamento $folhaPagamento)
-    {
-        //
-    }
-
-    /**
      * Show the form for editing the specified resource.
      *
      * @param  \App\FolhaPagamento  $folhaPagamento
@@ -120,7 +91,6 @@ class FolhaPagamentoController extends Controller
      */
     public function edit($id)
     {
-
         $folha = DB::table('folha_pagamento')->where('id', $id)->get()->first();
         $empresa = DB::table('empresa')->where('id', $folha->empresa_id)->get()->first();
         $estagiario = DB::table('estagiario')->where('id', $folha->estagiario_id)->get()->first();
@@ -129,7 +99,7 @@ class FolhaPagamentoController extends Controller
 
         $mesAtual = date("m");
         $users = DB::table('beneficio_estagiario')->where('estagiario_id', $folha->estagiario_id)->get();
-// dd($users);
+
         $mes = date("m");
         if ($mes == 1 || $mes == 3 || $mes == 5 || $mes == 7 || $mes == 8 || $mes == 10 || $mes == 12) {
             $dias_considerados = 31;
@@ -142,68 +112,33 @@ class FolhaPagamentoController extends Controller
         return view('folha_pagamento.edit', ['folha' => $folha, 'empresa' => $empresa, 'estagiario' => $estagiario, 'contrato' => $contrato, 'dias_considerados' => $dias_considerados, 'beneficios' => $beneficios, 'users' => $users]);
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\FolhaPagamento  $folhaPagamento
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {}
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\FolhaPagamento  $folhaPagamento
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(FolhaPagamento $folhaPagamento)
-    {
-        //
-    }
-
     public function editar(Request $request)
     {
-
         $folha = DB::table('folha_pagamento')->where('id', $request->folha_id)->get()->first();
-        $beneficios = DB::table('beneficio_estagiario')->where('folha_id', '=', $request->folha_id)->whereMonth('created_at', '=', date('m'))->get();
+        $beneficios = DB::table('beneficio_estagiario')->where('folha_id', '=', $request->folha_id)->get();
         $update = DB::update('update folha_pagamento set faltas = ? where id = ?', [$request->dias_falta, $request->folha_id]);
 
         if ($beneficios) {
+            $credito = BeneficioEstagiario::where('folha_id', '=', $request->folha_id)->where('tipo', '=', 1)->sum('valor');
+            $debito = BeneficioEstagiario::where('folha_id', '=', $request->folha_id)->where('tipo', '=', 2)->sum('valor');
+            $data = DB::table('folha_pagamento')->where('id', $request->folha_id)->select('valor_bolsa', 'faltas')->get();
 
-            $credito = DB::table('beneficio_estagiario')->where('folha_id', '=', $request->folha_id)->where('tipo', '=', 1)->whereMonth('created_at', '=', date('m'))->sum('valor');
-            $debito = DB::table('beneficio_estagiario')->where('folha_id', '=', $request->folha_id)->where('tipo', '=', 2)->whereMonth('created_at', '=', date('m'))->sum('valor');
-            $faltas = DB::table('folha_pagamento')->where('id', $request->folha_id)->pluck('faltas');
-            $folha_ = FolhaPagamento::where('id', $request->folha_id)->pluck('valor_bolsa');
+            foreach ($data as $da) {
+                $bolsa = $da->valor_bolsa;
+                $falta = $da->faltas;
+            }
 
-            $faltaMes = $folha_[0] / 30 * $faltas[0];
-            $resultado = ($folha_[0] + $credito - $debito) - $faltaMes;
-            // $resultado_real = number_format($resultado, 2, ',', '.');
-            $resultado_real = $resultado;
+            $r_bolsa = $bolsa / 30;
+            $r_bolsa = round($r_bolsa, 1);
+            $faltaMes = $r_bolsa * $falta;
+            $debito_credito = ($credito - $debito);
+            $resultado = ($bolsa + $debito_credito) - $faltaMes;
 
-            DB::update('update folha_pagamento set valor_liquido = ?, status =1 where id = ?', [$resultado_real, $folha->id]);
+            DB::update('update folha_pagamento set valor_liquido = ?, status =1 where id = ?', [$resultado, $folha->id]);
+
+            return redirect('folha_pagamento')
+                ->with('success', 'ATUALIZADO COM SUCESSO');
         }
-
-        return redirect('folha_pagamento')
-            ->with('success', 'Atualizado com sucesso!');
-    }
-
-    public function adicionarBeneficio(Resquest $request)
-    {
-        $beneficio_estagiario = BeneficioEstagiario::updateOrCreate(
-            ['referencia' => $request->referencia],
-            ['estagiario_id' => $request->estagiario_id],
-            ['beneficio_id' => $request->beneficio_id],
-            ['valor' => str_replace(',', '.', $request->valor)]
-        );
-        return Response::json($beneficio_estagiario);
-    }
-
-    public function removerBeneficio($id)
-    {
-        $user = BeneficioEstagiario::where('id', $id)->delete();
-        return Response::json($user);
     }
 
 }

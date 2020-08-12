@@ -28,7 +28,7 @@
                         </div>
                         <div class="x_content">
                             <form action="{{ route('setor.store') }}" method="post">
-                                {{csrf_field()}}
+                               @csrf
 
                                 <!-- SmartWizard html -->
                                 <div>

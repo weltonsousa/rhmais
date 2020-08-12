@@ -23,12 +23,13 @@ class HomeController extends Controller
 
         $dataMasc = DB::table('estagiario')->where('sexo', 'Masculino')->count();
         $dataFem = DB::table('estagiario')->where('sexo', 'Feminino')->count();
-        $dataMe = DB::table('estagiario')->where('curso', 'Medio')->count();
-        $dataSup = DB::table('estagiario')->where('curso', 'Superior')->count();
-        $dataMTec = DB::table('estagiario')->where('curso', 'Medio Tecnico')->count();
-        $dataSTec = DB::table('estagiario')->where('curso', 'Tecnico')->count();
-        $dataNFund = DB::table('estagiario')->where('curso', 'Fundamental')->count();
-        $dataNProf = DB::table('estagiario')->where('curso', 'Profissional')->count();
+
+        $dataMe = DB::table('estagiario')->where('nivel', 'NÍVEL MÉDIO - NM')->count();
+        $dataSup = DB::table('estagiario')->where('nivel', 'NÍVEL SUPERIOR- NS')->count();
+        $dataMTec = DB::table('estagiario')->where('nivel', 'NÍVEL MÉDIO TÉCNICO - MT')->count();
+        $dataSTec = DB::table('estagiario')->where('nivel', 'NÍVEL TÉCNICO')->count();
+        $dataNFund = DB::table('estagiario')->where('nivel', 'FUNDAMENTAL - NF')->count();
+        $dataNProf = DB::table('estagiario')->where('nivel', 'NÍVEL PROFISSIONAL')->count();
 
         $jan1 = TceContrato::whereMonth('created_at', '1')->where('status', '1')->count();
         $jan2 = TceContrato::whereMonth('created_at', '1')->where('status', '2')->count();

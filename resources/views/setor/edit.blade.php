@@ -27,10 +27,10 @@
                             <div class="clearfix"></div>
                         </div>
                         <div class="x_content">
-                            <form action="{{ route('setor.update',  $setor->id) }}" id="myForm" role="form"
-                                data-toggle="validator" method="post" accept-charset="utf-8">
-                                <input type="hidden" name="_method" value="PUT">
-                                <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                            <form action="{{ route('setor.update',  $setor->id) }}" id="myForm" role="form" data-toggle="validator" method="post" accept-charset="utf-8">
+                                @csrf
+                                @method("PUT")
+
                                 <!-- SmartWizard html -->
                                 <div>
                                     <div>

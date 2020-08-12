@@ -44,45 +44,60 @@ class RecessoController extends Controller
             )
             ->get();
 
-        $data1text = DB::table('tce_contrato')->where([['data_inicio', '=', $recessos[0]->data_inicio]])->get();
-        $data2text = DB::table('tce_contrato')->where([['data_fim', '=', $recessos[0]->data_fim]])->get();
-        $bolsa = DB::table('tce_contrato')->where('bolsa', '=', $recessos[0]->bolsa)->get();
-        $date = date('Y');
+        if (count($recessos) > 0) {
 
-        $sub_valor = substr($bolsa[0]->bolsa, 0, 4);
-        $valor = str_replace(',', '.', str_replace('.', '', $sub_valor));
+            $data1text = DB::table('tce_contrato')->where([['data_inicio', '=', $recessos[0]->data_inicio]])->get();
+            $data2text = DB::table('tce_contrato')->where([['data_fim', '=', $recessos[0]->data_fim]])->get();
+            $bolsa = DB::table('tce_contrato')->where('bolsa', '=', $recessos[0]->bolsa)->get();
+            $date = date('Y');
 
-        $date1 = DateTime::createFromFormat('Y-m-d H:i', $data1text[0]->data_inicio);
-        $date2 = DateTime::createFromFormat('Y-m-d H:i', $data2text[0]->data_fim);
+            $sub_valor = substr($bolsa[0]->bolsa, 0, 4);
+            $valor = str_replace(',', '.', str_replace('.', '', $sub_valor));
 
-        //Repare que inverto a ordem, assim terei a subtração da ultima data pela primeira.
-        //Calculando a diferença entre os meses
-        $meses = ((int) date('m', $date2) - (int) date('m', $date1))
-        //     //    e somando com a diferença de anos multiplacado por 12
-         + (((int) date('y', $date2) - (int) date('y', $date1)) * 12);
-        if ($meses <= 12) {
-            // $soma = is_float($bolsa[0]->bolsa) / 12;
-            $soma = $valor / 12;
-            $resultado = $soma * $meses;
-            // echo $resultado;
+            $date1 = DateTime::createFromFormat('Y-m-d H:i', $data1text[0]->data_inicio);
+            $date2 = DateTime::createFromFormat('Y-m-d H:i', $data2text[0]->data_fim);
+
+            //Repare que inverto a ordem, assim terei a subtração da ultima data pela primeira.
+            //Calculando a diferença entre os meses
+            $meses = ((int) date('m', $date2) - (int) date('m', $date1))
+            //     //    e somando com a diferença de anos multiplacado por 12
+             + (((int) date('y', $date2) - (int) date('y', $date1)) * 12);
+            if ($meses <= 12) {
+                // $soma = is_float($bolsa[0]->bolsa) / 12;
+                $soma = $valor / 12;
+                $resultado = $soma * $meses;
+                // echo $resultado;
+            } else {
+                // $soma = $bolsa[0]->bolsa / 24;
+                $soma = $valor / 24;
+                $resultado = $soma * $meses;
+            }
+
+            $listaRecessos = DB::table('recesso')->get();
+
+            return view('termo.index', [
+                'listaRecessos' => $listaRecessos,
+                'dataContrato' => $data1text,
+                'dataFim' => $data2text,
+                'dataAgora' => $date,
+                'bolsa' => $bolsa,
+                'meses' => $meses,
+                'recessos' => $recessos,
+                'resultado' => $resultado,
+            ]);
         } else {
-            // $soma = $bolsa[0]->bolsa / 24;
-            $soma = $valor / 24;
-            $resultado = $soma * $meses;
+
+            return view('termo.index', [
+                'listaRecessos' => [],
+                'dataContrato' => [],
+                'dataFim' => [],
+                'dataAgora' => [],
+                'bolsa' => [],
+                'meses' => [],
+                'recessos' => [],
+                'resultado' => [],
+            ]);
         }
-
-        $listaRecessos = DB::table('recesso')->get();
-
-        return view('termo.index', [
-            'listaRecessos' => $listaRecessos,
-            'dataContrato' => $data1text,
-            'dataFim' => $data2text,
-            'dataAgora' => $date,
-            'bolsa' => $bolsa,
-            'meses' => $meses,
-            'recessos' => $recessos,
-            'resultado' => $resultado,
-        ]);
     }
 
     public static function valorFerias($dataInicio, $valorBolsa)

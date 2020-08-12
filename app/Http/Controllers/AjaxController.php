@@ -17,12 +17,10 @@ class AjaxController extends Controller
     public function beneficio_estagiario($id)
     {
         $id_estagiario = $id;
-        $data = date("m");
 
         $estagiario = DB::table('beneficio')
             ->join('beneficio_estagiario', 'beneficio.id', '=', 'beneficio_estagiario.beneficio_id')
-            ->where('estagiario_id', '=', $id_estagiario)
-            ->whereMonth('beneficio_estagiario.created_at', '=', $data)
+            ->where('folha_id', '=', $id_estagiario)
             ->get();
         return Datatables::of($estagiario)
             ->addColumn('action', function ($row) {
@@ -38,9 +36,7 @@ class AjaxController extends Controller
             }
             return $tipo;
         })->addColumn('valor_real', function ($row) {
-            $valor = number_format($row->valor, 2, ',', '.');
-            // $valor = $row->valor;
-            return "R$ " . $valor;
+            return '<div class="dinheiro">' . $row->valor . '</div>';
 
         })->rawColumns(['action', 'tipo_folha', 'valor_real'])
             ->make(true);
@@ -56,8 +52,6 @@ class AjaxController extends Controller
             ->get();
 
         return response()->json($saldo);
-        // return Datatables::of($saldo)->make(true);
-
     }
 
     /**
@@ -68,9 +62,11 @@ class AjaxController extends Controller
      */
     public function store(Request $request)
     {
+        $valor = str_replace(',', '.', str_replace('.', '', $request->valor));
+
         BeneficioEstagiario::updateOrCreate(['id' => $request->product_id],
             [
-                'valor' => str_replace(',', '.', $request->valor),
+                'valor' => $valor,
                 'tipo' => $request->tipo,
                 'estagiario_id' => $request->estagiario_id,
                 'beneficio_id' => $request->beneficio_id,
@@ -88,7 +84,7 @@ class AjaxController extends Controller
      */
     public function edit($id)
     {
-        BeneficioEstagiario::find($id)->delete();
+        BeneficioEstagiario::find($id)->update($id);
         return response()->json(['success' => 'Atualizado com sucesso.']);
     }
 

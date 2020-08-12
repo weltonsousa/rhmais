@@ -29,8 +29,7 @@
                         <div class="x_content">
                             <form action="{{ route('curso.store') }}" id="myForm" role="form" data-toggle="validator"
                                 method="post" accept-charset="utf-8">
-                                {{csrf_field()}}
-
+                                @csrf
                                 <!-- SmartWizard html -->
                                 <div>
                                     <div>
@@ -52,8 +51,6 @@
                                                             <option value="NÍVEL MÉDIO TÉCNICO - MT">NÍVEL MÉDIO TÉCNICO - MT</option>
                                                             <option value="NÍVEL SUPERIOR- NS">NÍVEL SUPERIOR- NS</option>
                                                         </select>
-                                                        {{-- <input type="text" class="form-control has-feedback-left"
-                                                            placeholder="Nivel" name="nivel"> --}}
                                                         <span class="fa fa-graduation-cap form-control-feedback left"
                                                             aria-hidden="true"></span>
                                                     </div>

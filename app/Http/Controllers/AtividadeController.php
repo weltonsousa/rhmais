@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Atividade;
 use App\Empresa;
+use App\TceContrato;
 use Illuminate\Http\Request;
 
 class AtividadeController extends Controller
@@ -30,8 +31,7 @@ class AtividadeController extends Controller
      */
     public function create()
     {
-        $empresas = Empresa::all();
-
+        $empresas = Empresa::all(['id', 'nome_fantasia']);
         return view('atividade.create', compact('empresas'));
     }
 
@@ -51,23 +51,10 @@ class AtividadeController extends Controller
         $atividades = new Atividade();
         $atividades->nome = $request->get('nome');
         $atividades->empresa_id = $request->get('empresa_id');
-        $atividades->agente_integracao = $request->get('agente_integracao');
-
         $atividades->save();
 
         return redirect()->route('atividade.index')
-            ->with('success', 'Cadastrado com sucesso.');
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Atividade  $atividade
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Atividade $atividade)
-    {
-        //
+            ->with('success', 'CADASTRADO COM SUCESSO');
     }
 
     /**
@@ -101,7 +88,7 @@ class AtividadeController extends Controller
         $atividades->empresa_id = $request->get('empresa_id');
         $atividades->save();
 
-        $request->session()->flash('success', 'Atualizado com sucesso!');
+        $request->session()->flash('success', 'ATUALIZADO COM SUCESSO');
         return redirect('atividade');
     }
 
@@ -111,10 +98,16 @@ class AtividadeController extends Controller
      * @param  \App\Atividade  $atividade
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Request $request, Atividade $atividade)
+    public function destroy(Request $request, $id)
     {
-        $atividade->delete();
-        $request->session()->flash('warning', 'Removido com sucesso!');
-        return redirect('atividade');
+        if (TceContrato::where('atividade_id', $id)->first()) {
+            $request->session()->flash('warning', 'ATIVIDADE NÃO PODE SER REMOVIDO');
+            return redirect('atividade');
+        } else {
+            $atividade = Atividade::find($id);
+            $atividade->delete();
+            $request->session()->flash('warning', 'REMOVIDO COM SUCESSO');
+            return redirect('atividade');
+        }
     }
 }

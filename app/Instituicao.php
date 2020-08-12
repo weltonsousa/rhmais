@@ -32,15 +32,13 @@ class Instituicao extends Model
 
     protected $table = 'instituicao';
 
-    public function estagios()
+    public function estagiario()
     {
-        return $this->hasMany('App\Estagiario');
+        return $this->hasOne('App\Estagiario');
     }
-
     public function cce()
     {
         return $this->hasOne('App\Cce', 'instituicao_id', 'id');
-
     }
     public function tceContrato()
     {

@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Empresa;
 use App\Instituicao;
 use App\Orientador;
+use App\TceContrato;
 use DB;
 use Illuminate\Http\Request;
 
@@ -21,7 +21,6 @@ class OrientadorController extends Controller
      */
     public function index()
     {
-        // $instituicoes = Instituicao::all();
         $orientadores = Orientador::all();
         return view('orientador.index', compact('orientadores'));
     }
@@ -34,11 +33,8 @@ class OrientadorController extends Controller
     public function create()
     {
         $estados = DB::table("estado")->pluck("nome", "id");
-
-        $instituicoes = Instituicao::all();
-        $empresas = Empresa::all();
-
-        return view('orientador.create', compact('estados', 'empresas', 'cursos', 'instituicoes'));
+        $instituicoes = Instituicao::all(['id', 'nome_instituicao']);
+        return view('orientador.create', compact('estados', 'cursos', 'instituicoes'));
     }
 
     /**
@@ -60,7 +56,6 @@ class OrientadorController extends Controller
         $orientadoress->cpf = $request->get('cpf');
         $orientadoress->telefone = $request->get('telefone');
         $orientadoress->celular = $request->get('celular');
-        $orientadoress->agente_integracao = $request->get('agente_integracao');
         $orientadoress->cidade = $request->get('cidade');
         $orientadoress->estado = $request->get('estado');
         $orientadoress->formacao = $request->get('formacao');
@@ -75,7 +70,7 @@ class OrientadorController extends Controller
         $orientadoress->save();
 
         return redirect()->route('orientador.index')
-            ->with('success', 'Cadastrado com sucesso.');
+            ->with('success', 'CADASTRADOR COM SUCESSO.');
     }
 
     /**
@@ -98,9 +93,9 @@ class OrientadorController extends Controller
     public function edit($id)
     {
         $orientador = Orientador::find($id);
-        $instituicoes = Instituicao::all();
-        $empresas = Empresa::all();
-        return view('orientador.edit', compact('orientador', 'instituicoes', 'empresas', $orientador));
+        $instituicoes = Instituicao::all(['id', 'nome_instituicao']);
+
+        return view('orientador.edit', compact('orientador', 'instituicoes'));
     }
 
     /**
@@ -123,7 +118,6 @@ class OrientadorController extends Controller
         $orientadoress->cpf = $request->get('cpf');
         $orientadoress->telefone = $request->get('telefone');
         $orientadoress->celular = $request->get('celular');
-        $orientadoress->agente_integracao = $request->get('agente_integracao');
         $orientadoress->cidade = $request->get('cidade');
         $orientadoress->estado = $request->get('estado');
         $orientadoress->formacao = $request->get('formacao');
@@ -137,7 +131,7 @@ class OrientadorController extends Controller
         $orientadoress->instituicao_id = $request->get('instituicao_id');
         $orientadoress->save();
 
-        $request->session()->flash('success', 'Atualizado com sucesso!');
+        $request->session()->flash('success', 'ATUALIZADO COM SUCESSO');
         return redirect('orientador');
     }
 
@@ -147,10 +141,28 @@ class OrientadorController extends Controller
      * @param  \App\Orientador  $orientador
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Request $request, Orientador $orientador)
+    public function destroy(Request $request, $id)
     {
-        $orientador->delete();
-        $request->session()->flash('warning', 'Removido com sucesso!');
-        return redirect('orientador');
+        if (TceContrato::where('orientador_id', $id)->first()) {
+            $request->session()->flash('warning', 'ORIENTADOR NÃO PODE SER REMOVIDO');
+            return redirect('orientador');
+        } else {
+            $orientador = Orientador::find($id);
+            $orientador->delete();
+            $request->session()->flash('warning', 'REMOVIDO COM SUCESSO');
+            return redirect('orientador');
+        }
+    }
+
+    public function orientadorAjax($id)
+    {
+
+        $orientador = DB::table('orientador')
+            ->join('instituicao', 'instituicao.id', '=', 'orientador.instituicao_id')
+            ->where("orientador.instituicao_id", $id)
+            ->select("orientador.id", "orientador.nome")
+            ->get();
+
+        return json_encode($orientador);
     }
 }

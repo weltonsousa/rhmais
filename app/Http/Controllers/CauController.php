@@ -21,7 +21,6 @@ class CauController extends Controller
      */
     public function index()
     {
-
         $caus = Cau::all();
         return view('cau_convenio.index', compact('caus'));
     }
@@ -33,7 +32,7 @@ class CauController extends Controller
      */
     public function create()
     {
-        $empresas = Empresa::all();
+        $empresas = Empresa::all(['id', 'nome_fantasia']);
         return view('cau_convenio.create', compact('empresas'));
     }
 
@@ -55,30 +54,14 @@ class CauController extends Controller
 
         $cau = new cau();
         $cau->empresa_id = $request->get('empresa_id');
-        $cau->agente_integracao = $request->get('agente_integracao');
         $cau->data_inicio = Carbon::createFromFormat('d/m/Y', $date_inicio)->format('Y-m-d');
         $cau->data_fim = Carbon::createFromFormat('d/m/Y', $date_fim)->format('Y-m-d');
         $cau->data_doc = Carbon::createFromFormat('d/m/Y', $date_doc)->format('Y-m-d');
         $cau->obs = $request->get('obs');
-        // dd($cau);
         $cau->save();
 
-        $request->session()->flash('success', 'Cadastrado com sucesso!');
+        $request->session()->flash('success', 'CADASTRADO COM SUCESSO');
         return redirect('cau_convenio');
-
-        // return redirect()->route('cau_convenio.index')
-        //     ->with('success', 'Cadastrado com sucesso.');
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Cau  $cau
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Cau $cau)
-    {
-        //
     }
 
     /**
@@ -89,9 +72,9 @@ class CauController extends Controller
      */
     public function edit($id)
     {
-        $cau = DB::table('cau')->where('id', $id)->first();
+        $cau = Cau::find($id);
         $empresas = DB::table('empresa')->where('id', '=', $cau->empresa_id)->get()->first();
-        return view('cau_convenio.edit', compact('cau', 'empresas', $cau));
+        return view('cau_convenio.edit', compact('cau', 'empresas'));
     }
 
     /**
@@ -118,7 +101,7 @@ class CauController extends Controller
         $cau->obs = $request->get('obs');
         $cau->save();
 
-        $request->session()->flash('success', 'Atualizado com sucesso!');
+        $request->session()->flash('success', 'ATUALIZADO COM SUCESSO');
         return redirect('cau_convenio');
     }
 
@@ -132,9 +115,8 @@ class CauController extends Controller
     {
         $cau = Cau::find($id);
         $cau->delete();
-        $request->session()->flash('warning', 'Removido com sucesso!');
+        $request->session()->flash('warning', 'REMOVIDO COM SUCESSO');
         return redirect('cau_convenio');
-
     }
 
     public function assinado($id)

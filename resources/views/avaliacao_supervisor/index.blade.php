@@ -51,12 +51,6 @@
                                             <td>LIFE ACADEMIA BRASIL EIRELI- EPP - ACADEMIA LIFE GYM</td>
                                             <td>10/09/2018 31/12/2019</td>
                                             <td>LUCIELENA NISTA</td>
-                                            {{-- <td style="width:10%;">
-                                                <div class="col-md-3">
-                                                    <a href="#"
-                                                        class="btn btn-primary" title="Lançar"> <i class="fa fa-pencil"> </i></a>
-                                                </div>
-                                            </td> --}}
                                             <td style="width:5%;">2</td>
                                         </tr>
                                     </tbody>

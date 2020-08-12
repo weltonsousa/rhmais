@@ -25,9 +25,9 @@
                      @include('layout.alerta.flash-message')
                     <div class="col-md-12 col-sm-12 col-xs-12">
                         <form action="{{route('processar')}}" id="frm-relatorio" method="POST">
-                            {{ csrf_field() }}
+                            @csrf
                             <div class="col-md-2">
-                                <label for="">Unidade:</label>
+                                <label for="">Unidade</label>
                                 <select name="unidade_id" id="unidade-id" class="form-control">
                                     <option value=""> Todas as Unidades</option>
                                     @foreach ($unidades as $unidade)
@@ -36,7 +36,7 @@
                                 </select>
                             </div>
                             <div class="col-md-2">
-                                <label for="">Período:</label>
+                                <label for="">Período</label>
                                 <select name="referencia" id="referencia" class="form-control">
                                     <option value=""> Periodo Ano</option>
                                     @foreach ($periodos as $periodo)
@@ -45,7 +45,7 @@
                                 </select>
                             </div>
                             <div class="col-md-2">
-                                <label for="">Dias Úteis:</label>
+                                <label for="">Dias Úteis</label>
                                 <select name="" class="form-control">
                                     <option> 01</option>
                                     <option> 02</option>
@@ -100,7 +100,7 @@
                                         <tr>
                                             <th>Status</th>
                                             <th>Referência
-                                                <input type="text" class="form-control" style="width:100px;">
+                                                <input type="text" class="form-control" style="width:80px;">
                                             </th>
                                             <th>Estagiario
                                                 <input type="text" class="form-control">
@@ -117,7 +117,7 @@
                                             <th>Valor Liquido
                                                 <input type="text" class="form-control" style="width:100px;">
                                             </th>
-                                            <th>Opções</th>
+                                            <th  style="width:10%">Opções</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -125,9 +125,9 @@
                                         <tr>
                                             <td>
                                                 @if ($folha->status == 0)
-                                                Pendente
+                                                <button type="button" class="btn btn-warning">Pendente</button>
                                                 @else
-                                                Gerado
+                                                <button type="button" class="btn btn-success">Gerado</button>
                                                 @endif
                                             </td>
                                             <td>{{ $folha->referencia }}</td>
@@ -149,21 +149,20 @@
                                                 }
                                                 @endphp
                                             </td>
-                                            <td>R$ {{ $folha->valor_bolsa }}</td>
+                                            <td class="dinheiro">{{ $folha->valor_bolsa }}</td>
                                             <td>{{ $folha->faltas }}</td>
-                                            <td>@if ($folha->valor_liquido)
-                                                 R$ {{ $folha->valor_liquido }}
-                                            @endif
-                                            </td>
+                                            <td class="dinheiro">{{$folha->valor_liquido}}</td>
                                              <td>
-                                                {{-- @if ($folha->status == 0) --}}
                                                 <form action="{{ route('folha_pagamento.edit', [$folha->id]) }}">
                                                 <button type="submit" class="btn btn-primary" title="Editar"><i class="fa fa-pencil"></i> </a>
                                                 </button>
-                                                {{-- @endif --}}
+                                                   @if ($folha->status != 0)
                                                 <a href="{{ route('holerite', [$folha->id]) }}" target="_blank" class="btn btn-success">
                                                     <i class="fa fa-print" title="Imprimir"></i>
                                                 </a>
+                                                @else
+                                                <div class="btn btn-success"><i class="fa fa-print" title="Imprimir"></i></div>
+                                                @endif
                                                 </form>
                                             </td>
                                         </tr>

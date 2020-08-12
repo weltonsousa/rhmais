@@ -28,8 +28,7 @@
                         </div>
                         <div class="x_content">
                             <form action="{{ route('seguro.store') }}" method="post">
-                                {{csrf_field()}}
-
+                               @csrf
                                 <!-- SmartWizard html -->
                                 <div>
                                     <div>
@@ -37,37 +36,21 @@
                                             <div id="form-step-0" role="form" data-toggle="validator">
                                                 <div class="row" style="width:960px; margin: 20px auto;">
                                                     <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
+                                                        <label for="">Nome da Seguradora</label>
                                                         <input type="text" class="form-control has-feedback-left"
-                                                            placeholder="Nome da Seguradora:" name="nome">
+                                                            placeholder="Nome da Seguradora" name="nome">
                                                         <span class="fa fa-user form-control-feedback left"
                                                             aria-hidden="true"></span>
                                                     </div>
                                                     <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
+                                                          <label for="">Nº da Apolice</label>
                                                         <input type="text" class="form-control has-feedback-left"
-                                                            placeholder="Nº da Apolice:" name="n_apolice">
+                                                            placeholder="Nº da Apolice" name="n_apolice">
                                                         <span class="fa fa-user form-control-feedback left"
                                                             aria-hidden="true"></span>
                                                     </div>
-                                                    {{-- <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
-                                                        <select class="form-control has-feedback-left"
-                                                            name="empresa_id">
-                                                            <option>Selecione Unidade Concedente:</option>
-                                                            @foreach ($empresas as $empresa)
-                                                            <option value="{{ $empresa->id }}">
-                                                                {{ $empresa->nome_fantasia }}</option>
-                                                            @endforeach
-                                                        </select>
-                                                        <span class="fa fa-home form-control-feedback left"
-                                                            aria-hidden="true"></span>
-                                                    </div> --}}
                                                     <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
-                                                        <input type="text" class="form-control has-feedback-left"
-                                                            value="KOSTER E KOSTER CONSULTORIA EM RH LTDA - RH MAIS TALENTOS" readonly placeholder="Agente de Integração"
-                                                            name="agente_integracao">
-                                                        <span class="fa fa-home form-control-feedback left"
-                                                            aria-hidden="true"></span>
-                                                    </div>
-                                                    <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
+                                                          <label for="">Cobertura</label>
                                                         <select class="form-control has-feedback-left" name="cobertura">
                                                         <option>Cobertura</option>
                                                         <option value="Sim">Sim</option>

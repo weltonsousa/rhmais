@@ -48,12 +48,12 @@
                                             @foreach ($beneficios as $beneficio)
                                             <td>{{$beneficio->nome}}</td>
                                             <td>{{$beneficio->sigla}}</td>
-                                        <td>@if ($beneficio->tipo == 1)
-                                        Crédito
-                                        @else
-                                        Débito
-                                        @endif
-                                        </td>
+                                            <td>@if ($beneficio->tipo == 1)
+                                                Crédito
+                                                @else
+                                                Débito
+                                                @endif
+                                            </td>
                                             <td style="width:15%;">
                                                 <div class="col-md-3">
                                                     <a href="{{route('beneficio.edit', [$beneficio->id])}}"
@@ -61,16 +61,17 @@
                                                 </div>
                                                 <form class="col-md-3" style="margin-left:10px;"
                                                     action="{{url('beneficio', [$beneficio->id])}}" method="POST">
-                                                    <input type="hidden" name="_method" value="DELETE">
-                                                    <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                                                    @csrf
+                                                    @method("DELETE")
                                                     <button type="submit" class="btn btn-danger" data-toggle="tooltip"
                                                         data-placement="top" title="Excluir"
                                                         onclick="return confirm('Tem certeza que deseja deletar o beneficio selecionado?')">
                                                         <i class="fa fa-trash"></i>
                                                     </button>
-                            </div>
-                            </form>
-                            </tr>
+                                                    </div>
+                                                </form>
+                                            </td>
+                                        </tr>
                             @endforeach
                             </tbody>
                             </table>

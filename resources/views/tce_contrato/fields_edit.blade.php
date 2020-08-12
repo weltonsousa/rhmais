@@ -30,8 +30,8 @@
                             @foreach ($tceContrato as  $tce )
                         <div class="x_content">
                             <form action="{{ route('tce_contrato.update', $tce->id) }}" method="post">
-                                  <input type="hidden" name="_method" value="PUT">
-                                  <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                                @csrf
+                                @method("PUT")
 
                                 <!-- SmartWizard html -->
                                 <div>
@@ -103,50 +103,50 @@
                                                     </div>
                                                     <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
                                                        <label for="">Benefício</label>
-                                                     <input type="hidden"  name="beneficio_id" value="{{ $beneficios->id}}">
-                                                    <input type="text" value="{{ $beneficios->nome }}"
-                                                        class="form-control has-feedback-left" placeholder="Seguro" readonly>
+                                                       <select  class="form-control has-feedback-left" name="beneficio_id" id="beneficio">
+                                                           <option value="{{ $beneficios->id}}">{{ $beneficios->nome }}</option>
+                                                       </select>
                                                     <span class="fa fa-user form-control-feedback left"
                                                             aria-hidden="true"></span>
                                                     </div>
                                                     <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
                                                           <label for="">Horario</label>
-                                                       <input type="hidden"  name="horario_id" value="{{ $horarios->id}}">
-                                                    <input type="text" value="{{ $horarios->descricao }}"
-                                                        class="form-control has-feedback-left" placeholder="Horario" readonly>
+                                                          <select class="form-control has-feedback-left" name="horario_id" id="horario">
+                                                              <option value="{{ $horarios->id}}">{{ $horarios->descricao }}</option>
+                                                          </select>
                                                     <span class="fa fa-user form-control-feedback left"
                                                             aria-hidden="true"></span>
                                                     </div>
 
                                                     <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
                                                           <label for="">Setor</label>
-                                                          <input type="hidden"  name="setor_id" value="{{ $setores->id}}">
-                                                    <input type="text" value="{{ $setores->nome }}"
-                                                        class="form-control has-feedback-left" placeholder="Setor" readonly>
+                                                          <select class="form-control has-feedback-left" name="setor_id" id="setor">
+                                                              <option value="{{ $setores->id}}">{{ $setores->nome }}</option>
+                                                          </select>
                                                     <span class="fa fa-user form-control-feedback left"
                                                             aria-hidden="true"></span>
                                                     </div>
                                                     <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
                                                           <label for="">Atividade</label>
-                                                        <input type="hidden"  name="atividade_id" value="{{ $atividades->id}}">
-                                                    <input type="text" value="{{ $atividades->nome }}"
-                                                        class="form-control has-feedback-left" placeholder="Atividade" readonly>
+                                                          <select class="form-control has-feedback-left" name="atividade_id" id="atividade">
+                                                              <option value="{{ $atividades->id}}">{{ $atividades->nome }}</option>
+                                                          </select>
                                                     <span class="fa fa-user form-control-feedback left"
                                                             aria-hidden="true"></span>
                                                     </div>
                                                     <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
                                                           <label for="">Orientador</label>
-                                                       <input type="hidden"  name="orientador_id" value="{{ $orientadores->id}}">
-                                                    <input type="text" value="{{ $orientadores->nome }}"
-                                                        class="form-control has-feedback-left" placeholder="Orientador" readonly>
+                                                          <select class="form-control has-feedback-left" name="orientador_id" id="orientador">
+                                                              <option value="{{ $orientadores->id}}">{{ $orientadores->nome }}</option>
+                                                          </select>
                                                     <span class="fa fa-user form-control-feedback left"
                                                             aria-hidden="true"></span>
                                                     </div>
                                                     <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
                                                      <label for="">Supervisor</label>
-                                                     <input type="hidden"  name="supervisor_id" value="{{ $supervisor->id}}">
-                                                    <input type="text" value="{{ $supervisor->nome }}"
-                                                        class="form-control has-feedback-left" placeholder="Supervisor" readonly>
+                                                     <select class="form-control has-feedback-left" name="supervisor_id" id="supervisor">
+                                                         <option value="{{ $supervisor->id}}">{{ $supervisor->nome }}</option>
+                                                     </select>
                                                         <span class="fa fa-user form-control-feedback left"
                                                             aria-hidden="true"></span>
                                                     </div>
@@ -193,68 +193,87 @@
 </div>
 <script type="text/javascript">
     $(document).ready(function() {
-        $('select[name="estagiario_id"]').on('change', function() {
-            var stateID = $(this).val();
-            if(stateID) {
+        $('#beneficio').one('click', function() {
                 $.ajax({
-                    url: '/tce-ajax/ajax/'+stateID,
+                    url: '/beneficio-ajax',
                     type: "GET",
                     dataType: "json",
                     success:function(data) {
-                        $('select[name="empresa_id"]').empty();
                         $.each(data, function(key, value) {
-                            $('select[name="empresa_id"]').append('<option value="'+ data[0].empresa_id +'">'+ data[0].nome_fantasia +'</option>');
-                            $('select[name="instituicao_id"]').append('<option value="'+ data[0].instituicao_id +'">'+ data[0].nome_instituicao +'</option>');
+                            $('select[name="beneficio_id"]').append('<option value="'+ key +'">'+ value +'</option>');
                         });
-                        consultaHorarios(data[0].empresa_id);
-                        atividadePrestada(data[0].empresa_id);
                     }
                 });
-            }else{
-                $('select[name="empresa_id"]').empty();
-            }
+            //    $('#beneficio').off('click');
         });
+        $('#setor').one('click', function() {
+                $.ajax({
+                    url: '/setor-ajax',
+                    type: "GET",
+                    dataType: "json",
+                    success:function(data) {
+                        $.each(data, function(key, value) {
+                            $('select[name="setor_id"]').append('<option value="'+ key +'">'+ value +'</option>');
+                        });
+                    }
+                });
+        });
+     $('#horario').one('click', function(){
+            var  emp =  $('#empresa_id').val();
+                $.ajax({
+                    url: '/horario-ajax/ajax/'+emp,
+                    type: "GET",
+                    dataType: "json",
+                    success:function(data) {
+                        $.each(data, function(key, value) {
+                            $('select[name="horario_id"]').append('<option value="'+ value.id +'">'+ value.descricao +'</option>');
+                          });
+                    }
+                });
+     });
+
+$('#atividade').one('click', function(){
+     var  emp =  $('#empresa_id').val();
+                $.ajax({
+                    url: '/atividade-ajax/ajax/'+emp,
+                    type: "GET",
+                    dataType: "json",
+                    success:function(data) {
+                        $.each(data, function(key, value) {
+                            $('select[name="atividade_id"]').append('<option value="'+ value.id +'">'+ value.nome +'</option>');
+                        });
+                    }
+                });
+        });
+
+        $('#orientador').one('click', function(){
+        var  inst =  $('#instituicao_id').val();
+                $.ajax({
+                    url: '/orientador-ajax/ajax/'+inst,
+                    type: "GET",
+                    dataType: "json",
+                    success:function(data) {
+                        $.each(data, function(key, value) {
+                            $('select[name="orientador_id"]').append('<option value="'+ value.id +'">'+ value.nome +'</option>');
+                        });
+                    }
+                });
+        });
+        $('#supervisor').one('click', function(){
+        var  emp =  $('#empresa_id').val();
+                $.ajax({
+                    url: '/supervisor-ajax/ajax/'+emp,
+                    type: "GET",
+                    dataType: "json",
+                    success:function(data) {
+                        $.each(data, function(key, value) {
+                            $('select[name="supervisor_id"]').append('<option value="'+ value.id +'">'+ value.nome +'</option>');
+                        });
+                    }
+                });
+        });
+
     });
-
-    function consultaHorarios(empresa_id){
-            if(empresa_id) {
-                $.ajax({
-                    url: '/horario-ajax/ajax/'+empresa_id,
-                    type: "GET",
-                    dataType: "json",
-                    success:function(data) {
-                        $('#lista-horario').empty();
-                        $.each(data, function(key, value) {
-                            for (i = 0; i < data.length; i++){
-                            $('#lista-horario').append('<option value="'+ data[0].id +'">'+ value.descricao +'</option>');
-                            }
-                        });
-                    }
-                });
-            }else{
-                $('#lista-horario').empty();
-            }
-    }
-
-function atividadePrestada(empresa_id){
-            if(empresa_id) {
-                $.ajax({
-                    url: '/atividade-ajax/ajax/'+empresa_id,
-                    type: "GET",
-                    dataType: "json",
-                    success:function(data) {
-                        $('#lista-atividade').empty();
-                        $.each(data, function(key, value) {
-                            for (i = 0; i < data.length; i++){
-                            $('#lista-atividade').append('<option value="'+ data[0].id +'">'+ value.nome +'</option>');
-                            }
-                        });
-                    }
-                });
-            }else{
-                $('#lista-atividade').empty();
-            }
-    }
 </script>
 
 @endsection

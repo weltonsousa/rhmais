@@ -29,7 +29,7 @@
                         </div>
                         <div class="x_content">
                             <form action="{{ route('tce_contrato.store') }}" method="post">
-                                {{csrf_field()}}
+                               @csrf
 
                                 <!-- SmartWizard html -->
                                 <div>
@@ -47,7 +47,7 @@
                                                     <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
                                                         <select class="form-control has-feedback-left"
                                                             name="estagiario_id">
-                                                            <option>Selecione o Estagiário:</option>
+                                                            <option>Selecione o Estagiário</option>
                                                             @foreach ($estagiarios as  $key => $value )
                                                            <option value="{{ $value->id }}">{{ $value->nome }}</option>
                                                             @endforeach
@@ -81,20 +81,20 @@
                                                     <div class="col-md-4 col-sm-6 col-xs-12 form-group has-feedback">
                                                         <label for=""> Data Início</label>
                                                         <input type="text" class="form-control has-feedback-left data"
-                                                            placeholder="Data Início:" id="data-inicio" name="data_inicio">
+                                                            placeholder="Data Início" id="data-inicio" name="data_inicio">
                                                         <span class="fa fa-calendar form-control-feedback left"
                                                             aria-hidden="true"></span>
                                                     </div>
                                                     <div class="col-md-4 col-sm-6 col-xs-12 form-group has-feedback">
                                                         <label for=""> Data Fim</label>
                                                         <input type="text" class="form-control has-feedback-left data"
-                                                            placeholder="Data Fim:" id="data-fim" name="data_fim">
+                                                            placeholder="Data Fim" id="data-fim" name="data_fim">
                                                         <span class="fa fa-calendar form-control-feedback left"
                                                             aria-hidden="true"></span>
                                                     </div>
                                                     <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
                                                         <select class="form-control has-feedback-left" name="beneficio_id">
-                                                            <option>Selecione Beneficio:</option>
+                                                            <option>Selecione Beneficio</option>
                                                             @foreach ($beneficios as $beneficio)
                                                             <option value="{{ $beneficio->id }}">{{ $beneficio->nome }}
                                                             </option>
@@ -105,7 +105,7 @@
                                                     </div>
                                                     <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
                                                         <select class="form-control has-feedback-left" name="apolice_id">
-                                                            <option>Selecione Seguro:</option>
+                                                            <option>Selecione Seguro</option>
                                                             @foreach ($seguros as $seguro)
                                                             <option value="{{ $seguro->id }}">{{ $seguro->nome }}
                                                             </option>
@@ -116,7 +116,7 @@
                                                     </div>
                                                     <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
                                                         <select id="lista-horario" class="form-control has-feedback-left" name="horario_id">
-                                                            <option>Horário de Estagio:</option>
+                                                            <option>Horário de Estagio</option>
                                                         </select>
                                                         <span class="fa fa-clock-o form-control-feedback left"
                                                             aria-hidden="true"></span>
@@ -124,7 +124,7 @@
 
                                                     <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
                                                         <select class="form-control has-feedback-left" name="setor_id">
-                                                            <option>Selecione Setor:</option>
+                                                            <option>Selecione Setor</option>
                                                             @foreach ($setores as $setor)
                                                             <option value="{{ $setor->id }}">{{ $setor->nome }}</option>
                                                             @endforeach
@@ -134,7 +134,7 @@
                                                     </div>
                                                     <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
                                                         <select id="lista-atividade" class="form-control has-feedback-left" name="atividade_id">
-                                                            <option>Selecione Atividade:</option>
+                                                            <option>Selecione Atividade</option>
                                                         </select>
                                                         <span class="fa fa-book form-control-feedback left"
                                                             aria-hidden="true"></span>
@@ -142,7 +142,7 @@
                                                     <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
                                                         <select class="form-control has-feedback-left"
                                                             name="orientador_id">
-                                                            <option>Orientador Estágio:</option>
+                                                            <option>Orientador Estágio</option>
                                                             @foreach ($orienta as $orient)
                                                             <option value="{{ $orient->id }}">{{ $orient->nome }}
                                                             </option>
@@ -154,7 +154,7 @@
                                                     <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
                                                         <select class="form-control has-feedback-left"
                                                             name="supervisor_id">
-                                                            <option>Supervisor Estagio:</option>
+                                                            <option>Supervisor Estagio</option>
                                                             @foreach ($super as $sup)
                                                             <option value="{{ $sup->id }}">{{ $sup->nome }}</option>
                                                             @endforeach
@@ -164,13 +164,13 @@
                                                     </div>
                                                     <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
                                                         <input type="text" maxlength="10" class="form-control has-feedback-left dinheiro"
-                                                            placeholder="Valor Bolsa-Auxílio:" name="bolsa">
+                                                            placeholder="Valor Bolsa-Auxílio" name="bolsa">
                                                         <span class="fa fa-money form-control-feedback left"
                                                             aria-hidden="true"></span>
                                                     </div>
                                                     <div class="col-md-12 col-sm-6 col-xs-12 form-group has-feedback">
                                                         <div class="checkbox">
-                                                            <label>Tipo de Estágio: </label>
+                                                            <label>Tipo de Estágio </label>
                                                             <label>
                                                                 <input type="radio" class="flat" checked="checked"
                                                                     name="obrigatorio" value="1"> Não

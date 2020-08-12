@@ -29,8 +29,8 @@
                         <div class="x_content">
                             <form action="{{ route('atividade.update',  $atividades->id) }}" id="myForm" role="form"
                                 data-toggle="validator" method="post" accept-charset="utf-8">
-                                <input type="hidden" name="_method" value="PUT">
-                                <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                                @csrf
+                                @method("PUT")
                                 <!-- SmartWizard html -->
                                 <div>
                                     <div>
@@ -38,15 +38,17 @@
                                             <div id="form-step-0" role="form" data-toggle="validator">
                                                 <div class="row" style="width:960px; margin: 20px auto;">
                                                     <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
+                                                         <label for="">Nome da atividade</label>
                                                         <input type="text" value="{{$atividades->nome}}"
                                                             class="form-control has-feedback-left"
-                                                            placeholder="Nome da Atividade:*" name="nome">
+                                                            placeholder="Nome da Atividade" name="nome">
                                                         <span class="fa fa-user form-control-feedback left"
                                                             aria-hidden="true"></span>
                                                     </div>
                                                     <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
+                                                         <label for="">Unidade</label>
                                                             <input type="text" value="{{ $atividades->empresa->nome_fantasia }}"
-                                                            class="form-control has-feedback-left">
+                                                            class="form-control has-feedback-left" readonly>
                                                             <input type="hidden" name="empresa_id" value="{{ $atividades->empresa->id }}">
                                                             <span class="fa fa-home form-control-feedback left"
                                                             aria-hidden="true"></span>

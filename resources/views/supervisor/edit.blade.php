@@ -27,10 +27,10 @@
                             <div class="clearfix"></div>
                         </div>
                         <div class="x_content">
-                            <form action="{{ route('supervisor.update',  $supervisor->id) }}" id="myForm" role="form"
-                                data-toggle="validator" method="post" accept-charset="utf-8">
-                                <input type="hidden" name="_method" value="PUT">
-                                <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                            <form action="{{ route('supervisor.update',  $supervisor->id) }}" id="myForm" role="form" data-toggle="validator" method="post" accept-charset="utf-8">
+                                @csrf
+                                @method("PUT")
+
                                 <!-- SmartWizard html -->
                                 <div>
                                     <div>
@@ -177,20 +177,8 @@
                                                             aria-hidden="true"></span>
                                                     </div>
                                                        <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
-                                                            @foreach ($empresa as $emp)
-                                                                @if ($supervisor->empresa_id == $emp->id)
-                                                                <input type="text" value="{{ $emp->nome_fantasia }}"
-                                                                    class="form-control has-feedback-left">
-                                                                    <input type="hidden" name="empresa_id" value="{{ $emp->id }}">
-                                                                @endif
-                                                            @endforeach
-                                                        <span class="fa fa-home form-control-feedback left"
-                                                            aria-hidden="true"></span>
-                                                    </div>
-                                                    <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
-                                                        <input type="text" class="form-control has-feedback-left"
-                                                            value="KOSTER E KOSTER CONSULTORIA EM RH LTDA - RH MAIS TALENTOS" readonly placeholder="Agente de Integração"
-                                                            name="agente_integracao">
+                                                                <input type="text" value="{{ $supervisor->empresa->nome_fantasia }}"
+                                                                    class="form-control has-feedback-left" readonly>
                                                         <span class="fa fa-home form-control-feedback left"
                                                             aria-hidden="true"></span>
                                                     </div>
