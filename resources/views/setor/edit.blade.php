@@ -27,7 +27,7 @@
                             <div class="clearfix"></div>
                         </div>
                         <div class="x_content">
-                            <form action="{{ route('setor.update',  $setor->id) }}" id="myForm" role="form" data-toggle="validator" method="post" accept-charset="utf-8">
+                            <form action="{{ route('setor.update',  $setor->id_setor) }}" id="myForm" role="form" data-toggle="validator" method="post" accept-charset="utf-8">
                                 @csrf
                                 @method("PUT")
 
@@ -39,7 +39,7 @@
                                             <div id="form-step-0" role="form" data-toggle="validator">
                                                 <div class="row" style="width:960px; margin: 0 auto;">
                                                     <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
-                                                        <input type="text" value="{{ $setor->nome }}"
+                                                        <input type="text" value="{{ $setor->nome_setor }}"
                                                             class="form-control has-feedback-left"
                                                             placeholder="Nome Setor" name="nome">
                                                         <span class="fa fa-user form-control-feedback left"

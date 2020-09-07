@@ -21,12 +21,12 @@ class PlanoEstagioController extends Controller
     public function index()
     {
         $planos = DB::table('tce_contrato')
-            ->join('estagiario', 'estagiario.id', '=', 'tce_contrato.estagiario_id')
-            ->join('empresa', 'empresa.id', '=', 'tce_contrato.empresa_id')
-            ->join('instituicao', 'instituicao.id', '=', 'tce_contrato.instituicao_id')
+            ->join('estagiario', 'estagiario.id_estagiario', '=', 'tce_contrato.estagiario_id')
+            ->join('empresa', 'empresa.id_empresa', '=', 'tce_contrato.empresa_id')
+            ->join('instituicao', 'instituicao.id_instituicao', '=', 'tce_contrato.instituicao_id')
             ->select(
                 'estagiario.nome',
-                'estagiario.id',
+                'estagiario.id_estagiario',
                 'empresa.nome_fantasia',
                 'instituicao.nome_instituicao',
                 'tce_contrato.bolsa',
@@ -37,7 +37,7 @@ class PlanoEstagioController extends Controller
                 'tce_contrato.obrigatorio',
                 'tce_contrato.plano_estagio',
                 'tce_contrato.aditivo',
-                'tce_contrato.id As tceId'
+                'tce_contrato.id_tce_contrato'
             )
             ->get();
         return view('plano_estagio.index', compact('planos', $planos));

@@ -7,6 +7,8 @@ use Illuminate\Database\Eloquent\Model;
 class FolhaPagamento extends Model
 {
     protected $fillable = ['valor_bolsa', 'valor_liquido'];
+
+    protected $primaryKey = 'id_folha_pagamento';
     protected $table = 'folha_pagamento';
 
     public function empresa()

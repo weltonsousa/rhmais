@@ -40,17 +40,17 @@ class FinanceiroController extends Controller
                 ->get();
 
             $contratos = DB::table("cobranca")
-                ->join('empresa', 'empresa.id', '=', 'cobranca.empresa_id')->where('empresa.id', '=', $unidades)
+                ->join('empresa', 'empresa.id_empresa', '=', 'cobranca.empresa_id')->where('empresa.id_empresa', '=', $unidades)
                 ->where('referencia', '=', $referencia)
                 ->get();
-            $qRescisao = DB::table('tce_rescisao')->join('empresa', 'empresa.id', '=', 'tce_rescisao.empresa_id')
-                ->select(DB::raw('count(*) AS qtd, empresa.id'))
-                ->groupBy('empresa.id')
+            $qRescisao = DB::table('tce_rescisao')->join('empresa', 'empresa.id_empresa', '=', 'tce_rescisao.empresa_id')
+                ->select(DB::raw('count(*) AS qtd, empresa.id_empresa'))
+                ->groupBy('empresa.id_empresa')
                 ->get();
 
-            $qAtivos = DB::table('tce_contrato')->join('empresa', 'empresa.id', '=', 'tce_contrato.empresa_id')
-                ->select(DB::raw('count(*) AS qtd, empresa.id', 'ativo'))
-                ->groupBy('empresa.id')
+            $qAtivos = DB::table('tce_contrato')->join('empresa', 'empresa.id_empresa', '=', 'tce_contrato.empresa_id')
+                ->select(DB::raw('count(*) AS qtd, empresa.id_empresa', 'ativo'))
+                ->groupBy('empresa.id_empresa')
                 ->where('tce_contrato.ativo', 1)
                 ->get();
 
@@ -70,11 +70,11 @@ class FinanceiroController extends Controller
             $contratos = DB::table("cobranca")->where('referencia', '=', $data)->get();
 
             foreach ($empresas as $empresa) {
-                if (!DB::table('cobranca')->where([['empresa_id', '=', $empresa->id], ['referencia', '=', date("Y/m")]])->get()->first()) {
-                    $contrato_da_empresa = DB::table('cau')->where('empresa_id', $empresa->id)->get()->first();
+                if (!DB::table('cobranca')->where([['empresa_id', '=', $empresa->id_empresa], ['referencia', '=', date("Y/m")]])->get()->first()) {
+                    $contrato_da_empresa = DB::table('cau')->where('empresa_id', $empresa->id_empresa)->get()->first();
                     if ($contrato_da_empresa) {
-                        $custo = Empresa::where('id', $empresa->id)->pluck('custo_unitario');
-                        $contagem = DB::table('tce_contrato')->where('empresa_id', $empresa->id)->where('ativo', 1)->count();
+                        $custo = Empresa::where('id_empresa', $empresa->id_empresa)->pluck('custo_unitario');
+                        $contagem = DB::table('tce_contrato')->where('empresa_id', $empresa->id_empresa)->where('ativo', 1)->count();
                         $soma_custo = $custo[0] * $contagem;
                         DB::insert('insert into cobranca (referencia, dia_pg_estagio, dia_fechamento, total_custo, data_boleto, empresa_id, created_at, updated_at) values (?, ?, ?, ?, ?, ?, ?, ?)', [date("Y/m"), $empresa->data_estagiario, $empresa->data_fechamento, $soma_custo, $empresa->data_boleto, $contrato_da_empresa->empresa_id, date("Y-m-d H:i:s"), date("Y-m-d H:i:s")]);
                     }
@@ -86,15 +86,15 @@ class FinanceiroController extends Controller
                 ->groupBy('referencia')
                 ->get();
 
-            $qAtivos = DB::table('tce_contrato')->join('empresa', 'empresa.id', '=', 'tce_contrato.empresa_id')
-                ->select(DB::raw('count(*) AS qtd, empresa.id', 'ativo'))
-                ->groupBy('empresa.id')
+            $qAtivos = DB::table('tce_contrato')->join('empresa', 'empresa.id_empresa', '=', 'tce_contrato.empresa_id')
+                ->select(DB::raw('count(*) AS qtd, empresa.id_empresa', 'ativo'))
+                ->groupBy('empresa.id_empresa')
                 ->where('tce_contrato.ativo', 1)
                 ->get();
 
-            $qRescisao = DB::table('tce_rescisao')->join('empresa', 'empresa.id', '=', 'tce_rescisao.empresa_id')
-                ->select(DB::raw('count(*) AS qtd, empresa.id'))
-                ->groupBy('empresa.id')
+            $qRescisao = DB::table('tce_rescisao')->join('empresa', 'empresa.id_empresa', '=', 'tce_rescisao.empresa_id')
+                ->select(DB::raw('count(*) AS qtd, empresa.id_empresa'))
+                ->groupBy('empresa.id_empresa')
                 ->get();
 
             return view('financeiro.index', [
@@ -112,16 +112,16 @@ class FinanceiroController extends Controller
 
         $data = date("Y/m");
         $contratos = DB::table('empresa')
-            ->join('cobranca', 'empresa.id', '=', 'cobranca.empresa_id')
-            ->join('cau', 'empresa.id', '=', 'cau.empresa_id')
-            ->where('cobranca.id', '=', $id)->where('referencia', '=', $data)->get();
+            ->join('cobranca', 'empresa.id_empresa', '=', 'cobranca.empresa_id')
+            ->join('cau', 'empresa.id_empresa', '=', 'cau.empresa_id')
+            ->where('cobranca.id_cobranca', '=', $id)->where('referencia', '=', $data)->get();
 
         return view('financeiro.infos', ['contratos' => $contratos]);
     }
 
     public function assinado($id)
     {
-        DB::update('update cobranca set situacao = 1 where id = ?', [$id]);
+        DB::update('update cobranca set situacao = 1 where id_cobranca = ?', [$id]);
         return redirect('financeiro');
     }
 }

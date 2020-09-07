@@ -29,7 +29,7 @@
                         </div>
                             @foreach ($tceContrato as  $tce )
                         <div class="x_content">
-                            <form action="{{ route('tce_contrato.update', $tce->id) }}" method="post">
+                            <form action="{{ route('tce_contrato.update', $tce->id_tce_contrato) }}" method="post">
                                 @csrf
                                 @method("PUT")
 
@@ -95,8 +95,8 @@
                                                     </div>
                                                     <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
                                                           <label for="">Seguro</label>
-                                                     <input type="hidden"  name="apolice_id" value="{{ $seguros->id}}">
-                                                    <input type="text" value="{{ $seguros->nome }}"
+                                                     <input type="hidden"  name="apolice_id" value="{{ $seguros->id_seguradora}}">
+                                                    <input type="text" value="{{ $seguros->nome_seguradora }}"
                                                         class="form-control has-feedback-left" placeholder="Seguro" readonly>
                                                         <span class="fa fa-user form-control-feedback left"
                                                             aria-hidden="true"></span>
@@ -104,7 +104,7 @@
                                                     <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
                                                        <label for="">Benefício</label>
                                                        <select  class="form-control has-feedback-left" name="beneficio_id" id="beneficio">
-                                                           <option value="{{ $beneficios->id}}">{{ $beneficios->nome }}</option>
+                                                           <option value="{{ $beneficios->id_beneficio}}">{{ $beneficios->nome_beneficio }}</option>
                                                        </select>
                                                     <span class="fa fa-user form-control-feedback left"
                                                             aria-hidden="true"></span>
@@ -112,7 +112,7 @@
                                                     <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
                                                           <label for="">Horario</label>
                                                           <select class="form-control has-feedback-left" name="horario_id" id="horario">
-                                                              <option value="{{ $horarios->id}}">{{ $horarios->descricao }}</option>
+                                                              <option value="{{ $horarios->id_horario}}">{{ $horarios->descricao }}</option>
                                                           </select>
                                                     <span class="fa fa-user form-control-feedback left"
                                                             aria-hidden="true"></span>
@@ -121,7 +121,7 @@
                                                     <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
                                                           <label for="">Setor</label>
                                                           <select class="form-control has-feedback-left" name="setor_id" id="setor">
-                                                              <option value="{{ $setores->id}}">{{ $setores->nome }}</option>
+                                                              <option value="{{ $setores->id_setor}}">{{ $setores->nome_setor }}</option>
                                                           </select>
                                                     <span class="fa fa-user form-control-feedback left"
                                                             aria-hidden="true"></span>
@@ -129,7 +129,7 @@
                                                     <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
                                                           <label for="">Atividade</label>
                                                           <select class="form-control has-feedback-left" name="atividade_id" id="atividade">
-                                                              <option value="{{ $atividades->id}}">{{ $atividades->nome }}</option>
+                                                              <option value="{{ $atividades->id_atividade}}">{{ $atividades->nome_atividade }}</option>
                                                           </select>
                                                     <span class="fa fa-user form-control-feedback left"
                                                             aria-hidden="true"></span>
@@ -137,7 +137,7 @@
                                                     <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
                                                           <label for="">Orientador</label>
                                                           <select class="form-control has-feedback-left" name="orientador_id" id="orientador">
-                                                              <option value="{{ $orientadores->id}}">{{ $orientadores->nome }}</option>
+                                                              <option value="{{ $orientadores->id_orientador}}">{{ $orientadores->nome_orientador }}</option>
                                                           </select>
                                                     <span class="fa fa-user form-control-feedback left"
                                                             aria-hidden="true"></span>
@@ -145,7 +145,7 @@
                                                     <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
                                                      <label for="">Supervisor</label>
                                                      <select class="form-control has-feedback-left" name="supervisor_id" id="supervisor">
-                                                         <option value="{{ $supervisor->id}}">{{ $supervisor->nome }}</option>
+                                                         <option value="{{ $supervisor->id_supervisor}}">{{ $supervisor->nome_supervisor }}</option>
                                                      </select>
                                                         <span class="fa fa-user form-control-feedback left"
                                                             aria-hidden="true"></span>

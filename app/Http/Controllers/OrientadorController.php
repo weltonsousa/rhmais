@@ -50,7 +50,7 @@ class OrientadorController extends Controller
         ]);
 
         $orientadoress = new Orientador();
-        $orientadoress->nome = $request->get('nome');
+        $orientadoress->nome_orientador = $request->get('nome');
         $orientadoress->email = $request->get('email');
         $orientadoress->rg = $request->get('rg');
         $orientadoress->cpf = $request->get('cpf');
@@ -93,7 +93,7 @@ class OrientadorController extends Controller
     public function edit($id)
     {
         $orientador = Orientador::find($id);
-        $instituicoes = Instituicao::all(['id', 'nome_instituicao']);
+        $instituicoes = Instituicao::all(['id_instituicao', 'nome_instituicao']);
 
         return view('orientador.edit', compact('orientador', 'instituicoes'));
     }
@@ -112,7 +112,7 @@ class OrientadorController extends Controller
         ]);
 
         $orientadoress = Orientador::find($id);
-        $orientadoress->nome = $request->get('nome');
+        $orientadoress->nome_orientador = $request->get('nome');
         $orientadoress->email = $request->get('email');
         $orientadoress->rg = $request->get('rg');
         $orientadoress->cpf = $request->get('cpf');
@@ -158,9 +158,9 @@ class OrientadorController extends Controller
     {
 
         $orientador = DB::table('orientador')
-            ->join('instituicao', 'instituicao.id', '=', 'orientador.instituicao_id')
+            ->join('instituicao', 'instituicao.id_instituicao', '=', 'orientador.instituicao_id')
             ->where("orientador.instituicao_id", $id)
-            ->select("orientador.id", "orientador.nome")
+            ->select("orientador.id_orientador", "orientador.nome_orientador")
             ->get();
 
         return json_encode($orientador);

@@ -40,7 +40,7 @@
                                                 <select class="form-control has-feedback-left" name="estagiario_id">
                                                     <option>Selecione o Estagiário:</option>
                                                      @foreach ($estagiarios as $estagiario)
-                                                        <option value="{{ $estagiario->id }}">{{ $estagiario->nome }}</option>
+                                                        <option value="{{ $estagiario->id_estagiario }}">{{ $estagiario->nome }}</option>
                                                      @endforeach
                                                 </select>
                                                 <span class="fa fa-user form-control-feedback left" aria-hidden="true"></span>

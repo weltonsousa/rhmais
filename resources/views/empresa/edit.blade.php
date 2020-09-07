@@ -27,7 +27,7 @@
                             <div class="clearfix"></div>
                         </div>
                         <div class="x_content">
-                        <form action="{{route('empresa.update',  $empresa->id)}}" method="POST">
+                        <form action="{{route('empresa.update',  $empresa->id_empresa)}}" method="POST">
                             @csrf
                             @method("PUT")
                             <!-- SmartWizard html -->

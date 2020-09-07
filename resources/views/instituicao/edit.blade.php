@@ -27,7 +27,7 @@
                             <div class="clearfix"></div>
                         </div>
                         <div class="x_content">
-                            <form action="{{ route('instituicao.update', $instituicao->id) }}" id="myForm" role="form"
+                            <form action="{{ route('instituicao.update', $instituicao->id_instituicao) }}" id="myForm" role="form"
                                 data-toggle="validator" method="post" accept-charset="utf-8">
                                 @csrf
                                 @method("PUT")

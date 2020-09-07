@@ -37,7 +37,7 @@
                                 <div class="row" style="height: 40vh">
                                     <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
                                         <label for="">Estagiário</label>
-                                        <input type="hidden" id="estagiario_id" name="estagiario_id" value="{{ $estagiario->id}}">
+                                        <input type="hidden" id="estagiario_id" name="estagiario_id" value="{{ $estagiario->id_estagiario}}">
                                         <input type="text" value="{{ $estagiario->nome }}"
                                             class="form-control has-feedback-left" placeholder="Nome Estagiario"
                                             name="estagiario" readonly>
@@ -75,7 +75,7 @@
                                             aria-hidden="true"></span>
                                     </div>
                                     {!! Form::open(['route' => ['folha_pagamento.editar'], 'method' => 'post']) !!}
-                                    <input type="hidden" name="folha_id" id="folha-id" value="{{$folha->id}}">
+                                    <input type="hidden" name="folha_id" id="folha-id" value="{{$folha->id_folha_pagamento}}">
                                     <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
                                         <label for="">Dias de Falta</label>
                                     <input type="number" value="{{$folha->faltas}}" class="form-control has-feedback-left"
@@ -145,7 +145,7 @@
         serverSide: true,
         ajax: "/beneficio_estagiario/"+id_cliente,
         columns: [
-            {data: 'nome', name: 'nome'},
+            {data: 'nome_beneficio', name: 'nome_beneficio'},
             {data: 'tipo_folha', name: 'tipo_folha'},
             {data: 'valor_real', name: 'valor_real'},
             {data: 'action', name: 'action', orderable: false, searchable: false}

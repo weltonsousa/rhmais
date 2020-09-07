@@ -21,8 +21,8 @@ class PdfController extends Controller
     public function cau($id)
     {
         $contrato = DB::table('cau')
-            ->join('empresa', 'cau.empresa_id', '=', 'empresa.id')
-            ->where('cau.id', '=', $id)
+            ->join('empresa', 'cau.empresa_id', '=', 'empresa.id_empresa')
+            ->where('cau.id_cau', '=', $id)
             ->get();
 
         $rhmais = Rhmais::all();
@@ -35,8 +35,8 @@ class PdfController extends Controller
     public function cce($id)
     {
         $contrato = DB::table('cce')
-            ->join('instituicao', 'cce.instituicao_id', '=', 'instituicao.id')
-            ->where('cce.id', '=', $id)
+            ->join('instituicao', 'cce.instituicao_id', '=', 'instituicao.id_instituicao')
+            ->where('cce.id_cce', '=', $id)
             ->get();
 
         $rhmais = Rhmais::all();
@@ -50,7 +50,7 @@ class PdfController extends Controller
     public function planoEstagio($id)
     {
         $estagiarios = DB::table('estagiario')
-            ->join('plano_estagio', 'estagiario.id', '=', 'plano_estagio.estagiario_id')
+            ->join('plano_estagio', 'estagiario.id_estagiario', '=', 'plano_estagio.estagiario_id')
             ->select(
                 'estagiario.nome',
                 'estagiario.cpf',
@@ -59,11 +59,11 @@ class PdfController extends Controller
                 'estagiario.periodo',
                 'estagiario.nivel'
             )
-            ->where('estagiario.id', '=', $id)
+            ->where('estagiario.id_estagiario', '=', $id)
             ->get();
 
         $empresas = DB::table('empresa')
-            ->join('plano_estagio', 'empresa.id', '=', 'plano_estagio.empresa_id')
+            ->join('plano_estagio', 'empresa.id_empresa', '=', 'plano_estagio.empresa_id')
             ->select(
                 'empresa.razao_social',
                 'empresa.cnpj',
@@ -76,7 +76,7 @@ class PdfController extends Controller
             ->get();
 
         $instituicoes = DB::table('instituicao')
-            ->join('plano_estagio', 'instituicao.id', '=', 'plano_estagio.instituicao_id')
+            ->join('plano_estagio', 'instituicao.id_instituicao', '=', 'plano_estagio.instituicao_id')
             ->select(
                 'instituicao.razao_social',
                 'instituicao.nome_instituicao',
@@ -95,8 +95,8 @@ class PdfController extends Controller
             ->get();
 
         $supervisores = DB::table('supervisor')
-            ->join('plano_estagio', 'supervisor.id', '=', 'plano_estagio.supervisor_id')
-            ->select('supervisor.nome', 'supervisor.cargo', 'supervisor.formacao', 'supervisor.email', 'supervisor.telefone')
+            ->join('plano_estagio', 'supervisor.id_supervisor', '=', 'plano_estagio.supervisor_id')
+            ->select('supervisor.nome_supervisor', 'supervisor.cargo', 'supervisor.formacao', 'supervisor.email', 'supervisor.telefone')
             ->where('plano_estagio.estagiario_id', '=', $id)
             ->get();
 
@@ -112,8 +112,8 @@ class PdfController extends Controller
             ->get();
 
         $setores = DB::table('setor')
-            ->join('plano_estagio', 'setor.id', '=', 'plano_estagio.setor_id')
-            ->select('setor.nome')
+            ->join('plano_estagio', 'setor.id_setor', '=', 'plano_estagio.setor_id')
+            ->select('setor.nome_setor')
             ->where('plano_estagio.estagiario_id', '=', $id)
             ->get();
 
@@ -128,18 +128,18 @@ class PdfController extends Controller
     public function holerite($id)
     {
         $folha = DB::table('estagiario')
-            ->join('folha_pagamento', 'estagiario.id', '=', 'folha_pagamento.estagiario_id')
-            ->join('empresa', 'estagiario.empresa_id', '=', 'empresa.id')
-            ->join('tce_contrato', 'estagiario.id', '=', 'tce_contrato.estagiario_id')
+            ->join('folha_pagamento', 'estagiario.id_estagiario', '=', 'folha_pagamento.estagiario_id')
+            ->join('empresa', 'estagiario.empresa_id', '=', 'empresa.id_empresa')
+            ->join('tce_contrato', 'estagiario.id_estagiario', '=', 'tce_contrato.estagiario_id')
             ->where('folha_pagamento.status', '=', 1)
-            ->where('folha_pagamento.id', '=', $id)
+            ->where('folha_pagamento.id_folha_pagamento', '=', $id)
             ->get();
 
         $beneficio = DB::table('beneficio_estagiario')
-            ->join('beneficio', 'beneficio_estagiario.beneficio_id', '=', 'beneficio.id')
-            ->join('folha_pagamento', 'beneficio_estagiario.folha_id', '=', 'folha_pagamento.id')
-            ->select('beneficio.nome', 'beneficio_estagiario.valor', 'beneficio_estagiario.tipo', 'beneficio_estagiario.beneficio_id')
-            ->where('folha_pagamento.id', '=', $id)
+            ->join('beneficio', 'beneficio_estagiario.beneficio_id', '=', 'beneficio.id_beneficio')
+            ->join('folha_pagamento', 'beneficio_estagiario.folha_id', '=', 'folha_pagamento.id_folha_pagamento')
+            ->select('beneficio.nome_beneficio', 'beneficio_estagiario.valor', 'beneficio_estagiario.tipo', 'beneficio_estagiario.beneficio_id')
+            ->where('folha_pagamento.id_folha_pagamento', '=', $id)
             ->get();
 
         $rhmais = Rhmais::all();
@@ -147,25 +147,16 @@ class PdfController extends Controller
         $beneficios = DB::table('beneficio_estagiario')->where('folha_id', '=', $id)->get();
         $credito = BeneficioEstagiario::where('folha_id', '=', $id)->where('tipo', '=', 1)->sum('valor');
         $debito = BeneficioEstagiario::where('folha_id', '=', $id)->where('tipo', '=', 2)->sum('valor');
-        $data = DB::table('folha_pagamento')->where('id', $id)->select('valor_bolsa', 'faltas')->get();
-        $faltas = DB::table('folha_pagamento')->where('id', $id)->pluck('faltas');
+        $data = DB::table('folha_pagamento')->where('id_folha_pagamento', $id)->select('valor_bolsa', 'faltas')->get();
+        $faltas = DB::table('folha_pagamento')->where('id_folha_pagamento', $id)->pluck('faltas');
 
         foreach ($data as $da) {
-            $bolsa = $da->valor_bolsa;
             $falta = $da->faltas;
         }
 
-        $r_bolsa = $bolsa / 30;
-        $r_bolsa = round($r_bolsa, 1);
-        $faltaMes = $r_bolsa * $falta;
-        $tt_desc = $faltaMes + $debito;
-        $tt_vnc = $bolsa + $credito;
-
         $data = [
             'folha' => $folha, 'beneficio' => $beneficio,
-            'rs_credito' => $credito, 'rs_debito' => $debito,
-            'faltas' => $faltas, 'rs_falta' => $faltaMes, 'rhmais' => $rhmais,
-            'tt_vnc' => $tt_vnc, 'tt_desc' => $tt_desc,
+            'faltas' => $faltas, 'rhmais' => $rhmais,
         ];
 
         $pdf = PDF::loadView('pdf.holerite.index', $data);
@@ -179,35 +170,26 @@ class PdfController extends Controller
         $und = request('unidade_id');
 
         $folha = DB::table('estagiario')
-            ->join('folha_pagamento', 'estagiario.id', '=', 'folha_pagamento.estagiario_id')
-            ->join('empresa', 'estagiario.empresa_id', '=', 'empresa.id')
-            ->join('tce_contrato', 'estagiario.id', '=', 'tce_contrato.estagiario_id')
+            ->join('empresa', 'estagiario.empresa_id', '=', 'empresa.id_empresa')
+            ->join('tce_contrato', 'tce_contrato.estagiario_id', '=', 'estagiario.id_estagiario')
+            ->join('folha_pagamento', 'folha_pagamento.estagiario_id', '=', 'estagiario.id_estagiario')
             ->where('folha_pagamento.status', '=', 1)
             ->where('folha_pagamento.empresa_id', '=', $und)
             ->where('folha_pagamento.referencia', '=', $ref)
             ->get();
 
         $beneficio = DB::table('beneficio_estagiario')
-            ->join('beneficio', 'beneficio_estagiario.beneficio_id', '=', 'beneficio.id')
-            ->join('folha_pagamento', 'beneficio_estagiario.folha_id', '=', 'folha_pagamento.id')
-            ->select('beneficio.nome', 'beneficio_estagiario.valor', 'beneficio_estagiario.tipo', 'beneficio_estagiario.beneficio_id')
-            ->where('folha_pagamento.status', '=', 1)
-            ->where('folha_pagamento.empresa_id', '=', $und)
-            ->where('folha_pagamento.referencia', '=', $ref)
+            ->join('beneficio', 'beneficio.id_beneficio', '=', 'beneficio_estagiario.beneficio_id')
+            ->join('folha_pagamento', 'beneficio_estagiario.folha_id', '=', 'folha_pagamento.id_folha_pagamento')
+            ->where('beneficio_estagiario.referencia', '=', $ref)
             ->get();
-
-        $faltas = [2];
-        $rs_credito = 30.99;
-        $rs_debito = 2.99;
-        $faltaMes = 20.00;
 
         $rhmais = Rhmais::all();
 
         $data = ['folha' => $folha, 'beneficio' => $beneficio,
-            'faltas' => $faltas, 'rs_credito' => $rs_credito,
-            'rs_debito' => $rs_debito, 'rhmais' => $rhmais,
-            'rs_falta' => $faltaMes];
-        $pdf = PDF::loadView('pdf.holerite.index', $data);
+            'rhmais' => $rhmais];
+
+        $pdf = PDF::loadView('pdf.holerite_geral.index', $data);
         return $pdf->stream('holerite-geral.pdf');
     }
 
@@ -220,16 +202,16 @@ class PdfController extends Controller
         if (request('unidade_id') !== null || request('referencia') == !null) {
 
             $folhas = DB::table('estagiario')
-                ->join('folha_rescisao', 'estagiario.id', '=', 'folha_rescisao.estagiario_id')
-                ->join('empresa', 'estagiario.empresa_id', '=', 'empresa.id')
-                ->join('tce_contrato', 'estagiario.id', '=', 'tce_contrato.estagiario_id')
+                ->join('folha_rescisao', 'estagiario.id_estagiario', '=', 'folha_rescisao.estagiario_id')
+                ->join('empresa', 'estagiario.empresa_id', '=', 'empresa.id_empresa')
+                ->join('tce_contrato', 'estagiario.id_estagiario', '=', 'tce_contrato.estagiario_id')
                 ->where('folha_rescisao.status', '=', 1)
                 ->where('folha_rescisao.empresa_id', '=', $und)
                 ->where('folha_rescisao.referencia', '=', $ref)
                 ->get();
 
             $estagiarios = DB::table('estagiario')
-                ->join('folha_rescisao', 'estagiario.id', '=', 'folha_rescisao.estagiario_id')
+                ->join('folha_rescisao', 'estagiario.id_estagiario', '=', 'folha_rescisao.estagiario_id')
                 ->where('folha_rescisao.empresa_id', '=', $und)
                 ->where('folha_rescisao.referencia', '=', $ref)
                 ->get();
@@ -239,9 +221,9 @@ class PdfController extends Controller
 
         } else {
             $folhas = DB::table('estagiario')
-                ->join('folha_rescisao', 'estagiario.id', '=', 'folha_rescisao.estagiario_id')
-                ->join('empresa', 'estagiario.empresa_id', '=', 'empresa.id')
-                ->join('tce_contrato', 'estagiario.id', '=', 'tce_contrato.estagiario_id')
+                ->join('folha_rescisao', 'estagiario.id_estagiario', '=', 'folha_rescisao.estagiario_id')
+                ->join('empresa', 'estagiario.empresa_id', '=', 'empresa.id_empresa')
+                ->join('tce_contrato', 'estagiario.id_estagiario', '=', 'tce_contrato.estagiario_id')
                 ->where('folha_rescisao.status', '=', 1)
                 ->where('folha_rescisao.empresa_id', '=', $und)
                 ->where('folha_rescisao.referencia', '=', $ref)
@@ -262,16 +244,16 @@ class PdfController extends Controller
     public function holeriteRescisao($id)
     {
         $folhaRescisao = DB::table('estagiario')
-            ->join('folha_rescisao', 'estagiario.id', '=', 'folha_rescisao.estagiario_id')
-            ->join('empresa', 'estagiario.empresa_id', '=', 'empresa.id')
-            ->join('tce_rescisao', 'estagiario.id', '=', 'tce_rescisao.estagiario_id')
-            ->where('folha_rescisao.id', '=', $id)
+            ->join('folha_rescisao', 'estagiario.id_estagiario', '=', 'folha_rescisao.estagiario_id')
+            ->join('empresa', 'estagiario.empresa_id', '=', 'empresa.id_empresa')
+            ->join('tce_rescisao', 'estagiario.id_estagiario', '=', 'tce_rescisao.estagiario_id')
+            ->where('folha_rescisao.id_folha_rescisao', '=', $id)
             ->get();
 
         $tceRescisao = DB::table('estagiario')
-            ->join('tce_rescisao', 'estagiario.id', '=', 'tce_rescisao.estagiario_id')
-            ->join('folha_rescisao', 'estagiario.id', '=', 'folha_rescisao.estagiario_id')
-            ->where('folha_rescisao.id', '=', $id)
+            ->join('tce_rescisao', 'estagiario.id_estagiario', '=', 'tce_rescisao.estagiario_id')
+            ->join('folha_rescisao', 'estagiario.id_estagiario', '=', 'folha_rescisao.estagiario_id')
+            ->where('folha_rescisao.id_folha_rescisao', '=', $id)
             ->get();
 
         $rhmais = Rhmais::all();
@@ -303,18 +285,18 @@ class PdfController extends Controller
         if (request('unidade_id') !== null || request('referencia') == !null) {
 
             $folhaRescisao = DB::table('estagiario')
-                ->join('folha_rescisao', 'estagiario.id', '=', 'folha_rescisao.estagiario_id')
-                ->join('empresa', 'estagiario.empresa_id', '=', 'empresa.id')
-                ->join('tce_rescisao', 'estagiario.id', '=', 'tce_rescisao.estagiario_id')
+                ->join('folha_rescisao', 'estagiario.id_estagiario', '=', 'folha_rescisao.estagiario_id')
+                ->join('empresa', 'estagiario.empresa_id', '=', 'empresa.id_empresa')
+                ->join('tce_rescisao', 'estagiario.id_estagiario', '=', 'tce_rescisao.estagiario_id')
                 ->where('folha_rescisao.empresa_id', '=', $und)
                 ->where('folha_rescisao.referencia', '=', $ref)
                 ->get();
 
         } else {
             $folhaRescisao = DB::table('estagiario')
-                ->join('folha_rescisao', 'estagiario.id', '=', 'folha_rescisao.estagiario_id')
-                ->join('empresa', 'estagiario.empresa_id', '=', 'empresa.id')
-                ->join('tce_rescisao', 'estagiario.id', '=', 'tce_rescisao.estagiario_id')
+                ->join('folha_rescisao', 'estagiario.id_estagiario', '=', 'folha_rescisao.estagiario_id')
+                ->join('empresa', 'estagiario.empresa_id', '=', 'empresa.id_empresa')
+                ->join('tce_rescisao', 'estagiario.id_estagiario', '=', 'tce_rescisao.estagiario_id')
                 ->where('folha_rescisao.empresa_id', '=', $und)
                 ->where('folha_rescisao.referencia', '=', $ref)
                 ->whereMonth('folha_rescisao.created_at', '=', date('m'))
@@ -334,17 +316,27 @@ class PdfController extends Controller
         if (request('unidade_id') !== null || request('referencia') == !null) {
 
             $folha = DB::table('estagiario')
-                ->join('folha_pagamento', 'estagiario.id', '=', 'folha_pagamento.estagiario_id')
-                ->join('tce_contrato', 'estagiario.id', '=', 'tce_contrato.estagiario_id')
+                ->join('folha_pagamento', 'estagiario.id_estagiario', '=', 'folha_pagamento.estagiario_id')
+                ->join('tce_contrato', 'estagiario.id_estagiario', '=', 'tce_contrato.estagiario_id')
                 ->where('folha_pagamento.status', '=', 1)
                 ->where('folha_pagamento.empresa_id', '=', $und)
                 ->where('folha_pagamento.referencia', '=', $ref)
                 ->get();
-            $empresa = Empresa::where('id', $und)->get();
+
+            $qtd_estagiario = $folha->count();
+
+            $total_liquido = 0;
+            foreach ($folha as $valor) {
+                $total_liquido += $valor->valor_liquido;
+            }
+            $total_liquido;
+
+            $empresa = Empresa::where('id_empresa', $und)->get();
 
         }
 
-        $data = ['folha' => $folha, 'empresa' => $empresa];
+        $data = ['folha' => $folha, 'empresa' => $empresa,
+            'qtd_estagiario' => $qtd_estagiario, 'total_liquido' => $total_liquido];
         $pdf = PDF::loadView('pdf.folha.index', $data);
         return $pdf->stream('grelacao.pdf');
     }
@@ -361,11 +353,11 @@ class PdfController extends Controller
     {
 
         $fechamento = DB::table('cobranca')
-            ->join('empresa', 'empresa.id', '=', 'cobranca.empresa_id')
-            ->join('cau', 'cobranca.empresa_id', '=', 'empresa.id')
-            ->join('tce_contrato', 'tce_contrato.empresa_id', '=', 'empresa.id')
-            ->join('estagiario', 'estagiario.id', '=', 'tce_contrato.estagiario_id')
-            ->where('empresa.id', '=', $empresa_id)
+            ->join('empresa', 'empresa.id_empresa', '=', 'cobranca.empresa_id')
+            ->join('cau', 'cobranca.empresa_id', '=', 'empresa.id_empresa')
+            ->join('tce_contrato', 'tce_contrato.empresa_id', '=', 'empresa.id_empresa')
+            ->join('estagiario', 'estagiario.id_estagiario', '=', 'tce_contrato.estagiario_id')
+            ->where('empresa.id_empresa', '=', $empresa_id)
             ->whereMonth('cobranca.created_at', '=', date('m'))
             ->get();
 
@@ -377,7 +369,7 @@ class PdfController extends Controller
     public function rescisaoTce($id)
     {
         $estagiarios = DB::table('estagiario')
-            ->join('tce_rescisao', 'estagiario.id', '=', 'tce_rescisao.estagiario_id')
+            ->join('tce_rescisao', 'estagiario.id_estagiario', '=', 'tce_rescisao.estagiario_id')
             ->select(
                 'estagiario.nome',
                 'estagiario.rua',
@@ -394,11 +386,11 @@ class PdfController extends Controller
                 'estagiario.curso',
                 'estagiario.periodo'
             )
-            ->where('tce_rescisao.id', '=', $id)
+            ->where('tce_rescisao.id_tce_rescisao', '=', $id)
             ->get();
 
         $empresas = DB::table('empresa')
-            ->join('tce_rescisao', 'empresa.id', '=', 'tce_rescisao.empresa_id')
+            ->join('tce_rescisao', 'empresa.id_empresa', '=', 'tce_rescisao.empresa_id')
             ->select(
                 'empresa.razao_social',
                 'empresa.cnpj',
@@ -414,11 +406,11 @@ class PdfController extends Controller
                 'empresa.telefone',
                 'empresa.rua'
             )
-            ->where('tce_rescisao.id', '=', $id)
+            ->where('tce_rescisao.id_tce_rescisao', '=', $id)
             ->get();
 
         $instituicoes = DB::table('instituicao')
-            ->join('tce_rescisao', 'instituicao.id', '=', 'tce_rescisao.instituicao_id')
+            ->join('tce_rescisao', 'instituicao.id_instituicao', '=', 'tce_rescisao.instituicao_id')
             ->select(
                 'instituicao.razao_social',
                 'instituicao.nome_instituicao',
@@ -434,37 +426,37 @@ class PdfController extends Controller
                 'instituicao.telefone',
                 'instituicao.rua'
             )
-            ->where('tce_rescisao.id', '=', $id)
+            ->where('tce_rescisao.id_tce_rescisao', '=', $id)
             ->get();
 
         $horarios = DB::table('horario')
-            ->join('tce_rescisao', 'horario.id', '=', 'tce_rescisao.horario_id')
+            ->join('tce_rescisao', 'horario.id_horario', '=', 'tce_rescisao.horario_id')
             ->select('horario.descricao')
-            ->where('tce_rescisao.id', '=', $id)
+            ->where('tce_rescisao.id_tce_rescisao', '=', $id)
             ->get();
 
         $atividades = DB::table('atividade')
-            ->join('tce_rescisao', 'atividade.id', '=', 'tce_rescisao.atividade_id')
-            ->select('atividade.nome')
-            ->where('tce_rescisao.id', '=', $id)
+            ->join('tce_rescisao', 'atividade.id_atividade', '=', 'tce_rescisao.atividade_id')
+            ->select('atividade.nome_atividade')
+            ->where('tce_rescisao.id_tce_rescisao', '=', $id)
             ->get();
 
         $seguros = DB::table('seguradora')
-            ->join('tce_rescisao', 'seguradora.id', '=', 'tce_rescisao.apolice_id')
-            ->select('seguradora.nome')
-            ->where('tce_rescisao.id', '=', $id)
+            ->join('tce_rescisao', 'seguradora.id_seguradora', '=', 'tce_rescisao.apolice_id')
+            ->select('seguradora.nome_seguradora')
+            ->where('tce_rescisao.id_tce_rescisao', '=', $id)
             ->get();
 
         $supervisores = DB::table('supervisor')
-            ->join('tce_rescisao', 'supervisor.id', '=', 'tce_rescisao.supervisor_id')
-            ->select('supervisor.nome', 'supervisor.cargo', 'supervisor.formacao', 'supervisor.email')
-            ->where('tce_rescisao.id', '=', $id)
+            ->join('tce_rescisao', 'supervisor.id_supervisor', '=', 'tce_rescisao.supervisor_id')
+            ->select('supervisor.nome_supervisor', 'supervisor.cargo', 'supervisor.formacao', 'supervisor.email')
+            ->where('tce_rescisao.id_tce_rescisao', '=', $id)
             ->get();
 
         $beneficios = DB::table('beneficio')
-            ->join('tce_rescisao', 'beneficio.id', '=', 'tce_rescisao.beneficio_id')
-            ->select('beneficio.nome')
-            ->where('tce_rescisao.id', '=', $id)
+            ->join('tce_rescisao', 'beneficio.id_beneficio', '=', 'tce_rescisao.beneficio_id')
+            ->select('beneficio.nome_beneficio')
+            ->where('tce_rescisao.id_tce_rescisao', '=', $id)
             ->get();
 
         $tceRescisao = DB::table('tce_rescisao')
@@ -475,13 +467,13 @@ class PdfController extends Controller
                 'tce_rescisao.data_doc',
                 'tce_rescisao.ultimo_dia',
                 'tce_rescisao.created_at')
-            ->where('tce_rescisao.id', '=', $id)
+            ->where('tce_rescisao.id_tce_rescisao', '=', $id)
             ->get();
 
         $motivos = DB::table('motivo')
             ->join('tce_rescisao', 'motivo.id', '=', 'tce_rescisao.motivo_id')
-            ->select('motivo.nome')
-            ->where('tce_rescisao.id', '=', $id)
+            ->select('motivo.nome_motivo')
+            ->where('tce_rescisao.id_tce_rescisao', '=', $id)
             ->get();
 
         $data = ['estagiarios' => $estagiarios, 'instituicoes' => $instituicoes,
@@ -497,18 +489,18 @@ class PdfController extends Controller
     {
 
         $contrato = DB::table('tce_contrato')
-            ->join('beneficio', 'beneficio.id', '=', 'tce_contrato.beneficio_id')
-            ->join('atividade', 'atividade.id', '=', 'tce_contrato.atividade_id')
-            ->join('horario', 'horario.id', '=', 'tce_contrato.horario_id')
-            ->join('supervisor', 'supervisor.id', '=', 'tce_contrato.supervisor_id')
-            ->select('tce_contrato.bolsa_aditivo', 'tce_contrato.data_fim', 'atividade.nome as atividade_nome', 'supervisor.nome as supervisor_nome', 'horario.descricao', 'beneficio.nome as beneficio_nome')
+            ->join('beneficio', 'beneficio.id_beneficio', '=', 'tce_contrato.beneficio_id')
+            ->join('atividade', 'atividade.id_atividade', '=', 'tce_contrato.atividade_id')
+            ->join('horario', 'horario.id_horario', '=', 'tce_contrato.horario_id')
+            ->join('supervisor', 'supervisor.id_supervisor', '=', 'tce_contrato.supervisor_id')
+            ->select('tce_contrato.bolsa_aditivo', 'tce_contrato.data_fim', 'atividade.nome_atividade', 'supervisor.nome_supervisor', 'horario.descricao', 'beneficio.nome_beneficio')
             ->where('estagiario_id', '=', $id)->get();
         $aditivo = DB::table('tce_aditivo')
-            ->join('beneficio', 'beneficio.id', '=', 'tce_aditivo.beneficio_id')
-            ->join('atividade', 'atividade.id', '=', 'tce_aditivo.atividade_id')
-            ->join('horario', 'horario.id', '=', 'tce_aditivo.horario_id')
-            ->join('supervisor', 'supervisor.id', '=', 'tce_aditivo.supervisor_id')
-            ->select('tce_aditivo.bolsa', 'tce_aditivo.data_fim', 'atividade.nome as atividade_nome', 'supervisor.nome as supervisor_nome', 'horario.descricao', 'beneficio.nome as beneficio_nome')
+            ->join('beneficio', 'beneficio.id_beneficio', '=', 'tce_aditivo.beneficio_id')
+            ->join('atividade', 'atividade.id_atividade', '=', 'tce_aditivo.atividade_id')
+            ->join('horario', 'horario.id_horario', '=', 'tce_aditivo.horario_id')
+            ->join('supervisor', 'supervisor.id_supervisor', '=', 'tce_aditivo.supervisor_id')
+            ->select('tce_aditivo.bolsa', 'tce_aditivo.data_fim', 'atividade.nome_atividade', 'supervisor.nome_supervisor', 'horario.descricao', 'beneficio.nome_beneficio')
             ->where('estagiario_id', '=', $id)->get();
 
         $tceContrato = DB::table('tce_aditivo')
@@ -523,7 +515,7 @@ class PdfController extends Controller
             ->get();
 
         $estagiarios = DB::table('estagiario')
-            ->join('tce_aditivo', 'estagiario.id', '=', 'tce_aditivo.estagiario_id')
+            ->join('tce_aditivo', 'estagiario.id_estagiario', '=', 'tce_aditivo.estagiario_id')
             ->select(
                 'estagiario.nome',
                 'estagiario.rua',
@@ -544,7 +536,7 @@ class PdfController extends Controller
             ->get();
 
         $empresas = DB::table('empresa')
-            ->join('tce_aditivo', 'empresa.id', '=', 'tce_aditivo.empresa_id')
+            ->join('tce_aditivo', 'empresa.id_empresa', '=', 'tce_aditivo.empresa_id')
             ->select(
                 'empresa.razao_social',
                 'empresa.cnpj',
@@ -562,7 +554,7 @@ class PdfController extends Controller
             ->get();
 
         $instituicoes = DB::table('instituicao')
-            ->join('tce_aditivo', 'instituicao.id', '=', 'tce_aditivo.instituicao_id')
+            ->join('tce_aditivo', 'instituicao.id_instituicao', '=', 'tce_aditivo.instituicao_id')
             ->select(
                 'instituicao.razao_social',
                 'instituicao.cnpj',
@@ -580,38 +572,38 @@ class PdfController extends Controller
             ->get();
 
         $horarios = DB::table('horario')
-            ->join('tce_aditivo', 'horario.id', '=', 'tce_aditivo.horario_id')
+            ->join('tce_aditivo', 'horario.id_horario', '=', 'tce_aditivo.horario_id')
             ->select('horario.descricao')
             ->where('tce_aditivo.estagiario_id', '=', $id)
             ->get();
 
         $atividades = DB::table('atividade')
-            ->join('tce_aditivo', 'atividade.id', '=', 'tce_aditivo.atividade_id')
-            ->select('atividade.nome')
+            ->join('tce_aditivo', 'atividade.id_atividade', '=', 'tce_aditivo.atividade_id')
+            ->select('atividade.nome_atividade')
             ->where('tce_aditivo.estagiario_id', '=', $id)
             ->get();
 
         $seguros = DB::table('seguradora')
-            ->join('tce_aditivo', 'seguradora.id', '=', 'tce_aditivo.apolice_id')
-            ->select('seguradora.nome')
+            ->join('tce_aditivo', 'seguradora.id_seguradora', '=', 'tce_aditivo.apolice_id')
+            ->select('seguradora.nome_seguradora')
             ->where('tce_aditivo.estagiario_id', '=', $id)
             ->get();
 
         $supervisores = DB::table('supervisor')
-            ->join('tce_aditivo', 'supervisor.id', '=', 'tce_aditivo.supervisor_id')
-            ->select('supervisor.nome', 'supervisor.cargo', 'supervisor.formacao', 'supervisor.telefone', 'supervisor.email')
+            ->join('tce_aditivo', 'supervisor.id_supervisor', '=', 'tce_aditivo.supervisor_id')
+            ->select('supervisor.nome_supervisor', 'supervisor.cargo', 'supervisor.formacao', 'supervisor.telefone', 'supervisor.email')
             ->where('tce_aditivo.estagiario_id', '=', $id)
             ->get();
 
         $orientadores = DB::table('orientador')
-            ->join('tce_aditivo', 'orientador.id', '=', 'tce_aditivo.orientador_id')
-            ->select('orientador.nome', 'orientador.cargo')
+            ->join('tce_aditivo', 'orientador.id_orientador', '=', 'tce_aditivo.orientador_id')
+            ->select('orientador.nome_orientador', 'orientador.cargo')
             ->where('tce_aditivo.estagiario_id', '=', $id)
             ->get();
 
         $beneficios = DB::table('beneficio')
-            ->join('tce_aditivo', 'beneficio.id', '=', 'tce_aditivo.beneficio_id')
-            ->select('beneficio.nome')
+            ->join('tce_aditivo', 'beneficio.id_beneficio', '=', 'tce_aditivo.beneficio_id')
+            ->select('beneficio.nome_beneficio')
             ->where('tce_aditivo.estagiario_id', '=', $id)
             ->get();
 
@@ -628,7 +620,7 @@ class PdfController extends Controller
     public function contratoTce($id)
     {
         $estagiarios = DB::table('estagiario')
-            ->join('tce_contrato', 'estagiario.id', '=', 'tce_contrato.estagiario_id')
+            ->join('tce_contrato', 'estagiario.id_estagiario', '=', 'tce_contrato.estagiario_id')
             ->select(
                 'estagiario.nome',
                 'estagiario.rua',
@@ -645,11 +637,11 @@ class PdfController extends Controller
                 'estagiario.matricula',
                 'estagiario.periodo'
             )
-            ->where('estagiario.id', '=', $id)
+            ->where('estagiario.id_estagiario', '=', $id)
             ->get();
 
         $empresas = DB::table('empresa')
-            ->join('tce_contrato', 'empresa.id', '=', 'tce_contrato.empresa_id')
+            ->join('tce_contrato', 'empresa.id_empresa', '=', 'tce_contrato.empresa_id')
             ->select(
                 'empresa.razao_social',
                 'empresa.cnpj',
@@ -667,7 +659,7 @@ class PdfController extends Controller
             ->get();
 
         $instituicoes = DB::table('instituicao')
-            ->join('tce_contrato', 'instituicao.id', '=', 'tce_contrato.instituicao_id')
+            ->join('tce_contrato', 'instituicao.id_instituicao', '=', 'tce_contrato.instituicao_id')
             ->select(
                 'instituicao.razao_social',
                 'instituicao.cnpj',
@@ -685,38 +677,38 @@ class PdfController extends Controller
             ->get();
 
         $horarios = DB::table('horario')
-            ->join('tce_contrato', 'horario.id', '=', 'tce_contrato.horario_id')
+            ->join('tce_contrato', 'horario.id_horario', '=', 'tce_contrato.horario_id')
             ->select('horario.descricao')
             ->where('tce_contrato.estagiario_id', '=', $id)
             ->get();
 
         $atividades = DB::table('atividade')
-            ->join('tce_contrato', 'atividade.id', '=', 'tce_contrato.atividade_id')
-            ->select('atividade.nome')
+            ->join('tce_contrato', 'atividade.id_atividade', '=', 'tce_contrato.atividade_id')
+            ->select('atividade.nome_atividade')
             ->where('tce_contrato.estagiario_id', '=', $id)
             ->get();
 
         $seguros = DB::table('seguradora')
-            ->join('tce_contrato', 'seguradora.id', '=', 'tce_contrato.apolice_id')
-            ->select('seguradora.nome')
+            ->join('tce_contrato', 'seguradora.id_seguradora', '=', 'tce_contrato.apolice_id')
+            ->select('seguradora.nome_seguradora')
             ->where('tce_contrato.estagiario_id', '=', $id)
             ->get();
 
         $supervisores = DB::table('supervisor')
-            ->join('tce_contrato', 'supervisor.id', '=', 'tce_contrato.supervisor_id')
-            ->select('supervisor.nome', 'supervisor.cargo', 'supervisor.formacao', 'supervisor.email', 'supervisor.telefone')
+            ->join('tce_contrato', 'supervisor.id_supervisor', '=', 'tce_contrato.supervisor_id')
+            ->select('supervisor.nome_supervisor', 'supervisor.cargo', 'supervisor.formacao', 'supervisor.email', 'supervisor.telefone')
             ->where('tce_contrato.estagiario_id', '=', $id)
             ->get();
 
         $orientadores = DB::table('orientador')
-            ->join('tce_contrato', 'orientador.id', '=', 'tce_contrato.orientador_id')
-            ->select('orientador.nome', 'orientador.cargo')
+            ->join('tce_contrato', 'orientador.id_orientador', '=', 'tce_contrato.orientador_id')
+            ->select('orientador.nome_orientador', 'orientador.cargo')
             ->where('tce_contrato.estagiario_id', '=', $id)
             ->get();
 
         $beneficios = DB::table('beneficio')
-            ->join('tce_contrato', 'beneficio.id', '=', 'tce_contrato.beneficio_id')
-            ->select('beneficio.nome')
+            ->join('tce_contrato', 'beneficio.id_beneficio', '=', 'tce_contrato.beneficio_id')
+            ->select('beneficio.nome_beneficio')
             ->where('tce_contrato.estagiario_id', '=', $id)
             ->get();
 
@@ -744,7 +736,7 @@ class PdfController extends Controller
     public function eSocial()
     {
         $estagiarios = DB::table('estagiario')
-            ->join('tce_contrato', 'estagiario.id', '=', 'tce_contrato.estagiario_id')
+            ->join('tce_contrato', 'estagiario.id_estagiario', '=', 'tce_contrato.estagiario_id')
             ->select(
                 'estagiario.nome',
                 'estagiario.rua',
@@ -761,11 +753,11 @@ class PdfController extends Controller
                 'estagiario.matricula',
                 'estagiario.periodo'
             )
-        // ->where('estagiario.id', '=', $id)
+        // ->where('estagiario.id_estagiario', '=', $id)
             ->get();
 
         $empresas = DB::table('empresa')
-            ->join('tce_contrato', 'empresa.id', '=', 'tce_contrato.empresa_id')
+            ->join('tce_contrato', 'empresa.id_empresa', '=', 'tce_contrato.empresa_id')
             ->select(
                 'empresa.razao_social',
                 'empresa.cnpj',
@@ -782,7 +774,7 @@ class PdfController extends Controller
             ->get();
 
         $instituicoes = DB::table('instituicao')
-            ->join('tce_contrato', 'instituicao.id', '=', 'tce_contrato.instituicao_id')
+            ->join('tce_contrato', 'instituicao.id_instituicao', '=', 'tce_contrato.instituicao_id')
             ->select(
                 'instituicao.razao_social',
                 'instituicao.cnpj',

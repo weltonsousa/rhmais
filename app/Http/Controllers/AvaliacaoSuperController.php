@@ -67,14 +67,14 @@ class AvaliacaoSuperController extends Controller
     public function create()
     {
         $estagiarios = DB::table('estagiario')
-            ->join('empresa', 'estagiario.empresa_id', '=', 'empresa.id')
+            ->join('empresa', 'estagiario.empresa_id', '=', 'empresa.id_empresa')
             ->select(
                 'estagiario.nome',
                 'empresa.nome_fantasia',
                 'estagiario.celular',
                 'estagiario.cpf',
                 'estagiario.data_nascimento',
-                'estagiario.id',
+                'estagiario.id_estagiario',
                 'estagiario.ativo',
                 'estagiario.curso',
                 'estagiario.cidade',
@@ -87,7 +87,7 @@ class AvaliacaoSuperController extends Controller
                 'instituicao.nome_instituicao',
                 'instituicao.cnpj',
                 'instituicao.rua',
-                'instituicao.id',
+                'instituicao.id_instituicao',
                 'instituicao.cidade',
                 'instituicao.estado'
             )
@@ -99,7 +99,7 @@ class AvaliacaoSuperController extends Controller
                 'empresa.cnpj',
                 'empresa.insc_estadual',
                 'empresa.telefone',
-                'empresa.id',
+                'empresa.id_empresa',
                 'empresa.cidade',
                 'empresa.estado'
             )
@@ -201,9 +201,9 @@ class AvaliacaoSuperController extends Controller
     public function avaliacaoAjax($id)
     {
         $avaliacao = DB::table('estagiario')
-            ->join('empresa', 'empresa.id', '=', 'estagiario.empresa_id')
-            ->join('instituicao', 'instituicao.id', '=', 'estagiario.instituicao_id')
-            ->where("estagiario.id", $id)
+            ->join('empresa', 'empresa.id_empresa', '=', 'estagiario.empresa_id')
+            ->join('instituicao', 'instituicao.id_instituicao', '=', 'estagiario.instituicao_id')
+            ->where("estagiario.id_estagiario", $id)
             ->select("nome_fantasia", "nome_instituicao", "empresa_id", "instituicao_id")
             ->get();
         return json_encode($avaliacao);
@@ -212,9 +212,9 @@ class AvaliacaoSuperController extends Controller
     public function supervisorAjax($id)
     {
         $supervisor = DB::table('supervisor')
-            ->join('empresa', 'empresa.id', '=', 'supervisor.empresa_id')
-            ->where("empresa.id", $id)
-            ->select("nome", "supervisor.id")
+            ->join('empresa', 'empresa.id_empresa', '=', 'supervisor.empresa_id')
+            ->where("empresa.id_empresa", $id)
+            ->select("nome", "supervisor.id_supervisor")
             ->get();
         return json_encode($supervisor);
 

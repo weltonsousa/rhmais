@@ -38,8 +38,8 @@ class EstagiarioController extends Controller
     {
         $states = DB::table("estado")->pluck("nome", "id");
         $cursos = Curso::all();
-        $instituicoes = Instituicao::all(['id', 'nome_instituicao']);
-        $empresas = Empresa::all(['id', 'nome_fantasia']);
+        $instituicoes = Instituicao::all(['id_instituicao', 'nome_instituicao']);
+        $empresas = Empresa::all(['id_empresa', 'nome_fantasia']);
         return view('estagiario.create', compact('states', 'empresas', 'cursos', 'instituicoes'));
     }
 
@@ -143,8 +143,8 @@ class EstagiarioController extends Controller
         $estagiario = Estagiario::find($id);
         $estados = DB::table("estado")->pluck("nome", "id");
         $cursos = Curso::all();
-        $instituicoes = Instituicao::all(['id', 'nome_instituicao']);
-        $empresas = Empresa::all(['id', 'nome_fantasia']);
+        $instituicoes = Instituicao::all(['id_instituicao', 'nome_instituicao']);
+        $empresas = Empresa::all(['id_empresa', 'nome_fantasia']);
 
         return view('estagiario.edit', [
             'estagiario' => $estagiario,

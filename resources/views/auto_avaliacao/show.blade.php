@@ -39,7 +39,7 @@
                                                     <select class="form-control has-feedback-left" name="estagiario_id">
                                                         <option>Selecione Estagiário:</option>
                                                         @foreach ($estagiarios as $estagiario)
-                                                        <option value="{{ $estagiario->id }}">{{ $estagiario->nome }}
+                                                        <option value="{{ $estagiario->id_estagiario }}">{{ $estagiario->nome }}
                                                         </option>
                                                         @endforeach
                                                     </select>
@@ -50,7 +50,7 @@
                                                     <select class="form-control has-feedback-left" name="instituicao_id">
                                                         <option>Instituição de ensino:</option>
                                                         @foreach ($instituicoes as $instituicao)
-                                                        <option value="{{ $instituicao->id }}">
+                                                        <option value="{{ $instituicao->id_instituicao }}">
                                                             {{ $instituicao->nome_instituicao }}</option>
                                                         @endforeach
                                                     </select>
@@ -63,7 +63,7 @@
                                                 <select class="form-control has-feedback-left" name="empresa_id">
                                                     <option>Selecione Unidade Concedente:</option>
                                                     @foreach ($empresas as $empresa)
-                                                    <option value="{{ $empresa->id }}">{{ $empresa->nome_fantasia }}
+                                                    <option value="{{ $empresa->id_empresa }}">{{ $empresa->nome_fantasia }}
                                                     </option>
                                                     @endforeach
                                                 </select>
@@ -74,7 +74,7 @@
                                                 <select class="form-control has-feedback-left" name="supervisor_id">
                                                     <option>Supervisor:</option>
                                                     @foreach ($supervisores as $supervisor)
-                                                    <option value="{{ $supervisor->id }}">{{ $supervisor->nome }}
+                                                    <option value="{{ $supervisor->id_supervisor }}">{{ $supervisor->nome }}
                                                     </option>
                                                     @endforeach
                                                 </select>

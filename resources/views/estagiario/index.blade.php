@@ -83,10 +83,10 @@
                                             </td>
                                             <td style="width:15%;">
                                                 <div class="col-md-3">
-                                                    <a href="{!! route('estagiario.edit', [$estagiario->id]) !!}"
+                                                    <a href="{!! route('estagiario.edit', [$estagiario->id_estagiario]) !!}"
                                                         class='btn btn-primary' title="Editar"><i class="fa fa-pencil"></i></a>
                                                 </div>
-                                                <form class="col-md-3" style="margin-left:20px;" action="{{route('estagiario.destroy', [$estagiario->id])}}"
+                                                <form class="col-md-3" style="margin-left:20px;" action="{{route('estagiario.destroy', [$estagiario->id_estagiario])}}"
                                                     method="POST">
                                                     @csrf
                                                     @method("DELETE")

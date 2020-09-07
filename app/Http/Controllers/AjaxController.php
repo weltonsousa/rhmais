@@ -19,12 +19,12 @@ class AjaxController extends Controller
         $id_estagiario = $id;
 
         $estagiario = DB::table('beneficio')
-            ->join('beneficio_estagiario', 'beneficio.id', '=', 'beneficio_estagiario.beneficio_id')
+            ->join('beneficio_estagiario', 'beneficio.id_beneficio', '=', 'beneficio_estagiario.beneficio_id')
             ->where('folha_id', '=', $id_estagiario)
             ->get();
         return Datatables::of($estagiario)
             ->addColumn('action', function ($row) {
-                $btn = ' <a href="javascript:void(0)" data-toggle="tooltip"  data-id="' . $row->id . '" data-original-title="Delete" class="btn btn-danger btn-sm deleteProduct"> <i class="fa fa-trash"></i> Delete</a>';
+                $btn = ' <a href="javascript:void(0)" data-toggle="tooltip"  data-id="' . $row->id_beneficio . '" data-original-title="Delete" class="btn btn-danger btn-sm deleteProduct"> <i class="fa fa-trash"></i> Delete</a>';
                 return $btn;
             })->addColumn('tipo_folha', function ($row) {
             if ($row->tipo == 1) {
@@ -64,8 +64,9 @@ class AjaxController extends Controller
     {
         $valor = str_replace(',', '.', str_replace('.', '', $request->valor));
 
-        BeneficioEstagiario::updateOrCreate(['id' => $request->product_id],
+        BeneficioEstagiario::updateOrCreate(['id_beneficio_estagiario' => $request->product_id],
             [
+                'referencia' => date("Y/m"),
                 'valor' => $valor,
                 'tipo' => $request->tipo,
                 'estagiario_id' => $request->estagiario_id,

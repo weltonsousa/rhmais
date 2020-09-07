@@ -28,8 +28,8 @@ class FolhaPagamentoController extends Controller
         if (request('unidade_id') !== null || request('referencia') !== null) {
 
             $folhas = DB::table('folha_pagamento')
-                ->join('empresa', 'empresa.id', '=', 'folha_pagamento.empresa_id')
-                ->select('folha_pagamento.id', 'folha_pagamento.referencia', 'folha_pagamento.estagiario_id', 'folha_pagamento.empresa_id',
+                ->join('empresa', 'empresa.id_empresa', '=', 'folha_pagamento.empresa_id')
+                ->select('folha_pagamento.id_folha_pagamento', 'folha_pagamento.referencia', 'folha_pagamento.estagiario_id', 'folha_pagamento.empresa_id',
                     'folha_pagamento.valor_bolsa', 'folha_pagamento.faltas', 'folha_pagamento.valor_liquido', 'folha_pagamento.status', 'folha_pagamento.ativo')
                 ->where("empresa_id", $unidades)
                 ->where("referencia", $referencia)
@@ -44,7 +44,7 @@ class FolhaPagamentoController extends Controller
 
             return view('folha_pagamento.index', [
                 'periodos' => $periodos,
-                'unidades' => $empresas = Empresa::where('id', request('unidades_id'))->get(),
+                'unidades' => $empresas = Empresa::where('id_empresa', request('unidades_id'))->get(),
                 'folhas' => $folhas,
                 'estagiarios' => $estagiarios = Estagiario::all(),
                 'empresas' => $unidade,
@@ -53,13 +53,13 @@ class FolhaPagamentoController extends Controller
 
         } else {
 
-            $unidades = DB::table('cau')->join('empresa', 'empresa.id', '=', 'cau.empresa_id')->select('empresa.id as empresa_id', 'empresa.nome_fantasia', 'cau.data_inicio', 'cau.data_fim', 'cau.situacao', 'cau.id AS id')->get();
+            $unidades = DB::table('cau')->join('empresa', 'empresa.id_empresa', '=', 'cau.empresa_id')->select('empresa.id_empresa as empresa_id', 'empresa.nome_fantasia', 'cau.data_inicio', 'cau.data_fim', 'cau.situacao', 'cau.id_cau')->get();
             $estagiarios = DB::table('estagiario')->get();
             $contratos = DB::table("tce_contrato")->get();
 
             foreach ($estagiarios as $estagiario) {
-                if (!DB::table('folha_pagamento')->where([['estagiario_id', '=', $estagiario->id], ['referencia', '=', date("Y/m")]])->get()->first()) {
-                    $contrato_do_estagiario = DB::table('tce_contrato')->where('estagiario_id', $estagiario->id)->where('ativo', 1)->get()->first();
+                if (!DB::table('folha_pagamento')->where([['estagiario_id', '=', $estagiario->id_estagiario], ['referencia', '=', date("Y/m")]])->get()->first()) {
+                    $contrato_do_estagiario = DB::table('tce_contrato')->where('estagiario_id', $estagiario->id_estagiario)->where('ativo', 1)->get()->first();
                     if ($contrato_do_estagiario) {
                         DB::insert('insert into folha_pagamento (referencia, estagiario_id, empresa_id, valor_bolsa, faltas, valor_liquido, status, created_at, updated_at) values (?, ?, ?, ?, ?, ?, ?, ?, ?)', [date("Y/m"), $estagiario->id, $estagiario->empresa_id, $contrato_do_estagiario->bolsa, 0, $contrato_do_estagiario->bolsa, 0, date("Y-m-d H:i:s"), date("Y-m-d H:i:s")]);
                     }
@@ -91,9 +91,9 @@ class FolhaPagamentoController extends Controller
      */
     public function edit($id)
     {
-        $folha = DB::table('folha_pagamento')->where('id', $id)->get()->first();
-        $empresa = DB::table('empresa')->where('id', $folha->empresa_id)->get()->first();
-        $estagiario = DB::table('estagiario')->where('id', $folha->estagiario_id)->get()->first();
+        $folha = DB::table('folha_pagamento')->where('id_folha_pagamento', $id)->get()->first();
+        $empresa = DB::table('empresa')->where('id_empresa', $folha->empresa_id)->get()->first();
+        $estagiario = DB::table('estagiario')->where('id_estagiario', $folha->estagiario_id)->get()->first();
         $contrato = DB::table('tce_contrato')->where('estagiario_id', $folha->estagiario_id)->get()->first();
         $beneficios = DB::table('beneficio')->get();
 
@@ -114,14 +114,14 @@ class FolhaPagamentoController extends Controller
 
     public function editar(Request $request)
     {
-        $folha = DB::table('folha_pagamento')->where('id', $request->folha_id)->get()->first();
+        $folha = DB::table('folha_pagamento')->where('id_folha_pagamento', $request->folha_id)->get()->first();
         $beneficios = DB::table('beneficio_estagiario')->where('folha_id', '=', $request->folha_id)->get();
-        $update = DB::update('update folha_pagamento set faltas = ? where id = ?', [$request->dias_falta, $request->folha_id]);
+        $update = DB::update('update folha_pagamento set faltas = ? where id_folha_pagamento = ?', [$request->dias_falta, $request->folha_id]);
 
         if ($beneficios) {
             $credito = BeneficioEstagiario::where('folha_id', '=', $request->folha_id)->where('tipo', '=', 1)->sum('valor');
             $debito = BeneficioEstagiario::where('folha_id', '=', $request->folha_id)->where('tipo', '=', 2)->sum('valor');
-            $data = DB::table('folha_pagamento')->where('id', $request->folha_id)->select('valor_bolsa', 'faltas')->get();
+            $data = DB::table('folha_pagamento')->where('id_folha_pagamento', $request->folha_id)->select('valor_bolsa', 'faltas')->get();
 
             foreach ($data as $da) {
                 $bolsa = $da->valor_bolsa;
@@ -132,9 +132,11 @@ class FolhaPagamentoController extends Controller
             $r_bolsa = round($r_bolsa, 1);
             $faltaMes = $r_bolsa * $falta;
             $debito_credito = ($credito - $debito);
+            $valor_debito = $debito + $faltaMes;
+            $valor_credito = $credito + $bolsa;
             $resultado = ($bolsa + $debito_credito) - $faltaMes;
 
-            DB::update('update folha_pagamento set valor_liquido = ?, status =1 where id = ?', [$resultado, $folha->id]);
+            DB::update('update folha_pagamento set valor_liquido = ?, valor_desconto = ?, valor_credito = ?, valor_falta = ?, status =1 where id_folha_pagamento = ?', [$resultado, $valor_debito, $valor_credito, $faltaMes, $folha->id_folha_pagamento]);
 
             return redirect('folha_pagamento')
                 ->with('success', 'ATUALIZADO COM SUCESSO');

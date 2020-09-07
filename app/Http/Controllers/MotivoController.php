@@ -45,7 +45,7 @@ class MotivoController extends Controller
         ]);
 
         $motivo = new Motivo();
-        $motivo->nome = $request->get('nome');
+        $motivo->nome_motivo = $request->get('nome');
         $motivo->descricao = $request->get('descricao');
         $motivo->save();
 
@@ -79,7 +79,7 @@ class MotivoController extends Controller
         ]);
 
         $motivo = Motivo::find($id);
-        $motivo->nome = $request->get('nome');
+        $motivo->nome_motivo = $request->get('nome');
         $motivo->descricao = $request->get('descricao');
         $motivo->save();
 

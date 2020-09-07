@@ -77,11 +77,11 @@
     </p>
     @endforeach
     @foreach ($setores as $str)
-   
+
     <p>
         Setor :
         <span class="fonte-10">
-            <strong>{{$str->nome}} </strong>
+            <strong>{{$str->nome_setor}} </strong>
         </span>
     </p>
      @endforeach
@@ -90,7 +90,7 @@
     <p>
         Supervisor(a) do estágio:
         <span class="fonte-10">
-        <strong> {{$sup->nome}} - {{$sup->cargo}} - {{$sup->email}} - {{$sup->telefone}}
+        <strong> {{$sup->nome_supervisor}} - {{$sup->cargo}} - {{$sup->email}} - {{$sup->telefone}}
         </strong>
     </p>
     @endforeach
@@ -167,7 +167,7 @@
 
         <p class="pull-right" style="margin-left:10px; word-wrap: break-word!important;">
         _________________________________________________________<br>
-        {{$sup->nome}} <br>
+        {{$sup->nome_supervisor}} <br>
         <span style="word-wrap: break-word!important;"> (assinatura e carimbo)-Supervisor </span>
             </p>
             @endforeach

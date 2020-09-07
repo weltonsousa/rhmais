@@ -10,6 +10,7 @@ class Estagiario extends Model
         'dt_cadastro', 'pessoa_responsavel', 'sexo', 'sexo', 'ativo', 'empresa_id', 'instituicao_id',
         'cep', 'rua', 'numero', 'bairro', 'complemento', 'cidade', 'estado', 'nacionalidade', 'obs', 'banco', 'conta', 'codigo_vaga', 'senha', 'matricula', 'curso', 'nivel', 'periodo', 'horario'];
 
+    protected $primaryKey = 'id_estagiario';
     protected $table = 'estagiario';
 
     public function estado()
@@ -24,17 +25,17 @@ class Estagiario extends Model
 
     public function empresa()
     {
-        return $this->belongsTo('App\Empresa');
+        return $this->hasOne('App\Empresa', 'id_empresa', 'empresa_id');
     }
 
     public function instituicao()
     {
-        return $this->belongsTo('App\Instituicao');
+        return $this->hasOne('App\Instituicao', 'id_instituicao', 'instituicao_id');
     }
 
     public function tceContrato()
     {
-        return $this->hasOne('App\TceContrato', 'estagiario_id', 'id');
+        return $this->belongsTo('App\TceContrato');
     }
 
     public function cursos()
@@ -44,7 +45,7 @@ class Estagiario extends Model
 
     public function rescisao()
     {
-        return $this->hasOne('App\FolhaRescisao');
+        return $this->belongsTo('App\Rescisao');
     }
 
 }

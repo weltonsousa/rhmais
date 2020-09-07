@@ -27,7 +27,7 @@
                             <div class="clearfix"></div>
                         </div>
                         <div class="x_content">
-                            {!! Form::open(['route' => ['seguro.update', $seguro->id], 'method' => 'patch']) !!}
+                            {!! Form::open(['route' => ['seguro.update', $seguro->id_seguradora], 'method' => 'patch']) !!}
                             <!-- SmartWizard html -->
                             <div>
                                 <div>
@@ -36,7 +36,7 @@
                                             <div class="row" style="width:960px; margin: 20px auto;">
                                                 <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
                                                      <label for="">Nome da Seguradora</label>
-                                                    <input type="text" value="{{$seguro->nome}}"
+                                                    <input type="text" value="{{$seguro->nome_seguradora}}"
                                                         class="form-control has-feedback-left"
                                                         placeholder="Nome da seguro:" name="nome">
                                                     <span class="fa fa-user form-control-feedback left"

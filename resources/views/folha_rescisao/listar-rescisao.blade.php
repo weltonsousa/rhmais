@@ -71,7 +71,7 @@
                                             <td class="dinheiro">{{$resc->valor_liquido }}</td>
                                             <td>
                                                 @if ($resc->status != 0)
-                                                <a href="{{ route('holerite_rescisao', $resc->id) }}" target="_blank" class="btn btn-success">
+                                                <a href="{{ route('holerite_rescisao', $resc->id_folha_rescisao) }}" target="_blank" class="btn btn-success">
                                                     <i class="fa fa-print" title="Imprimir"></i>
                                                 </a>
                                                 @else

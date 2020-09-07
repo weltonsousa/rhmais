@@ -46,7 +46,7 @@
                                     <tbody>
                                         <tr>
                                             @foreach ($beneficios as $beneficio)
-                                            <td>{{$beneficio->nome}}</td>
+                                            <td>{{$beneficio->nome_beneficio}}</td>
                                             <td>{{$beneficio->sigla}}</td>
                                             <td>@if ($beneficio->tipo == 1)
                                                 Crédito
@@ -56,11 +56,11 @@
                                             </td>
                                             <td style="width:15%;">
                                                 <div class="col-md-3">
-                                                    <a href="{{route('beneficio.edit', [$beneficio->id])}}"
+                                                    <a href="{{route('beneficio.edit', [$beneficio->id_beneficio])}}"
                                                         class="btn btn-primary" title="Editar"> <i class="fa fa-pencil"> </i> </a>
                                                 </div>
                                                 <form class="col-md-3" style="margin-left:10px;"
-                                                    action="{{url('beneficio', [$beneficio->id])}}" method="POST">
+                                                    action="{{url('beneficio', [$beneficio->id_beneficio])}}" method="POST">
                                                     @csrf
                                                     @method("DELETE")
                                                     <button type="submit" class="btn btn-danger" data-toggle="tooltip"

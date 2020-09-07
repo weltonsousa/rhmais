@@ -32,7 +32,7 @@ class CceController extends Controller
      */
     public function create()
     {
-        $instituicoes = Instituicao::all(['id', 'nome_instituicao']);
+        $instituicoes = Instituicao::all(['id_instituicao', 'nome_instituicao']);
         return view('cce_convenio.create', compact('instituicoes', 'seguro'));
     }
 
@@ -73,7 +73,7 @@ class CceController extends Controller
     public function edit($id)
     {
         $cce = Cce::find($id);
-        $instituicoes = DB::table('instituicao')->where('id', '=', $cce->instituicao_id)->get()->first();
+        $instituicoes = DB::table('instituicao')->where('id_instituicao', '=', $cce->instituicao_id)->get()->first();
         return view('cce_convenio.edit', compact('cce', 'instituicoes'));
     }
 
@@ -122,7 +122,7 @@ class CceController extends Controller
     }
     public function assinado($id)
     {
-        DB::update('update cce set situacao = 1 where id = ?', [$id]);
+        DB::update('update cce set situacao = 1 where id_cce = ?', [$id]);
         return redirect('cce_convenio');
     }
 }

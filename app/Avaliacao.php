@@ -6,6 +6,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class Avaliacao extends Model
 {
-    protected $fillable =['id'];
-    protected $table ='avaliacao';
+    protected $fillable = ['id_avaliacao'];
+
+    protected $primaryKey = 'id_avaliacao';
+    protected $table = 'avaliacao';
 }

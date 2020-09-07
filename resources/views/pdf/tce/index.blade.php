@@ -137,7 +137,7 @@
                 <td colspan="2">
                         <span class="fonte-8"> Orientador de Estágio: </span>
                         <span class="fonte-10"></span>
-                         <strong> {{$orient->nome}} </strong>
+                         <strong> {{$orient->nome_orientador}} </strong>
                         <span>
                 </td>
                  <td>
@@ -242,7 +242,7 @@
                   <td  width="100%" colspan="3">
                     <span class="fonte-8">Supervisor de estágio: </span>
                    <span class="fonte-10">
-                        <strong> {{$sup->nome}} </strong>
+                        <strong> {{$sup->nome_supervisor}} </strong>
                     </span>
                   </td>
                   <td>
@@ -428,7 +428,7 @@
         sendo as
         atividades inicialmente desenvolvidas pelo estudante: </p>
         @foreach ($atividades as $ativ)
-    <p class="text-justify"><strong>{{$ativ->nome}}</strong>
+    <p class="text-justify"><strong>{{$ativ->nome_atividade}}</strong>
     </p>
     @endforeach
        @foreach ($tceContrato as $tce)
@@ -438,7 +438,7 @@
         @endforeach
         @foreach ($beneficios as $ben)
         <strong> mais
-            {{$ben->nome}} </strong>. O valor estabelecido
+            {{$ben->nome_beneficio}} </strong>. O valor estabelecido
             @endforeach
         poderá variar segundo a sua frequência mensal, grau de escolaridade, atividades desempenhadas, entendimento
         entre as partes

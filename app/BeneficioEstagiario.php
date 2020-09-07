@@ -7,9 +7,11 @@ use Illuminate\Database\Eloquent\Model;
 class BeneficioEstagiario extends Model
 {
     protected $fillable = ['referencia', 'beneficio_id', 'estagiario_id', 'tipo', 'valor', 'empresa_id', 'folha_id'];
+
+    protected $primaryKey = 'id_beneficio_estagiario';
     protected $table = 'beneficio_estagiario';
 
-     /**
+    /**
      * The users that belong to the role.
      */
     public function beneficios()

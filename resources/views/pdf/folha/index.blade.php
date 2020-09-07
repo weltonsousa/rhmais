@@ -25,6 +25,13 @@
             padding-top: 0px!important;
             padding-bottom: 0px!important;
         }
+        footer{
+            position: fixed;
+            bottom: 0cm;
+            left: 0cm;
+            right: 0cm;
+            height: 2cm;
+        }
     </style>
 </head>
 
@@ -35,7 +42,7 @@
     <table class="table" style="max-width: 100%">
         @foreach ($folha as $data)
         <tr>
-            <td colspan="2" class="borda-menor"><strong> Matrícula:</strong>  {{$data->estagiario_id}}</td>
+            <td colspan="2" class="borda-menor"><strong> Matrícula:</strong>  {{$data->matricula}}</td>
             <td class="borda-menor"><strong> Estagiário: </strong> {{$data->nome}} </td>
             <td class="borda-menor"><strong> CPF: </strong> {{$data->cpf}}</td>
         </tr>
@@ -54,7 +61,7 @@
 
         <tr>
             <td class="borda"><strong> Valor Crédito:</strong> {{$data->bolsa}}</td>
-            <td class="borda"><strong> Valor Débito: </strong> 0.00 </td>
+            <td class="borda"><strong> Valor Débito: </strong> {{$data->valor_desconto}} </td>
             <td class="borda"><strong> Valor Líquido: </strong> {{$data->valor_liquido}} </td>
             <td class="borda"><strong> Referência: </strong>{{$data->referencia}} </td>
         </tr>
@@ -73,10 +80,20 @@
             <td colspan="2" class="borda"><strong> Custo Unitário: {{$emp->custo_unitario}}</strong> </td>
             <td colspan="2" class="borda"><strong> Valor Adicional: 0.00</strong>  </td>
         </tr>
-            @endforeach
-        @endforeach
+          @endforeach
+    @endforeach
     </table>
 </div>
+     <footer>
+         @foreach ($empresa as $emp)
+         <div style="width: 100%">
+            <div style="float: left;">QUANTIDADE DE ESTAGIÁRIOS: {{$qtd_estagiario}}</div>  <div style="float: right;">VALOR TOTAL LIQUIDO FOLHA: {{$total_liquido}}</div> <br>
+            <div style="float: left; margin-left: -3rem;">Total Custo Fixo: 0.00 Total Custo Unitário: {{$emp->custo_unitario}} Total Custo Adicional: 0.00 Valor Total % :  </div> <br>
+                <div style="clear: both"></div>
+            <div style="margin-left: 300px">{{ date('d/m/Y H:i:s') }}</div>
+         </div>
+         @endforeach
+    </footer>
 </body>
 
 </html>

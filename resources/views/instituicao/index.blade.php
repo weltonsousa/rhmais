@@ -60,10 +60,10 @@
                                             <td>{{$instituicao->cnpj}}</td>
                                             <td style="width:15%;">
                                                 <div class="col-md-3">
-                                                    <a href="{{ route('instituicao.edit',[$instituicao->id])}}"
+                                                    <a href="{{ route('instituicao.edit',[$instituicao->id_instituicao])}}"
                                                         class="btn btn-primary" title="Editar"> <i class="fa fa-pencil"> </i></a>
                                                 </div>
-                                                <form class="col-md-3" style="margin-left:10px;" action="{{route('instituicao.destroy', [$instituicao->id])}}"
+                                                <form class="col-md-3" style="margin-left:10px;" action="{{route('instituicao.destroy', [$instituicao->id_instituicao])}}"
                                                     method="POST">
                                                     @csrf
                                                     @method("DELETE")

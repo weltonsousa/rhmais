@@ -119,7 +119,7 @@
                                                             name="instituicao_id">
                                                             <option>Selecione Instituição de Ensino</option>
                                                             @foreach ($instituicoes as $instituicao)
-                                                            <option value="{{ $instituicao->id }}">
+                                                            <option value="{{ $instituicao->id_instituicao }}">
                                                                 {{ $instituicao->nome_instituicao }}</option>
                                                             @endforeach
                                                         </select>

@@ -45,7 +45,7 @@ class BeneficioController extends Controller
         ]);
 
         $beneficio = new Beneficio();
-        $beneficio->nome = $request->get('nome');
+        $beneficio->nome_beneficio = $request->get('nome');
         $beneficio->sigla = $request->get('sigla');
         $beneficio->tipo = $request->get('tipo');
         $beneficio->save();
@@ -80,7 +80,7 @@ class BeneficioController extends Controller
         ]);
 
         $beneficio = Beneficio::find($id);
-        $beneficio->nome = $request->get('nome');
+        $beneficio->nome_beneficio = $request->get('nome');
         $beneficio->sigla = $request->get('sigla');
         $beneficio->tipo = $request->get('tipo');
         $beneficio->save();
@@ -110,7 +110,7 @@ class BeneficioController extends Controller
 
     public function beneficioAjax()
     {
-        $beneficio = Beneficio::pluck('nome', 'id');
+        $beneficio = Beneficio::pluck('nome_beneficio', 'id_beneficio');
         return json_encode($beneficio);
     }
 }

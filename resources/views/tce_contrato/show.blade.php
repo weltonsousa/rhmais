@@ -39,7 +39,7 @@
                                                     <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
                                                         <input type="text" value="{{$tce->nome}}"
                                                             class="form-control has-feedback-left" placeholder="Estágiario">
-                                                    <input type="hidden" name="estagiario_id" value="{{$tce->id}}">
+                                                    <input type="hidden" name="estagiario_id" value="{{$tce->id_tce_contrato}}">
                                                       <input type="hidden" name="setor_id" value="{{$tce->setor_id}}">
                                                         <span class="fa fa-user form-control-feedback left" aria-hidden="true"></span>
                                                     </div>
@@ -52,13 +52,13 @@
                                                     <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
                                                         <input type="text" value="{{$tce->nome_instituicao}}" class="form-control has-feedback-left"
                                                             placeholder="Insituição de Ensino">
-                                                    <input type="hidden" name="instituicao_id" value="{{$tce->instituicao_id}}">
+                                                    <input type="hidden" name="instituicao_id" value="{{$tce->id_instituicao}}">
                                                         <span class="fa fa-graduation-cap form-control-feedback left" aria-hidden="true"></span>
                                                     </div>
                                                     <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
                                                         <input type="text" value="{{$tce->nome_fantasia}}" class="form-control has-feedback-left"
                                                             placeholder="Unidade Concedente">
-                                                             <input type="hidden" name="empresa_id" value="{{$tce->empresa_id}}">
+                                                             <input type="hidden" name="empresa_id" value="{{$tce->id_empresa}}">
                                                         <span class="fa fa-home form-control-feedback left"
                                                             aria-hidden="true"></span>
                                                     </div>

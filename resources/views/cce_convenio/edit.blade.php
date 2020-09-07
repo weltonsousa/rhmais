@@ -27,7 +27,7 @@
                             <div class="clearfix"></div>
                         </div>
                         <div class="x_content">
-                            <form action="{{url('cce_convenio', [$cce->id])}}" id="myForm" role="form"
+                            <form action="{{url('cce_convenio', [$cce->id_cce])}}" id="myForm" role="form"
                                 data-toggle="validator" method="post" accept-charset="utf-8">
                                 @csrf
                                 @method("PUT")
@@ -49,7 +49,7 @@
                                                         <input type="text" value="{{$instituicoes->nome_instituicao}}"
                                                             class="form-control has-feedback-left"
                                                             placeholder="Instituição de Ensino">
-                                                            <input type="hidden" name="instituicao_id" value="{{$instituicoes->id}}">
+                                                            <input type="hidden" name="instituicao_id" value="{{$instituicoes->id_instituicao}}">
                                                         <span class="fa fa-home form-control-feedback left"
                                                             aria-hidden="true"></span>
                                                     </div>

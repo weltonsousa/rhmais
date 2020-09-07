@@ -52,7 +52,7 @@
                                     <tbody>
                                         <tr>
                                             @foreach ($orientadores as $orientador)
-                                            <td>{{$orientador->nome}}</td>
+                                            <td>{{$orientador->nome_orientador}}</td>
                                             <td>{{$orientador->cpf}}</td>
                                             <td>{{$orientador->rg}}</td>
                                             <td>{{$orientador->cidade}}</td>
@@ -61,10 +61,10 @@
                                             </td>
                                             <td style="width:15%;">
                                                 <div class="col-md-3">
-                                                    <a href="{{route('orientador.edit', [$orientador->id])}}"
+                                                    <a href="{{route('orientador.edit', [$orientador->id_orientador])}}"
                                                         class="btn btn-primary" title="Editar"> <i class="fa fa-pencil"> </i> </a>
                                                 </div>
-                                                <form class="col-md-3" style="margin-left:10px;" action="{{url('orientador', [$orientador->id])}}" method="POST">
+                                                <form class="col-md-3" style="margin-left:10px;" action="{{url('orientador', [$orientador->id_orientador])}}" method="POST">
                                                     @csrf
                                                     @method("DELETE")
                                                     <button type="submit" class="btn btn-danger" title="Excluir" onclick="return confirm('Tem certeza que deseja deletar o orientador selecionada?')">

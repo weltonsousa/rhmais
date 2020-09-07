@@ -61,7 +61,7 @@
                                                 </td>
                                             <td>
                                                 {{-- <a href="#" class="btn btn-primary"> <i class="fa fa-pencil"> </i></a> --}}
-                                                <a href="{{ route('recesso_assinado.assinar', [$rec->id]) }}"
+                                                <a href="{{ route('recesso_assinado.assinar', [$rec->id_recesso]) }}"
                                                     class="btn btn-primary" title="Marcar contrato como assinado"> <i
                                                         class="fa fa-star"></i> </a>
                                                 <a href="#" class="btn btn-warning" title="Imprimir"> <i class="fa fa-print"> </i></a>

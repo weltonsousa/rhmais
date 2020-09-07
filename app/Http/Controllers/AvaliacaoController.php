@@ -25,11 +25,11 @@ class AvaliacaoController extends Controller
     public function index()
     {
         $estagiarios = DB::table('tce_contrato')
-            ->join('estagiario', 'tce_contrato.estagiario_id', '=', 'estagiario.id')
+            ->join('estagiario', 'tce_contrato.estagiario_id', '=', 'estagiario.id_estagiario')
             ->get();
 
         $instituicoes = DB::table('tce_contrato')
-            ->join('empresa', 'tce_contrato.empresa_id', '=', 'empresa.id')
+            ->join('empresa', 'tce_contrato.empresa_id', '=', 'empresa.id_empresa')
             ->get();
 
         $empresas = DB::table('empresa')
@@ -39,7 +39,7 @@ class AvaliacaoController extends Controller
                 'empresa.cnpj',
                 'empresa.insc_estadual',
                 'empresa.telefone',
-                'empresa.id',
+                'empresa.id_empresa',
                 'empresa.cidade',
                 'empresa.estado'
             )
@@ -59,7 +59,7 @@ class AvaliacaoController extends Controller
         $i = 0;
         $estagiarios = DB::table('estagiario')->where([['nome', 'like', '%' . $request->nome . '%']])->get();
         foreach ($estagiarios as $estagiario) {
-            $idEstagiarios[$i] = $estagiario->id;
+            $idEstagiarios[$i] = $estagiario->id_estagiario;
             $i++;
         }
         $avaliacoes = DB::table('avaliacao')->where([['estagiario_id', '=', $idEstagiarios]])->get();
@@ -118,7 +118,7 @@ class AvaliacaoController extends Controller
                 $colecaoIdEstagiarios[$i] = $estagiario->estagiario_id;
                 $i++;
             }
-            $estagiarios = DB::table('estagiario')->whereIn('id', $colecaoIdEstagiarios)->get();
+            $estagiarios = DB::table('estagiario')->whereIn('id_estagiario', $colecaoIdEstagiarios)->get();
         }
 
         if ($request->supervisor_id && $request->empresa_id) {
@@ -128,7 +128,7 @@ class AvaliacaoController extends Controller
                 $colecaoIdEstagiarios[$i] = $estagiario->estagiario_id;
                 $i++;
             }
-            $estagiarios = DB::table('estagiario')->where('empresa_id', '=', $request->empresa_id)->whereIn('id', $colecaoIdEstagiarios)->get();
+            $estagiarios = DB::table('estagiario')->where('empresa_id', '=', $request->empresa_id)->whereIn('id_estagiario', $colecaoIdEstagiarios)->get();
         }
 
         if (!$request->supervisor_id && !$request->empresa_id) {
@@ -140,24 +140,24 @@ class AvaliacaoController extends Controller
 
     public function assinar_avaliacao_estagiario($id)
     {
-        DB::update('update avaliacao set status = 1 where id = ?', [$id]);
+        DB::update('update avaliacao set status = 1 where id_avaliacao = ?', [$id]);
         return redirect('/lista_auto_avaliacao');
     }
 
     public function deletar_avaliacao_estagiario($id)
     {
-        DB::delete('delete from `avaliacao` where `avaliacao`.`id` = ?', [$id]);
+        DB::delete('delete from `avaliacao` where `avaliacao`.`id_avaliacao` = ?', [$id]);
         return redirect('/lista_auto_avaliacao');
     }
     public function assinar_avaliacao_supervisor($id)
     {
-        DB::update('update avaliacao_super set status = 1 where id = ?', [$id]);
+        DB::update('update avaliacao_super set status = 1 where id_avaliacao = ?', [$id]);
         return redirect('/lista_avaliacao_supervisor');
     }
 
     public function deletar_avaliacao_supervisor($id)
     {
-        DB::delete('delete from `avaliacao_super` where `avaliacao_super`.`id` = ?', [$id]);
+        DB::delete('delete from `avaliacao_super` where `avaliacao_super`.`id_avaliacao_super` = ?', [$id]);
         return redirect('/lista_avaliacao_supervisor');
     }
 
@@ -169,14 +169,14 @@ class AvaliacaoController extends Controller
     public function create()
     {
         $estagiarios = DB::table('estagiario')
-            ->join('empresa', 'estagiario.empresa_id', '=', 'empresa.id')
+            ->join('empresa', 'estagiario.empresa_id', '=', 'empresa.id_empresa')
             ->select(
                 'estagiario.nome',
                 'empresa.nome_fantasia',
                 'estagiario.celular',
                 'estagiario.cpf',
                 'estagiario.data_nascimento',
-                'estagiario.id',
+                'estagiario.id_estagiario',
                 'estagiario.ativo',
                 'estagiario.curso',
                 'estagiario.cidade',
@@ -189,7 +189,7 @@ class AvaliacaoController extends Controller
                 'instituicao.nome_instituicao',
                 'instituicao.cnpj',
                 'instituicao.rua',
-                'instituicao.id',
+                'instituicao.id_instituicao',
                 'instituicao.cidade',
                 'instituicao.estado'
             )
@@ -201,7 +201,7 @@ class AvaliacaoController extends Controller
                 'empresa.cnpj',
                 'empresa.insc_estadual',
                 'empresa.telefone',
-                'empresa.id',
+                'empresa.id_empresa',
                 'empresa.cidade',
                 'empresa.estado'
             )
@@ -283,7 +283,7 @@ class AvaliacaoController extends Controller
                 'estagiario.celular',
                 'estagiario.cpf',
                 'estagiario.data_nascimento',
-                'estagiario.id',
+                'estagiario.id_estagiario',
                 'estagiario.ativo',
                 'estagiario.nivel',
                 'estagiario.cidade',
@@ -296,7 +296,7 @@ class AvaliacaoController extends Controller
                 'instituicao.nome_instituicao',
                 'instituicao.cnpj',
                 'instituicao.rua',
-                'instituicao.id',
+                'instituicao.id_instituicao',
                 'instituicao.cidade',
                 'instituicao.estado'
             )
@@ -308,7 +308,7 @@ class AvaliacaoController extends Controller
                 'empresa.cnpj',
                 'empresa.insc_estadual',
                 'empresa.telefone',
-                'empresa.id',
+                'empresa.id_empresa',
                 'empresa.cidade',
                 'empresa.estado'
             )
@@ -349,9 +349,9 @@ class AvaliacaoController extends Controller
     public function avaliacaoAjax($id)
     {
         $avaliacao = DB::table('estagiario')
-            ->join('empresa', 'empresa.id', '=', 'estagiario.empresa_id')
-            ->join('instituicao', 'instituicao.id', '=', 'estagiario.instituicao_id')
-            ->where("estagiario.id", $id)
+            ->join('empresa', 'empresa.id_empresa', '=', 'estagiario.empresa_id')
+            ->join('instituicao', 'instituicao.id_instituicao', '=', 'estagiario.instituicao_id')
+            ->where("estagiario.id_estagiario", $id)
             ->select("nome_fantasia", "nome_instituicao", "empresa_id", "instituicao_id")
             ->get();
         return json_encode($avaliacao);
@@ -360,9 +360,9 @@ class AvaliacaoController extends Controller
     public function supervisorAjax($id)
     {
         $supervisor = DB::table('supervisor')
-            ->join('empresa', 'empresa.id', '=', 'supervisor.empresa_id')
-            ->where("empresa.id", $id)
-            ->select("nome", "supervisor.id")
+            ->join('empresa', 'empresa.id_empresa', '=', 'supervisor.empresa_id')
+            ->where("empresa.id_empresa", $id)
+            ->select("nome", "supervisor.id_supervisor")
             ->get();
         return json_encode($supervisor);
 

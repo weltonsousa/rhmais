@@ -6,7 +6,9 @@ use Illuminate\Database\Eloquent\Model;
 
 class Curso extends Model
 {
-    protected $fillable = ['nome', 'nivel'];
+    protected $fillable = ['nome_curso', 'nivel'];
+
+    protected $primaryKey = 'id_curso';
     protected $table = 'curso';
 
     public function estagiarios()

@@ -30,22 +30,27 @@ class Instituicao extends Model
         'email_contato',
         'celular_contato'];
 
+    protected $primaryKey = 'id_instituicao';
     protected $table = 'instituicao';
 
     public function estagiario()
     {
         return $this->hasOne('App\Estagiario');
     }
-    public function cce()
-    {
-        return $this->hasOne('App\Cce', 'instituicao_id', 'id');
-    }
+
     public function tceContrato()
     {
-        return $this->hasMany('App\TceContrato', 'instituicao_id', 'id');
+        return $this->belongsTo('App\TceContrato');
     }
+
+    public function cce()
+    {
+        return $this->belongsTo('App\Cce');
+
+    }
+
     public function orientador()
     {
-        return $this->hasMany('App\Orientador', 'instituicao_id', 'id');
+        return $this->belongsTo('App\Orientador');
     }
 }

@@ -32,7 +32,7 @@ class SupervisorController extends Controller
      */
     public function create()
     {
-        $empresas = Empresa::all(['id', 'nome_fantasia']);
+        $empresas = Empresa::all(['id_empresa', 'nome_fantasia']);
         return view('supervisor.create', compact('empresas', 'cursos'));
     }
 
@@ -50,7 +50,7 @@ class SupervisorController extends Controller
         ]);
 
         $supervisores = new Supervisor();
-        $supervisores->nome = $request->get('nome');
+        $supervisores->nome_supervisor = $request->get('nome');
         $supervisores->email = $request->get('email');
         $supervisores->rg = $request->get('rg');
         $supervisores->cpf = $request->get('cpf');
@@ -82,9 +82,9 @@ class SupervisorController extends Controller
     public function edit($id)
     {
         $supervisor = Supervisor::find($id);
-        $empresa = Empresa::all(['id', 'nome_fantasia']);
+        $empresa = Empresa::all(['id_empresa', 'nome_fantasia']);
 
-        return view('supervisor.edit', compact('supervisor', 'empresa', $supervisor));
+        return view('supervisor.edit', compact('supervisor', 'empresa'));
     }
 
     /**
@@ -101,7 +101,7 @@ class SupervisorController extends Controller
         ]);
 
         $supervisores = Supervisor::find($id);
-        $supervisores->nome = $request->get('nome');
+        $supervisores->nome_supervisor = $request->get('nome');
         $supervisores->email = $request->get('email');
         $supervisores->rg = $request->get('rg');
         $supervisores->cpf = $request->get('cpf');
@@ -147,7 +147,7 @@ class SupervisorController extends Controller
         $supervisor = DB::table('supervisor')
             ->join('empresa', 'empresa.id', '=', 'supervisor.empresa_id')
             ->where("supervisor.empresa_id", $id)
-            ->select("supervisor.id", "supervisor.nome")
+            ->select("supervisor.id_supervisor", "supervisor.nome_supervisor")
             ->get();
 
         return json_encode($supervisor);

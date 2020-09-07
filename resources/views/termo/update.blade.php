@@ -66,8 +66,8 @@
                                     <div class="col-md-6 col-sm-12 col-xs-12">
                                         <strong>Benefício:</strong>
                                         @foreach ($beneficios as $beneficio)
-                                            @if ( $contrato->beneficio_id   == $beneficio->id)
-                                            {{$beneficio->nome}}
+                                            @if ( $contrato->beneficio_id   == $beneficio->id_beneficio)
+                                            {{$beneficio->nome_beneficio}}
                                             @endif
                                         @endforeach
                                     </div>
@@ -77,15 +77,15 @@
                                     <div class="col-md-6 col-sm-12 col-xs-12">
                                         <strong>Apólice/Seguradora:</strong>
                                         @foreach ($apolices as $apolice)
-                                            @if ( $contrato->apolice_id  == $apolice->id)
-                                            {{$apolice->nome}}
+                                            @if ( $contrato->apolice_id  == $apolice->id_seguradora)
+                                            {{$apolice->nome_seguradora}}
                                             @endif
                                         @endforeach
                                     </div>
                                     <div class="col-md-6 col-sm-12 col-xs-12">
                                         <strong>Horário Estágio:</strong>
                                          @foreach ($horarios as $horario)
-                                            @if (  $contrato->horario_id   == $horario->id)
+                                            @if (  $contrato->horario_id   == $horario->id_horario)
                                             {{$horario->descricao}}
                                             @endif
                                         @endforeach
@@ -96,30 +96,30 @@
                                     <div class="col-md-6 col-sm-12 col-xs-12">
                                         <strong>Atividade/Setor:</strong>
                                          @foreach ($setores as $setor)
-                                            @if ( $contrato->setor_id  == $setor->id)
-                                            {{$setor->nome}}
+                                            @if ( $contrato->setor_id  == $setor->id_setor)
+                                            {{$setor->nome_setor}}
                                             @endif
                                         @endforeach
                                     </div>
                                     <div class="col-md-6 col-sm-12 col-xs-12">
                                         <strong>Supervisor Estágio:</strong>
-                                        {!! $supervisor->nome !!}
+                                        {!! $supervisor->nome_supervisor !!}
                                     </div>
                                 </div>
                                 <hr>
                                 {!! Form::open(['route' => 'termo_recesso.store']) !!}
-                                <input type="hidden" name="estagiario_id" value="{!! $estagiario->id !!}">
-                                <input type="hidden" name="empresa_id" value="{!! $empresa->id !!}">
+                                <input type="hidden" name="estagiario_id" value="{!! $estagiario->id_estagiario !!}">
+                                <input type="hidden" name="empresa_id" value="{!! $empresa->id_empresa !!}">
                                 <input type="hidden" name="bolsa" value="{!! $contrato->bolsa !!}">
                                 <input type="hidden" name="contrato_inicio" value="{!! $contrato->data_inicio !!}">
                                 <input type="hidden" name="contrato_fim" value="{!! $contrato->data_fim !!}">
-                                <input type="hidden" name="contrato_id" value="{!! $contrato->id !!}">
+                                <input type="hidden" name="contrato_id" value="{!! $contrato->id_tce_contrato !!}">
                                 <div class="row">
                                     <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
                                         <select class="form-control has-feedback-left" name="motivo_id">
                                             <option>Selecione o Motivo:</option>
                                             @foreach($motivos as $motivo)
-                                            <option value="{!! $motivo->id !!}">{!! $motivo->nome !!}</option>
+                                            <option value="{!! $motivo->id_motivo !!}">{!! $motivo->nome_motivo !!}</option>
                                             @endforeach
                                         </select>
                                         <span class="fa fa-align-justify form-control-feedback left"

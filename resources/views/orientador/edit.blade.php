@@ -27,7 +27,7 @@
                             <div class="clearfix"></div>
                         </div>
                         <div class="x_content">
-                            <form action="{{ route('orientador.update',  $orientador->id) }}" id="myForm" role="form"
+                            <form action="{{ route('orientador.update',  $orientador->id_orientador) }}" id="myForm" role="form"
                                 data-toggle="validator" method="post" accept-charset="utf-8">
                                 @csrf
                                 @method("PUT")
@@ -40,7 +40,7 @@
                                             <div id="form-step-0" role="form" data-toggle="validator">
                                                 <div class="row" style="width:960px; margin: 0 auto;">
                                                     <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
-                                                        <input type="text" value="{{ $orientador->nome }}"
+                                                        <input type="text" value="{{ $orientador->nome_orientador }}"
                                                             class="form-control has-feedback-left"
                                                             placeholder="Nome Completo" name="nome">
                                                         <span class="fa fa-user form-control-feedback left"
@@ -176,7 +176,7 @@
                                                              class="form-control has-feedback-left" readonly>
                                                              <span class="fa fa-graduation-cap form-control-feedback left"
                                                             aria-hidden="true"></span>
-                                                            <input type="hidden" name="instituicao_id" value="{{ $orientador->instituicao->id }}">
+                                                            <input type="hidden" name="instituicao_id" value="{{ $orientador->instituicao->id_instituicao }}">
                                                     </div>
                                                 </div>
                                             </div>

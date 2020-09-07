@@ -51,10 +51,10 @@
                                             <td>{{$horario->empresa->nome_fantasia}}</td>
                                             <td style="width:15%;">
                                                 <div class="col-md-3">
-                                                    <a href="{{ route('horario.edit',[$horario->id])}}"
+                                                    <a href="{{ route('horario.edit',[$horario->id_horario])}}"
                                                         class="btn btn-primary" title="Editar"> <i class="fa fa-pencil"> </i></a>
                                                 </div>
-                                                <form class="col-md-3" action="{{route('horario.destroy', [$horario->id])}}" method="POST">
+                                                <form class="col-md-3" action="{{route('horario.destroy', [$horario->id_horario])}}" method="POST">
                                                     @csrf
                                                     @method("DELETE")
                                                     <button type="submit" class="btn btn-danger" title="Excluir"

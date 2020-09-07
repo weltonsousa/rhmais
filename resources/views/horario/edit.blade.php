@@ -27,7 +27,7 @@
                             <div class="clearfix"></div>
                         </div>
                         <div class="x_content">
-                            <form action="{{ route('horario.update',  $horarios->id) }}" id="myForm" role="form" data-toggle="validator" method="post" accept-charset="utf-8">
+                            <form action="{{ route('horario.update',  $horarios->id_horario) }}" id="myForm" role="form" data-toggle="validator" method="post" accept-charset="utf-8">
                                 @csrf
                                 @method("PUT")
                                 <!-- SmartWizard html -->
@@ -56,7 +56,7 @@
                                                         <label for="">Unidade</label>
                                                         <input type="text" value="{{ $horarios->empresa->nome_fantasia }}"
                                                             class="form-control has-feedback-left" readonly>
-                                                            <input type="hidden" name="empresa_id" value="{{ $horarios->empresa->id }}">
+                                                            <input type="hidden" name="empresa_id" value="{{ $horarios->empresa->id_empresa }}">
                                                         <span class="fa fa-home form-control-feedback left"
                                                             aria-hidden="true"></span>
                                                     </div>

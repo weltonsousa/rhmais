@@ -57,10 +57,10 @@
                                             <td>{{date('d/m/Y', strtotime($cau->data_inicio))}}</td>
                                             <td>{{date('d/m/Y', strtotime($cau->data_fim))}}</td>
                                             <td style="width:22%;">
-                                                <a href="{{ route('cau_convenio.edit', [$cau->id]) }}"
+                                                <a href="{{ route('cau_convenio.edit', [$cau->id_cau]) }}"
                                                     class="btn btn-primary" title="Editar"> <i class="fa fa-pencil"> </i></a>
                                                 <form class="col-md-3"
-                                                    action="{{route('cau_convenio.destroy', [$cau->id])}}"
+                                                    action="{{route('cau_convenio.destroy', [$cau->id_cau])}}"
                                                     method="POST">
                                                     @csrf
                                                     @method("DELETE")
@@ -69,7 +69,7 @@
                                                         <i class="fa fa-trash"></i>
                                                     </button>
                                                 </form>
-                                                <a class="btn btn-warning" href="{{ action('PdfController@cau', $cau->id) }}" target="_blank"><i
+                                                <a class="btn btn-warning" href="{{ action('PdfController@cau', $cau->id_cau) }}" target="_blank"><i
                                                         class="fa fa-print" title="Imprimir"></i> </a>
                                             </td>
                                         </tr>

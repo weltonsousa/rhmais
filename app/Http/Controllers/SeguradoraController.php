@@ -46,7 +46,7 @@ class SeguradoraController extends Controller
         ]);
 
         $seguradora = new Seguradora();
-        $seguradora->nome = $request->get('nome');
+        $seguradora->nome_seguradora = $request->get('nome');
         $seguradora->n_apolice = $request->get('n_apolice');
         $seguradora->cobertura = $request->get('cobertura');
         $seguradora->save();
@@ -81,7 +81,7 @@ class SeguradoraController extends Controller
         ]);
 
         $seguradora = Seguradora::find($id);
-        $seguradora->nome = $request->get('nome');
+        $seguradora->nome_seguradora = $request->get('nome');
         $seguradora->n_apolice = $request->get('n_apolice');
         $seguradora->cobertura = $request->get('cobertura');
         $seguradora->save();

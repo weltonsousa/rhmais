@@ -48,7 +48,7 @@
                                             <td>{{$estagiario->nome}}</td>
                                             <td>
                                                 @foreach ($empresas as $empresa)
-                                                    @if ($estagiario->empresa_id == $empresa->id)
+                                                    @if ($estagiario->empresa_id == $empresa->id_empresa)
                                                         {{$empresa->nome_fantasia}}
                                                     @endif
                                                 @endforeach

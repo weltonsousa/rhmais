@@ -51,7 +51,7 @@
                                     <tbody>
                                         <tr>
                                             @foreach ($supervisores as $supervisor)
-                                            <td>{{$supervisor->nome}}</td>
+                                            <td>{{$supervisor->nome_supervisor}}</td>
                                             <td>{{$supervisor->cpf}}</td>
                                             <td>{{$supervisor->rg}}</td>
                                             <td>{{$supervisor->cidade}}</td>
@@ -60,10 +60,10 @@
                                             </td>
                                             <td style="width:15%;">
                                                 <div class="col-md-3">
-                                                    <a href="{{route('supervisor.edit', [$supervisor->id])}}"
+                                                    <a href="{{route('supervisor.edit', [$supervisor->id_supervisor])}}"
                                                         class="btn btn-primary" title="Editar"> <i class="fa fa-pencil"> </i></a>
                                                 </div>
-                                                <form class="col-md-3"  style="margin-left:10px;" action="{{route('supervisor.destroy', [$supervisor->id])}}"
+                                                <form class="col-md-3"  style="margin-left:10px;" action="{{route('supervisor.destroy', [$supervisor->id_supervisor])}}"
                                                     method="POST">
                                                     @csrf
                                                     @method("DELETE")

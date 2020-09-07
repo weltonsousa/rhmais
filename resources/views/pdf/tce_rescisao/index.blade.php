@@ -280,7 +280,7 @@
     <p class="text-justify">
         @foreach ($motivos as $mot)
             <span class="fonte-10">
-        2) Motivo da Rescisão : <strong>  {{$mot->nome}} </strong>
+        2) Motivo da Rescisão : <strong>  {{$mot->nome_motivo}} </strong>
             </span>
         @endforeach
 
@@ -288,7 +288,7 @@
     <p class="text-justify">
         @foreach($atividades as $ativ)
            <span class="fonte-10">
-        3) Atividade do Estagiário(a): <strong>{{$ativ->nome}}</strong>
+        3) Atividade do Estagiário(a): <strong>{{$ativ->nome_atividade}}</strong>
            </span>
         @endforeach
     </p>

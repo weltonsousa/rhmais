@@ -52,7 +52,7 @@
                                     <tbody>
                                         <tr>
                                             @foreach ($seguros as $seguro)
-                                            <td>{{$seguro->nome}}</td>
+                                            <td>{{$seguro->nome_seguradora}}</td>
                                             <td>{{$seguro->n_apolice}}</td>
                                             {{-- <td> @foreach ($empresas as $empresa)
                                                 @if ($seguro->empresa_id == $empresa->id)
@@ -64,11 +64,11 @@
                                             {{-- <td>{{$seguro->agente_integracao}}</td> --}}
                                             <td style="width:15%;">
                                                 <div class="col-md-3">
-                                                    <a href="{{route('seguro.edit', [$seguro->id])}}"
+                                                    <a href="{{route('seguro.edit', [$seguro->id_seguradora])}}"
                                                         class="btn btn-primary" title="Editar"> <i class="fa fa-pencil"> </i></a>
                                                 </div>
                                                 <form class="col-md-3" style="margin-left:10px;"
-                                                    action="{{ route('seguro.destroy', [$seguro->id]) }}" method="POST">
+                                                    action="{{ route('seguro.destroy', [$seguro->id_seguradora]) }}" method="POST">
                                                     <input type="hidden" name="_method" value="DELETE">
                                                     <input type="hidden" name="_token" value="{{ csrf_token() }}">
                                                     <button type="submit" class="btn btn-danger" title="Excluir" onclick="return confirm('Tem certeza que deseja deletar o seguro selecionado?')">

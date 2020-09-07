@@ -10,14 +10,14 @@
             <div class="modal-body">
                 <form id="productForm" name="productForm" class="form-horizontal">
                    <input type="hidden" name="product_id" id="product_id">
-                    <input type="hidden" name="estagiario_id" id="estagiario_id" value="{{ $estagiario->id }}">
-                     <input type="hidden" name="folha_id" id="folha_id" value="{{ $folha->id }}">
+                    <input type="hidden" name="estagiario_id" id="estagiario_id" value="{{ $estagiario->id_estagiario }}">
+                     <input type="hidden" name="folha_id" id="folha_id" value="{{ $folha->id_folha_pagamento }}">
 
                    <div class="col-md-12">
                         <div class="form-group">
                             <select class="form-control has-feedback-left" name="beneficio_id">
                                     @foreach ($beneficios as $ben)
-                                <option value="{{$ben->id}}">{{$ben->nome}}</option>
+                                <option value="{{$ben->id_beneficio}}">{{$ben->nome_beneficio}}</option>
                                     @endforeach
                             </select>
                                         <span class="fa fa-list form-control-feedback left" aria-hidden="true"></span>

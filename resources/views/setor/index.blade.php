@@ -43,14 +43,14 @@
                                     <tbody>
                                         <tr>
                                             @foreach ($setores as $setor)
-                                            <td>{{$setor->nome}}</td>
+                                            <td>{{$setor->nome_setor}}</td>
                                             <td>{{$setor->sigla}}</td>
                                             <td style="width:15%;">
                                                 <div class="col-md-3">
-                                                    <a href="{{route('setor.edit', [$setor->id])}}"
+                                                    <a href="{{route('setor.edit', [$setor->id_setor])}}"
                                                         class="btn btn-primary" title="Editar"> <i class="fa fa-pencil"> </i></a>
                                                 </div>
-                                                <form class="col-md-3" style="margin-left:10px;" action="{{url('setor', [$setor->id])}}" method="POST">
+                                                <form class="col-md-3" style="margin-left:10px;" action="{{url('setor', [$setor->id_setor])}}" method="POST">
                                                     @csrf
                                                     @method("DELETE")
                                                     <button type="submit" class="btn btn-danger" data-toggle="tooltip"

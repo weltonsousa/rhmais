@@ -32,7 +32,7 @@ class CauController extends Controller
      */
     public function create()
     {
-        $empresas = Empresa::all(['id', 'nome_fantasia']);
+        $empresas = Empresa::all(['id_empresa', 'nome_fantasia']);
         return view('cau_convenio.create', compact('empresas'));
     }
 
@@ -73,7 +73,7 @@ class CauController extends Controller
     public function edit($id)
     {
         $cau = Cau::find($id);
-        $empresas = DB::table('empresa')->where('id', '=', $cau->empresa_id)->get()->first();
+        $empresas = DB::table('empresa')->where('id_empresa', '=', $cau->empresa_id)->get()->first();
         return view('cau_convenio.edit', compact('cau', 'empresas'));
     }
 
@@ -121,7 +121,7 @@ class CauController extends Controller
 
     public function assinado($id)
     {
-        DB::update('update cau set situacao = 1 where id = ?', [$id]);
+        DB::update('update cau set situacao = 1 where id_cau = ?', [$id]);
         return redirect('cau_convenio');
     }
 }

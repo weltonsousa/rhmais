@@ -95,10 +95,10 @@
                                             </td>
                                             <td style="width:10%;">
                                                 <a class="btn btn-primary" title="Adicionar"
-                                                    href="{{ route('tce_aditivo.edit',[$tcead->id])}}"><i
+                                                    href="{{ route('tce_aditivo.edit',[$tcead->id_tce_contrato])}}"><i
                                                         class="fa fa-plus"></i></a>
                                                       @if ($tcead->aditivo  == 1)
-                                            <a href="{{action('PdfController@contratoAditivoTce', $tcead->estagiario_id)}}"
+                                            <a href="{{action('PdfController@contratoAditivoTce', $tcead->id_estagiario)}}"
                                                     class="btn btn-success" title="Imprimir Aditivo" target="_blank"> <i class="fa fa-print"> </i></a></td>
                                                     @else
                                             <div href="#" class="btn btn-success" title="Imprimir Aditivo" target="_blank"> <i class="fa fa-print"> </i></div></td>

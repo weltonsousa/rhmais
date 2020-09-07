@@ -43,15 +43,15 @@
                                     <tbody>
                                         <tr>
                                             @foreach ($motivos as $motivo)
-                                            <td>{{$motivo->nome}}</td>
+                                            <td>{{$motivo->nome_motivo}}</td>
                                             <td>{{$motivo->descricao}}</td>
                                             <td style="width:15%;">
                                                 <div class="col-md-3">
-                                                    <a href="{{ route('motivo.edit', $motivo->id) }}"
+                                                    <a href="{{ route('motivo.edit', $motivo->id_motivo) }}"
                                                         class="btn btn-primary" title="Editar"> <i class="fa fa-pencil"> </i></a>
                                                 </div>
                                                 <form class="col-md-3" style="margin-left:10px;"
-                                                    action="{{route('motivo.destroy', [$motivo->id])}}" method="POST">
+                                                    action="{{route('motivo.destroy', [$motivo->id_motivo])}}" method="POST">
                                                     @csrf
                                                     @method("DELETE")
                                                     <button type="submit" class="btn btn-danger" data-toggle="tooltip"

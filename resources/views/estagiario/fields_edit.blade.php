@@ -5,7 +5,7 @@
     </div>
     <div class="x_content">
 
-    <form action="{{route('estagiario.update', $estagiario->id)}}" method="POST">
+    <form action="{{route('estagiario.update', $estagiario->id_estagiario)}}" method="POST">
         @csrf
         @method("PUT")
 
@@ -128,7 +128,7 @@
                                                 {{$estagiario->empresa->nome_fantasia}}
                                     </option>
                                     @foreach ($empresas as $empresa)
-                                    <option value="{{ $empresa->id }}">{{ $empresa->nome_fantasia }}</option>
+                                    <option value="{{ $empresa->id_empresa }}">{{ $empresa->nome_fantasia }}</option>
                                     @endforeach
                                 </select>
                                 <span class="fa fa-graduation-cap form-control-feedback left" aria-hidden="true"></span>
@@ -205,7 +205,7 @@
                                  <option value="{{  $estagiario->curso }}">{{  $estagiario->curso }}
                                     </option>
                                     @foreach ($cursos as $curso)
-                                    <option value="{{ $curso->nome }}">{{ $curso->nome }}</option>
+                                    <option value="{{ $curso->nome_curso }}">{{ $curso->nome_curso }}</option>
                                     @endforeach
                             </select>
                             <span class="fa fa-graduation-cap form-control-feedback left" aria-hidden="true"></span>
@@ -243,7 +243,7 @@
                                                 {{$estagiario->instituicao->nome_instituicao}}
                                     </option>
                                     @foreach ($instituicoes as $instituicao)
-                                    <option value="{{ $instituicao->id }}">{{ $instituicao->nome_instituicao }}</option>
+                                    <option value="{{ $instituicao->id_instituicao }}">{{ $instituicao->nome_instituicao }}</option>
                                     @endforeach
                             </select>
                             <span class="fa fa-graduation-cap form-control-feedback left" aria-hidden="true"></span>

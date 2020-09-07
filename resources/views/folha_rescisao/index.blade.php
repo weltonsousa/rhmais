@@ -132,7 +132,7 @@
                                             <td>
                                                 @php
                                                 foreach ($estagiarios as $estagiario) {
-                                                if ($estagiario->id == $folha->estagiario_id) {
+                                                if ($estagiario->id_estagiario == $folha->estagiario_id) {
                                                 echo $estagiario->nome;
                                                 }
                                                 }
@@ -141,7 +141,7 @@
                                             <td>
                                                 @php
                                                 foreach ($empresas as $empresa) {
-                                                if ($empresa->id == $folha->empresa_id) {
+                                                if ($empresa->id_empresa == $folha->empresa_id) {
                                                 echo $empresa->nome_fantasia;
                                                 }
                                                 }
@@ -150,7 +150,7 @@
                                             <td>{{ $folha->valor_bolsa }}</td>
                                             <td>{{ $folha->valor_liquido }}</td>
                                             <td>
-                                                <form action="{{ route('folha_rescisao.edit', [$folha->id]) }}">
+                                                <form action="{{ route('folha_rescisao.edit', [$folha->id_folha_pagamento]) }}">
                                                 <button type="submit" class="btn btn-primary" title="Gerar Rescisão"><i class="fa fa-pencil"></i> </a>
                                                 </button>
                                                 </form>

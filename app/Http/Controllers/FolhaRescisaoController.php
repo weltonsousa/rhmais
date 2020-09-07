@@ -27,7 +27,7 @@ class FolhaRescisaoController extends Controller
         if (request('unidade_id') !== null && request('referencia') !== null) {
 
             $folhaRescisao = DB::table('folha_pagamento')
-                ->join('empresa', 'empresa.id', '=', 'folha_pagamento.empresa_id')
+                ->join('empresa', 'empresa.id_empresa', '=', 'folha_pagamento.empresa_id')
                 ->where("empresa_id", $unidades)
                 ->where("referencia", $referencia)
                 ->get();
@@ -37,7 +37,7 @@ class FolhaRescisaoController extends Controller
                 ->get();
 
             return view('folha_rescisao.index', [
-                'unidades' => $empresas = Empresa::where('id', request('unidades_id'))->get(),
+                'unidades' => $empresas = Empresa::where('id_empresa', request('unidades_id'))->get(),
                 'folhas' => $folhaRescisao,
                 'estagiarios' => $estagiarios = Estagiario::all(),
                 'empresas' => $empresas,
@@ -47,8 +47,8 @@ class FolhaRescisaoController extends Controller
 
         } else {
             $unidades = DB::table('cau')
-                ->join('empresa', 'empresa.id', '=', 'cau.empresa_id')
-                ->select('empresa.id as empresa_id', 'empresa.nome_fantasia', 'cau.data_inicio', 'cau.data_fim', 'cau.situacao', 'cau.id AS id')
+                ->join('empresa', 'empresa.id_empresa', '=', 'cau.empresa_id')
+                ->select('empresa.id_empresa as empresa_id', 'empresa.nome_fantasia', 'cau.data_inicio', 'cau.data_fim', 'cau.situacao', 'cau.id_cau')
                 ->get();
 
             $estagiarios = DB::table('estagiario')->get();
@@ -112,9 +112,9 @@ class FolhaRescisaoController extends Controller
      */
     public function edit($id)
     {
-        $folha = DB::table('folha_pagamento')->where('id', $id)->get()->first();
-        $empresa = DB::table('empresa')->where('id', $folha->empresa_id)->get()->first();
-        $estagiario = DB::table('estagiario')->where('id', $folha->estagiario_id)->get()->first();
+        $folha = DB::table('folha_pagamento')->where('id_folha_pagamento', $id)->get()->first();
+        $empresa = DB::table('empresa')->where('id_empresa', $folha->empresa_id)->get()->first();
+        $estagiario = DB::table('estagiario')->where('id_estagiario', $folha->estagiario_id)->get()->first();
         $contrato = DB::table('tce_contrato')->where('estagiario_id', $folha->estagiario_id)->get()->first();
         $beneficios = DB::table('beneficio')->get();
 

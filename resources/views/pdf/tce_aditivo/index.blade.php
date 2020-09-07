@@ -139,7 +139,7 @@
                 <td>
                         <span class="fonte-8"> Orientador de Estágio: </span>
                         <span class="fonte-10"></span>
-                        <strong> {{$orient->nome}} </strong>
+                        <strong> {{$orient->nome_orientador}} </strong>
                         <span>
                 </td>
                  <td>
@@ -244,7 +244,7 @@
                   <td colspan="3" width="100%">
                     <span class="fonte-8">Supervisor de estágio: </span>
                    <span class="fonte-10">
-                        <strong> {{$sup->nome}} </strong>
+                        <strong> {{$sup->nome_supervisor}} </strong>
                     </span>
                   </td>
                   <td colspan="2">
@@ -396,16 +396,16 @@
 @endforeach
     <p class="text-justify"> <strong>3) Atividade do Estagiário(a):</strong></p>
         @foreach ($atividades as $ativ)
-    <p class="text-justify">{{$ativ->nome}} </p>
+    <p class="text-justify">{{$ativ->nome_atividade}} </p>
     @endforeach
      @foreach ($supervisores as $sup)
-    <p class="text-justify"> <strong> Supervisor(a) do estágio: </strong>{{$sup->nome}}  - {{$sup->formacao}} - {{$sup->cargo}} - {{$sup->email}} - {{$sup->telefone}}
+    <p class="text-justify"> <strong> Supervisor(a) do estágio: </strong>{{$sup->nome_supervisor}}  - {{$sup->formacao}} - {{$sup->cargo}} - {{$sup->email}} - {{$sup->telefone}}
 @endforeach
    @foreach ($tceContrato as $tce)
     <p class="text-justify"><strong> 4) Valor da Bolsa-estágio + Auxílio : </strong> No período do estágio o Estagiário receberá, diretamente da Parte Concedente, uma Bolsa-estágio mensal no valor de R$ {{ $tce->bolsa }}
         @endforeach
         @foreach ($beneficios as $ben)
-        +  {{$ben->nome}}  , pagos até o dia 10 do mês subsequente ao vencido.</p>
+        +  {{$ben->nome_beneficio}}  , pagos até o dia 10 do mês subsequente ao vencido.</p>
         @endforeach
     <p class="text-justify">
         <strong> 5 - Apólice Coletiva de Acidentes Pessoais nº 651805, garantido pela SULAMÉRICA SEG. E PREVIDÊNCIA (R$16.131 MIL REAIS).</strong>

@@ -21,14 +21,14 @@ class TceRescisaoController extends Controller
     public function index()
     {
         $rescisao = DB::table('tce_rescisao')
-            ->join('estagiario', 'estagiario.id', '=', 'tce_rescisao.estagiario_id')
-            ->join('empresa', 'empresa.id', '=', 'tce_rescisao.empresa_id')
-            ->join('instituicao', 'instituicao.id', '=', 'tce_rescisao.instituicao_id')
+            ->join('estagiario', 'estagiario.id_estagiario', '=', 'tce_rescisao.estagiario_id')
+            ->join('empresa', 'empresa.id_empresa', '=', 'tce_rescisao.empresa_id')
+            ->join('instituicao', 'instituicao.id_instituicao', '=', 'tce_rescisao.instituicao_id')
             ->select(
                 'estagiario.nome',
                 'empresa.nome_fantasia',
                 'instituicao.nome_instituicao',
-                'tce_rescisao.id',
+                'tce_rescisao.id_tce_rescisao',
                 'tce_rescisao.bolsa',
                 'tce_rescisao.data_inicio',
                 'tce_rescisao.data_fim'

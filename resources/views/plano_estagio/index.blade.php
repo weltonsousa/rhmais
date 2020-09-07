@@ -73,10 +73,10 @@
                                             @endif
                                             </td>
                                             <td style="width:10%;">
-                                                <a href="{{ route('tce_contrato.show',[$plano->tceId])}}"
+                                                <a href="{{ route('tce_contrato.show',[$plano->id_tce_contrato])}}"
                                                     class="btn btn-primary" title="Editar"><i class="fa fa-pencil"></i></a>
                                                        @if ( $plano->plano_estagio  == 1)
-                                                <a class="btn btn-warning" href="{{ action('PdfController@planoEstagio', $plano->id) }}" target="_blank"><i
+                                                <a class="btn btn-warning" href="{{ action('PdfController@planoEstagio', $plano->id_tce_contrato) }}" target="_blank"><i
                                                         class="fa fa-print" title="Imprimir"></i></a>
                                                         @else
                                                         <div class="btn btn-warning"><i class="fa fa-print" title="Imprimir"></i></div>

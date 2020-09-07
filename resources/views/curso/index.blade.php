@@ -44,14 +44,14 @@
                                     <tbody>
                                         @foreach($cursos as $curso)
                                         <tr>
-                                            <td>{{$curso->nome}}</td>
+                                            <td>{{$curso->nome_curso}}</td>
                                             <td>{{$curso->nivel}}</td>
                                             <td style="width:15%;">
                                                 <div class="col-md-3">
-                                                    <a href="{{ route('curso.edit',$curso->id) }}"
+                                                    <a href="{{ route('curso.edit',$curso->id_curso) }}"
                                                         class="btn btn-primary" title="Editar"> <i class="fa fa-pencil"> </i></a>
                                                 </div>
-                                                <form class="col-md-3" style="margin-left:10px;" action="{{url('curso', [$curso->id])}}" method="POST">
+                                                <form class="col-md-3" style="margin-left:10px;" action="{{url('curso', [$curso->id_curso])}}" method="POST">
                                                     @csrf
                                                      @method("DELETE")
                                                     <button type="submit" class="btn btn-danger" data-toggle="tooltip"

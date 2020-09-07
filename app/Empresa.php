@@ -39,39 +39,46 @@ class Empresa extends Model
         'ativo',
     ];
 
+    protected $primaryKey = 'id_empresa';
     protected $table = 'empresa';
 
     public function estagiario()
     {
-        return $this->hasOne('App\Estagiario', 'empresa_id', 'id');
+        return $this->belongsTo('App\Estagiario');
     }
+
     public function horario()
     {
-        return $this->hasMany('App\Horario', 'empresa_id', 'id');
+        return $this->belongsTo('App\Horario');
     }
+
     public function supervisor()
     {
-        return $this->hasMany('App\Supervisor', 'empresa_id', 'id');
+        return $this->belongsTo('App\Supervisor');
     }
     public function cau()
     {
-        return $this->hasOne('App\Cau', 'empresa_id', 'id');
+        return $this->belongsTo('App\Cau');
     }
+
     public function atividade()
     {
-        return $this->hasMany('App\Atividade', 'empresa_id', 'id');
+        return $this->belongsTo('App\Atividade');
     }
+
     public function tceContrato()
     {
-        return $this->hasMany('App\TceContrato', 'empresa_id', 'id');
+        return $this->belongsTo('App\TceContrato');
     }
+
     public function rescisaoFolha()
     {
-        return $this->hasMany('App\FolhaRescisao', 'empresa_id', 'id');
+        return $this->belongsTo('App\FolhaRescisao');
     }
+
     public function pagamentoFolha()
     {
-        return $this->hasMany('App\FolhaPagamento', 'empresa_id', 'id');
+        return $this->hasMany('App\FolhaPagamento', 'empresa_id', 'id_folha_pagamento');
     }
 
 }

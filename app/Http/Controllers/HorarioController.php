@@ -31,7 +31,7 @@ class HorarioController extends Controller
      */
     public function create()
     {
-        $empresas = Empresa::all(['id', 'nome_fantasia']);
+        $empresas = Empresa::all(['id_empresa', 'nome_fantasia']);
         return view('horario.create', compact('empresas'));
     }
 

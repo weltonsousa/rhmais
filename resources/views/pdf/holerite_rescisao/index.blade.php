@@ -67,7 +67,7 @@
         @foreach ($beneficio as $ben)
         <tr>
             <td  style="padding-left: 3rem" class="borda">{{$ben->beneficio_id}}</td>
-            <td class="borda">{{$ben->nome}}</td>
+            <td class="borda">{{$ben->nome_beneficio}}</td>
             <td class="borda">@if($ben->tipo == 1){{$ben->valor}}@endif</td>
             <td class="borda">@if($ben->tipo == 2){{$ben->valor}}@endif</td>
         </tr>
@@ -160,7 +160,7 @@
         @foreach ($beneficio as $ben)
         <tr class="borda">
             <td  style="padding-left: 3rem" class="borda codigo">{{$ben->beneficio_id}}</td>
-            <td class="borda">{{$ben->nome}}</td>
+            <td class="borda">{{$ben->nome_beneficio}}</td>
             <td class="borda">@if($ben->tipo == 1){{$ben->valor}}@endif</td>
             <td class="borda">@if($ben->tipo == 2){{$ben->valor}}@endif</td>
         </tr>

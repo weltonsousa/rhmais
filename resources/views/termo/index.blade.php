@@ -63,12 +63,12 @@
                                                 {{-- <!-- {{date('d/m/Y', strtotime($recesso->data_inicio)) }}<br>02/08/2019
                                                 {{ App\Http\Controllers\RecessoController::diasFerias($recesso->data_inicio, $recesso->data_fim) }}/12 <br>X Dias
                                                 02/08/2019 <br> {{ date('d/m/Y', strtotime($recesso->data_fim)) }} <br> n/c --> --}}
-                                                {{ App\Http\Controllers\RecessoController::periodoAquisitivo($recesso->tceId) }}
+                                                {{ App\Http\Controllers\RecessoController::periodoAquisitivo($recesso->id_tce_contrato) }}
                                             </td>
                                             <td>
                                                 @php
                                                 foreach($listaRecessos as $listaRecesso){
-                                                if($recesso->id == $listaRecesso->estagiario_id){
+                                                if($recesso->id_estagiario == $listaRecesso->estagiario_id){
                                                 App\Http\Controllers\RecessoController::dias_Ferias($listaRecesso->data_inicio,
                                                 $listaRecesso->data_fim);
                                                 }
@@ -83,7 +83,7 @@
                                                 <!-- 0,00 -->
                                                 @php
                                                 foreach($listaRecessos as $listaRecesso){
-                                                if($recesso->id == $listaRecesso->estagiario_id){
+                                                if($recesso->id_tce_contrato == $listaRecesso->estagiario_id){
                                                 echo $listaRecesso->vr_recebido;
                                                 }
                                                 }
@@ -92,17 +92,17 @@
                                             </td>
                                             <td>
                                                 <!-- 733,33 -->
-                                                <!-- {{ App\Http\Controllers\RecessoController::valorSaldo($recesso->tceId) }} -->
+                                                <!-- {{ App\Http\Controllers\RecessoController::valorSaldo($recesso->id_tce_contrato) }} -->
                                                 @php
                                                 foreach($listaRecessos as $listaRecesso){
-                                                if($recesso->id == $listaRecesso->estagiario_id){
+                                                if($recesso->id_tce_contrato == $listaRecesso->estagiario_id){
                                                 echo $listaRecesso->vr_saldo;
                                                 }
                                                 }
                                                 @endphp
                                             </td>
                                             <td>Sim</td>
-                                            <td><a href="{!! route('termo_recesso.edit', [$recesso->id]) !!}"
+                                            <td><a href="{!! route('termo_recesso.edit', [$recesso->id_estagiario]) !!}"
                                                     class="btn btn-primary" title="Lançar férias"> <i class="fa fa-plus"> </i>
                                                 </a></td>
                                         </tr>

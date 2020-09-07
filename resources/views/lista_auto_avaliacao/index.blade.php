@@ -63,22 +63,22 @@
                                             <tr>
                                                 <td>
                                                     @foreach ($estagiarios as $estagiario)
-                                                    @if ($estagiario->id == $avaliacao->estagiario_id)
+                                                    @if ($estagiario->id_estagiario == $avaliacao->estagiario_id)
                                                     {{$estagiario->nome}}
                                                     @endif
                                                     @endforeach
                                                 </td>
                                                 <td style="width:24%;">
                                                     @foreach ($empresas as $empresa)
-                                                    @if ($empresa->id == $avaliacao->empresa_id)
+                                                    @if ($empresa->id_empresa == $avaliacao->empresa_id)
                                                     {{$empresa->nome_fantasia}}
                                                     @endif
                                                     @endforeach
                                                 </td>
                                                 <td>
                                                     @foreach ($orientadores as $orientador)
-                                                    @if ($orientador->id == $avaliacao->supervisor_id)
-                                                    {{$orientador->nome}}
+                                                    @if ($orientador->id_orientador == $avaliacao->supervisor_id)
+                                                    {{$orientador->nome_orientador}}
                                                     @endif
                                                     @endforeach
                                                 </td>
@@ -93,14 +93,14 @@
                                                 </td>
                                                 <td style="width:24%;">
                                                     <div class="col-md-3">
-                                                        <a href="{{route('assinar.avaliacao.estagiario', [$avaliacao->id])}}"
+                                                        <a href="{{route('assinar.avaliacao.estagiario', [$avaliacao->id_avaliacao])}}"
                                                             class="btn btn-primary">
                                                             <i class="fa fa-star" title="Marcar como assinado"> </i> </a>
                                                     </div>
                                                     <a href="/editar_avaliacao_estagiario" class="btn btn-primary">
                                                         <i class="fa fa-pencil" title="Editar"> </i> </a>
                                 </div>
-                                <a href="{{route('deletar.avaliacao.estagiario', [$avaliacao->id])}}"
+                                <a href="{{route('deletar.avaliacao.estagiario', [$avaliacao->id_avaliacao])}}"
                                     class="btn btn-danger" title="Excluir">
                                     <i class="fa fa-trash"></i>
                                 </a>

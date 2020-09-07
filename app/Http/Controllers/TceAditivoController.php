@@ -32,12 +32,12 @@ class TceAditivoController extends Controller
     public function index()
     {
         $tcesad = DB::table('tce_contrato')
-            ->join('estagiario', 'estagiario.id', '=', 'tce_contrato.estagiario_id')
-            ->join('empresa', 'empresa.id', '=', 'tce_contrato.empresa_id')
-            ->join('instituicao', 'instituicao.id', '=', 'tce_contrato.instituicao_id')
+            ->join('estagiario', 'estagiario.id_estagiario', '=', 'tce_contrato.estagiario_id')
+            ->join('empresa', 'empresa.id_empresa', '=', 'tce_contrato.empresa_id')
+            ->join('instituicao', 'instituicao.id_instituicao', '=', 'tce_contrato.instituicao_id')
             ->select(
                 'estagiario.nome',
-                'estagiario.id As estagiario_id',
+                'estagiario.id_estagiario',
                 'empresa.nome_fantasia',
                 'instituicao.nome_instituicao',
                 'tce_contrato.bolsa',
@@ -46,7 +46,7 @@ class TceAditivoController extends Controller
                 'tce_contrato.contrato',
                 'tce_contrato.assinado',
                 'tce_contrato.obrigatorio',
-                'tce_contrato.id',
+                'tce_contrato.id_tce_contrato',
                 'tce_contrato.aditivo'
             )
             ->get();
@@ -120,10 +120,10 @@ class TceAditivoController extends Controller
     {
 
         $tceAditivo = DB::table('tce_contrato')
-            ->join('estagiario', 'estagiario.id', '=', 'tce_contrato.estagiario_id')
-            ->join('empresa', 'empresa.id', '=', 'tce_contrato.empresa_id')
-            ->join('instituicao', 'instituicao.id', '=', 'tce_contrato.instituicao_id')
-            ->where('tce_contrato.id', '=', $id)
+            ->join('estagiario', 'estagiario.id_estagiario', '=', 'tce_contrato.estagiario_id')
+            ->join('empresa', 'empresa.id_empresa', '=', 'tce_contrato.empresa_id')
+            ->join('instituicao', 'instituicao.id_instituicao', '=', 'tce_contrato.instituicao_id')
+            ->where('tce_contrato.id_tce_contrato', '=', $id)
             ->get();
 
         $estagiarios = Estagiario::all();

@@ -9,20 +9,22 @@ class TceContrato extends Model
     protected $fillable = ['estagiario_id', 'empresa_id', 'instituicao_id', ' beneficio',
         'seguro', 'setor', 'bolsa', 'contrato', 'assinado', 'obrigatorio', 'status', 'data_inicio', 'data_fim', 'horario', 'atividade', 'orientador', 'supervisor', 'data_doc', 'curso', 'aditivo'];
 
+    protected $primaryKey = 'id_tce_contrato';
     protected $table = 'tce_contrato';
-
-    public function empresa()
-    {
-        return $this->belongsTo('App\Empresa');
-    }
-    public function instituicao()
-    {
-        return $this->belongsTo('App\Instituicao');
-    }
 
     public function estagiario()
     {
-        return $this->belongsTo('App\Estagiario');
+        return $this->hasOne('App\Estagiario', 'id_estagiario', 'estagiario_id');
+    }
+
+    public function empresa()
+    {
+        return $this->hasOne('App\Empresa', 'id_empresa', 'empresa_id');
+    }
+
+    public function instituicao()
+    {
+        return $this->hasOne('App\Instituicao', 'id_instituicao', 'instituicao_id');
     }
 
 }

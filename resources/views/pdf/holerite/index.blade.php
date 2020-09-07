@@ -79,7 +79,7 @@
         @foreach ($beneficio as $ben)
         <tr>
             <td  style="padding-left: 3rem" class="borda">{{$ben->beneficio_id}}</td>
-            <td class="borda">{{$ben->nome}}</td>
+            <td class="borda">{{$ben->nome_beneficio}}</td>
             <td class="borda">@if($ben->tipo == 1){{$ben->valor}}@endif</td>
             <td class="borda">@if($ben->tipo == 2){{$ben->valor}}@endif</td>
         </tr>
@@ -89,15 +89,16 @@
             <td  style="padding-left: 3rem" class="borda">2</td>
             <td class="borda">Desconto Faltas Estagio</td>
             <td class="borda"></td>
-            <td class="borda">{{number_format($rs_falta, 2, '.', '')}}</td>
+            {{-- <td class="borda">{{number_format($rs_falta, 2, '.', '')}}</td> --}}
+            <td class="borda">{{number_format($data->valor_falta, 2, '.', '')}}</td>
         </tr>
         @endif
         <tr>
         {{-- <td style="padding-left: 3rem">Total de vencimentos {{ number_format($rs_credito, 2, '.','')}} </td> --}}
         <td colspan="3" style="padding: 0px 0px 0px 450px">Total de vencimentos <br>
-            <div style="text-indent: 3em;">{{ number_format($tt_vnc, 2, '.','')}} </div></td>
+            <div style="text-indent: 3em;">{{ number_format($data->valor_credito, 2, '.','')}} </div></td>
         <td style="padding: 0px 0px 0px 15px">Total de Descontos <br>
-            <div style="text-indent: 3em;">{{number_format($tt_desc, 2,'.','' )}}</div></td>
+            <div style="text-indent: 3em;">{{number_format($data->valor_desconto, 2,'.','' )}}</div></td>
         </tr>
         <tr>
             <td colspan="3" style="padding-right: 3rem">Valor Base Bolsa-Auxílio <br>
@@ -177,7 +178,7 @@
         @foreach ($beneficio as $ben)
         <tr class="borda">
             <td  style="padding-left: 3rem" class="borda codigo">{{$ben->beneficio_id}}</td>
-            <td class="borda">{{$ben->nome}}</td>
+            <td class="borda">{{$ben->nome_beneficio}}</td>
             <td class="borda">@if($ben->tipo == 1){{$ben->valor}}@endif</td>
             <td class="borda">@if($ben->tipo == 2){{$ben->valor}}@endif</td>
         </tr>
@@ -187,14 +188,15 @@
             <td  style="padding-left: 3rem" class="borda">2</td>
             <td class="borda">Desconto Faltas Estagio</td>
             <td class="borda"></td>
-            <td class="borda">{{number_format($rs_falta, 2,'.','')}}</td>
+            {{-- <td class="borda">{{number_format($rs_falta, 2,'.','')}}</td> --}}
+            <td class="borda">{{number_format($data->valor_falta, 2, '.', '')}}</td>
         </tr>
         @endif
         <tr>
         <td colspan="3" style="padding: 0px 0px 0px 450px">Total de vencimentos <br>
-            <div style="text-indent: 3em;">{{ number_format($tt_vnc, 2, '.','')}} </div></td>
+            <div style="text-indent: 3em;">{{ number_format($data->valor_credito, 2, '.','')}} </div></td>
         <td style="padding: 0px 0px 0px 15px">Total de Descontos <br>
-            <div style="text-indent: 3em;">{{number_format($tt_desc, 2,'.','' )}}</div></td>
+            <div style="text-indent: 3em;">{{number_format($data->valor_desconto, 2,'.','' )}}</div></td>
         </tr>
         <tr>
             <td colspan="3" style="padding-right: 3rem">Valor Base Bolsa-Auxílio <br>

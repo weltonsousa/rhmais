@@ -47,7 +47,7 @@ class CursoController extends Controller
         ]);
 
         $cursos = new Curso();
-        $cursos->nome = $request->get('nome');
+        $cursos->nome_curso = $request->get('nome');
         $cursos->nivel = $request->get('nivel');
         $cursos->save();
 
@@ -82,11 +82,11 @@ class CursoController extends Controller
         ]);
 
         $cursos = Curso::find($id);
-        $cursos->nome = $request->get('nome');
+        $cursos->nome_curso = $request->get('nome');
         $cursos->nivel = $request->get('nivel');
         $cursos->save();
 
-        $request->session()->flash('success', 'Atualizado com sucesso!');
+        $request->session()->flash('success', 'ATUALIZADO COM SUCESSO');
         return redirect('curso');
     }
 
@@ -100,7 +100,7 @@ class CursoController extends Controller
     {
         $curso = Curso::find($id);
         $curso->delete();
-        $request->session()->flash('warning', 'Removido com sucesso!');
+        $request->session()->flash('warning', 'REMOVIDO COM SUCESSO');
         return redirect('curso');
     }
 }

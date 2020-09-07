@@ -46,7 +46,7 @@ class SetorController extends Controller
         ]);
 
         $setor = new Setor();
-        $setor->nome = $request->get('nome');
+        $setor->nome_setor = $request->get('nome');
         $setor->sigla = $request->get('sigla');
 
         $setor->save();
@@ -81,7 +81,7 @@ class SetorController extends Controller
         ]);
 
         $setor = Setor::find($id);
-        $setor->nome = $request->get('nome');
+        $setor->nome_setor = $request->get('nome');
         $setor->sigla = $request->get('sigla');
         $setor->save();
 
@@ -110,7 +110,7 @@ class SetorController extends Controller
 
     public function setorAjax()
     {
-        $setor = Setor::pluck('nome', 'id');
+        $setor = Setor::pluck('nome_setor', 'id_setor');
         return json_encode($setor);
     }
 }

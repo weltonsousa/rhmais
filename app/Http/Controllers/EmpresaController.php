@@ -89,23 +89,23 @@ class EmpresaController extends Controller
      */
     public function show($id)
     {
-        $empresa = Empresa::where('id', $id)->first();
+        $empresa = Empresa::where('id_empresa', $id)->first();
         if ($empresa) {
-            echo "<h2>ID da empresa: {$empresa->id}</h2>";
+            echo "<h2>ID da empresa: {$empresa->id_empresa}</h2>";
             echo "<h2>Nome da empresa: {$empresa->nome_fantasia}</h2>";
         }
 
         $estagiario = $empresa->estagios()->first();
 
         if ($estagiario) {
-            echo "<h2>ID do estagiario: {$estagiario->id}</h2>";
+            echo "<h2>ID do estagiario: {$estagiario->id_estagiario}</h2>";
             echo "<h2>Nome do estagiario: {$estagiario->nome}</h2>";
         }
 
         $instituicao = $estagiario->instituicao()->first();
 
         if ($instituicao) {
-            echo "<h2>ID do estagiario: {$instituicao->id}</h2>";
+            echo "<h2>ID do estagiario: {$instituicao->id_instituicao}</h2>";
             echo "<h2>Nome do estagiario: {$instituicao->nome}</h2>";
         }
 

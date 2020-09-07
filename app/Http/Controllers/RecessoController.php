@@ -26,12 +26,12 @@ class RecessoController extends Controller
     public function index()
     {
         $recessos = DB::table('tce_contrato')
-            ->join('estagiario', 'estagiario.id', '=', 'tce_contrato.estagiario_id')
-            ->join('empresa', 'empresa.id', '=', 'tce_contrato.empresa_id')
-            ->join('instituicao', 'instituicao.id', '=', 'tce_contrato.instituicao_id')
+            ->join('estagiario', 'estagiario.id_estagiario', '=', 'tce_contrato.estagiario_id')
+            ->join('empresa', 'empresa.id_empresa', '=', 'tce_contrato.empresa_id')
+            ->join('instituicao', 'instituicao.id_instituicao', '=', 'tce_contrato.instituicao_id')
             ->select(
                 'estagiario.nome',
-                'estagiario.id',
+                'estagiario.id_estagiario',
                 'empresa.nome_fantasia',
                 'instituicao.nome_instituicao',
                 'tce_contrato.bolsa',
@@ -40,7 +40,7 @@ class RecessoController extends Controller
                 'tce_contrato.contrato',
                 'tce_contrato.assinado',
                 'tce_contrato.obrigatorio',
-                'tce_contrato.id As tceId'
+                'tce_contrato.id_tce_contrato'
             )
             ->get();
 
@@ -136,7 +136,7 @@ class RecessoController extends Controller
 
     public static function valorSaldo($tceId)
     {
-        $contrato = DB::table('tce_contrato')->where('id', '=', $tceId)->get()->first();
+        $contrato = DB::table('tce_contrato')->where('id_tce_contrato', '=', $tceId)->get()->first();
 
         $saldo = 0;
 
@@ -160,7 +160,7 @@ class RecessoController extends Controller
 
     public static function periodoAquisitivo($tceId)
     {
-        $contrato = DB::table('tce_contrato')->where('id', '=', $tceId)->get()->first();
+        $contrato = DB::table('tce_contrato')->where('id_tce_contrato', '=', $tceId)->get()->first();
         $dataInicio = $contrato->data_inicio;
         $dataFim = $contrato->data_fim;
 
@@ -230,7 +230,7 @@ class RecessoController extends Controller
 
         $valorReceber = ($dias / 2.5) * ($request->bolsa / 12);
 
-        $contrato = DB::table('tce_contrato')->where('id', '=', $request->contrato_id)->get()->first();
+        $contrato = DB::table('tce_contrato')->where('id_tce_contrato', '=', $request->contrato_id)->get()->first();
         $dataInicio = $contrato->data_inicio;
         $dataFim = $contrato->data_fim;
 
@@ -273,13 +273,14 @@ class RecessoController extends Controller
      */
     public function edit($id)
     {
-        $estagiario = DB::table('estagiario')->where('id', '=', $id)->get()->first();
+
+        $estagiario = DB::table('estagiario')->where('id_estagiario', '=', $id)->get()->first();
         $contrato = DB::table('tce_contrato')->where('estagiario_id', '=', $id)->get()->first();
-        $empresa = DB::table('empresa')->where('id', '=', $contrato->empresa_id)->get()->first();
+        $empresa = DB::table('empresa')->where('id_empresa', '=', $contrato->empresa_id)->get()->first();
         // dd($empresa = DB::table('empresa')->where('id', $contrato->empresa_id)->pluck('id', 'nome_fantasia'));
-        $instituicao = DB::table('instituicao')->where('id', '=', $contrato->instituicao_id)->get()->first();
-        $orientador = DB::table('orientador')->where('id', '=', $contrato->orientador_id)->get()->first();
-        $supervisor = DB::table('supervisor')->where('id', '=', $contrato->supervisor_id)->get()->first();
+        $instituicao = DB::table('instituicao')->where('id_instituicao', '=', $contrato->instituicao_id)->get()->first();
+        $orientador = DB::table('orientador')->where('id_orientador', '=', $contrato->orientador_id)->get()->first();
+        $supervisor = DB::table('supervisor')->where('id_supervisor', '=', $contrato->supervisor_id)->get()->first();
         // $atividade = DB::table('atividade')->where('id', '=', $contrato->atividade)->get()->first();
         $motivos = DB::table('motivo')->get();
 
@@ -287,8 +288,6 @@ class RecessoController extends Controller
         $setores = Setor::all();
         $beneficios = Beneficio::all();
         $horarios = Horario::all();
-
-        // dd($atividade);
 
         return view('termo.update', [
             'estagiario' => $estagiario,
@@ -351,8 +350,8 @@ class RecessoController extends Controller
 
         // $recesso = Recesso::all();
         $recesso = DB::table('recesso')
-            ->join('estagiario', 'estagiario.id', '=', 'recesso.estagiario_id')
-            ->join('empresa', 'empresa.id', '=', 'recesso.empresa_id')
+            ->join('estagiario', 'estagiario.id_estagiario', '=', 'recesso.estagiario_id')
+            ->join('empresa', 'empresa.id_empresa', '=', 'recesso.empresa_id')
             ->get();
 
         // dd($recesso);
@@ -361,7 +360,7 @@ class RecessoController extends Controller
 
     public function assinado($id)
     {
-        DB::update('update recesso set recesso_assinado = 1 where id = ?', [$id]);
+        DB::update('update recesso set recesso_assinado = 1 where id_recesso = ?', [$id]);
         return redirect('lista_recesso');
     }
 }

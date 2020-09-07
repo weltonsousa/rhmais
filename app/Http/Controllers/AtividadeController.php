@@ -31,7 +31,7 @@ class AtividadeController extends Controller
      */
     public function create()
     {
-        $empresas = Empresa::all(['id', 'nome_fantasia']);
+        $empresas = Empresa::all(['id_empresa', 'nome_fantasia']);
         return view('atividade.create', compact('empresas'));
     }
 
@@ -49,7 +49,7 @@ class AtividadeController extends Controller
         ]);
 
         $atividades = new Atividade();
-        $atividades->nome = $request->get('nome');
+        $atividades->nome_atividade = $request->get('nome');
         $atividades->empresa_id = $request->get('empresa_id');
         $atividades->save();
 
@@ -84,7 +84,7 @@ class AtividadeController extends Controller
         ]);
 
         $atividades = Atividade::find($id);
-        $atividades->nome = $request->get('nome');
+        $atividades->nome_atividade = $request->get('nome');
         $atividades->empresa_id = $request->get('empresa_id');
         $atividades->save();
 

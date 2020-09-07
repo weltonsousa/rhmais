@@ -56,9 +56,9 @@
                                             <td>{{date('d/m/Y', strtotime($cce->data_inicio))}}</td>
                                             <td>{{date('d/m/Y', strtotime($cce->data_fim))}}</td>
                                               <td style="width:22%;">
-                                                <a href="{{ route('cce_convenio.edit', [$cce->id]) }}"
+                                                <a href="{{ route('cce_convenio.edit', [$cce->id_cce]) }}"
                                                     class="btn btn-primary" title="Editar"> <i class="fa fa-pencil"> </i></a>
-                                                <form class="col-md-3" action="{{route('cce_convenio.destroy', [$cce->id])}}" method="POST">
+                                                <form class="col-md-3" action="{{route('cce_convenio.destroy', [$cce->id_cce])}}" method="POST">
                                                     @csrf
                                                     @method("DELETE")
                                                     <button type="submit" class="btn btn-danger" title="Excluir"
@@ -66,7 +66,7 @@
                                                         <i class="fa fa-trash"></i>
                                                     </button>
                                                 </form>
-                                                <a class="btn btn-warning" title="Contrato" href="{{ action('PdfController@cce', $cce->id) }}" target="_blank"><i
+                                                <a class="btn btn-warning" title="Contrato" href="{{ action('PdfController@cce', $cce->id_cce) }}" target="_blank"><i
                                                         class="fa fa-print" title="Imprimir"></i> </a>
                                             </td>
                                         </tr>

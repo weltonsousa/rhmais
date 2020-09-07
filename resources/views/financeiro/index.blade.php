@@ -30,7 +30,7 @@
                                 <select name="unidade_id" id="unidade-id" class="form-control">
                                     <option value="" >Nome da Unidade</option>
                                      @foreach ($empresas as $unidade)
-                                    <option value="{{$unidade->id}}"> {{$unidade->nome_fantasia}}</option>
+                                    <option value="{{$unidade->id_empresa}}"> {{$unidade->nome_fantasia}}</option>
                                     @endforeach
                                 </select>
                             </div>
@@ -97,7 +97,7 @@
                                         <tr>
                                             <td>  @php
                                                 foreach ($empresas as $empresa) {
-                                                if ($empresa->id == $contrato->empresa_id) {
+                                                if ($empresa->id_empresa == $contrato->empresa_id) {
                                                 echo $empresa->nome_fantasia;
                                                 }
                                                 }
@@ -107,7 +107,7 @@
                                             <td>{{$contrato->data_boleto}}</td>
                                             <td>@php
                                                 foreach ($empresas as $empresa) {
-                                                if ($empresa->id == $contrato->empresa_id) {
+                                                if ($empresa->id_empresa == $contrato->empresa_id) {
                                                 echo number_format($empresa->custo_unitario, 2, ',', '.');;
                                                 }
                                                 }
@@ -115,14 +115,14 @@
                                             </td>
                                             <td>
                                                 @foreach ($qRescisao as $inativos)
-                                                    @if($inativos->id == $contrato->empresa_id)
+                                                    @if($inativos->id_empresa == $contrato->empresa_id)
                                                             {{$inativos->qtd}}
                                                     @endif
                                                 @endforeach
                                             </td>
                                             <td>
                                                 @foreach ($qAtivos as $ativos)
-                                                    @if($ativos->id == $contrato->empresa_id)
+                                                    @if($ativos->id_empresa == $contrato->empresa_id)
                                                             {{$ativos->qtd}}
                                                     @endif
                                                 @endforeach
@@ -136,12 +136,12 @@
                                                 @endif
                                             </td>
                                              <td>
-                                                 <a href="{{ route('financeiro.fechar', [$contrato->id]) }}"
+                                                 <a href="{{ route('financeiro.fechar', [$contrato->id_cobranca]) }}"
                                                     class="btn btn-primary" title="Marcar contrato como fechado"> <i
                                                         class="fa fa-star"></i> </a>
                                             </td>
                                             <td>VALOR <BR> SOMA <BR> % <BR> CONTRATO<BR> ESTAGIARIO</td>
-                                                <td><a href="{{ route('financeiro.infos', [$contrato->id]) }}"
+                                                <td><a href="{{ route('financeiro.infos', [$contrato->id_cobranca]) }}"
                                                     class="btn btn-primary" title="Detalhes"><i class="fa fa-bars"></i></a></td>
                                                       @if ($contrato->situacao == 1)
                                                 <td><a href="{{ action('PdfController@generateFechamento', $contrato->empresa_id) }}" target="_blank" class="btn btn-warning" title="Imprimir"> <i class="fa fa-print"></i> </a><td>

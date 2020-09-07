@@ -6,12 +6,13 @@ use Illuminate\Database\Eloquent\Model;
 
 class Atividade extends Model
 {
-    protected $fillable = ['nome', 'empresa_id'];
+    protected $fillable = ['nome_atividade', 'empresa_id'];
+
+    protected $primaryKey = 'id_atividade';
     protected $table = 'atividade';
 
     public function empresa()
     {
-        return $this->belongsTo('App\Empresa');
+        return $this->hasOne('App\Empresa', 'id_empresa', 'empresa_id');
     }
-
 }

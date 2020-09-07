@@ -27,7 +27,7 @@
                             <div class="clearfix"></div>
                         </div>
                         <div class="x_content">
-                            <form action="{{ route('cau_convenio.update', [$cau->id])}}" id="myForm" role="form"
+                            <form action="{{ route('cau_convenio.update', [$cau->id_cau])}}" id="myForm" role="form"
                                 data-toggle="validator" method="post" accept-charset="utf-8">
                                 @csrf
                                 @method("PUT")
@@ -50,7 +50,7 @@
                                                         <input type="text" value="{{ $empresas->nome_fantasia }}"
                                                             class="form-control has-feedback-left"
                                                             placeholder="Unidade Concedente">
-                                                            <input type="hidden" name="empresa_id" value="{{ $empresas->id }}">
+                                                            <input type="hidden" name="empresa_id" value="{{ $empresas->id_empresa }}">
                                                         <span class="fa fa-home form-control-feedback left"
                                                             aria-hidden="true"></span>
                                                     </div>

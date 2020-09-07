@@ -99,11 +99,11 @@
                                                 @endif
                                             </td>
                                             <td style="width:22%;">
-                                                <a href="{{ action('PdfController@contratoTce', $tce->estagiario->id) }}"
+                                                <a href="{{ action('PdfController@contratoTce', $tce->estagiario->id_estagiario) }}"
                                                    class="btn btn-primary" title="Imprimir TCE" target="_blank"><i class="fa fa-print"></i></a>
-                                                <a href="{{ route('tce_contrato.edit',[$tce->id])}}"
+                                                <a href="{{ route('tce_contrato.edit',[$tce->id_tce_contrato])}}"
                                                     class="btn btn-danger" title="Gerar Rescisão"><i class="fa fa-book"></i> </a>
-                                                <a href="{{ route('editar_contrato.editar', [$tce->id]) }}"
+                                                <a href="{{ route('editar_contrato.editar', [$tce->id_tce_contrato]) }}"
                                                     class="btn btn-success" title="Editar"> <i class="fa fa-pencil"> </i></a>
                                             </td>
                                         </tr>

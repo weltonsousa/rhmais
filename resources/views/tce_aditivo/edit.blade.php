@@ -38,10 +38,10 @@
                 <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
                     <label for="">Estagiário</label>
                     @foreach ($estagiarios as $estagiario)
-                        @if ($aditivo->estagiario_id == $estagiario->id)
+                        @if ($aditivo->estagiario_id == $estagiario->id_estagiario)
                     <input type="text" value="{{$estagiario->nome}}"
                         class="form-control has-feedback-left" placeholder="Estagiário" readonly>
-                            <input type="hidden" name="estagiario_id" value="{{$estagiario->id}}">
+                            <input type="hidden" name="estagiario_id" value="{{$estagiario->id_estagiario}}">
                     <span class="fa fa-user form-control-feedback left"
                         aria-hidden="true"></span>
                         @endif
@@ -50,10 +50,10 @@
                 <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
                     <label for="">Instituicao de Ensino</label>
                     @foreach ($instituicoes as $instituicao)
-                        @if ($aditivo->instituicao_id == $instituicao->id)
+                        @if ($aditivo->instituicao_id == $instituicao->id_instituicao)
                         <input type="text" value="{{$instituicao->nome_instituicao}}" class="form-control has-feedback-left"
                         placeholder="Instituição de Ensino"readonly>
-                <input type="hidden" name="instituicao_id" value="{{$instituicao->id}}">
+                <input type="hidden" name="instituicao_id" value="{{$instituicao->id_instituicao}}">
                         <span class="fa fa-home form-control-feedback left" aria-hidden="true"></span>
                         @endif
                     @endforeach
@@ -61,11 +61,11 @@
                 <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
                     <label for="">Unidade Concedente</label>
                     @foreach ($empresas as $empresa)
-                        @if ($aditivo->empresa_id == $empresa->id)
+                        @if ($aditivo->empresa_id == $empresa->id_empresa)
                             <input type="text" value="{{$empresa->nome_fantasia}}"
                         class="form-control has-feedback-left"
                         placeholder="Unidade Concedente" readonly>
-                            <input type="hidden" id="empresa_id" name="empresa_id" value="{{$empresa->id}}">
+                            <input type="hidden" id="empresa_id" name="empresa_id" value="{{$empresa->id_empresa}}">
                         <span class="fa fa-home form-control-feedback left"
                         aria-hidden="true"></span>
                         @endif
@@ -99,10 +99,10 @@
                     <label for="">Benefício</label>
                     <select class="form-control has-feedback-left" name="beneficio_id">
                         @foreach ($beneficios as $beneficio)
-                            @if($aditivo->beneficio_id == $beneficio->id)
+                            @if($aditivo->beneficio_id == $beneficio->id_beneficio)
                             <option value="{{$aditivo->beneficio_id}}">{{ $beneficio->nome }}</option>
                             @else
-                                <option value="{{ $beneficio->id }}">{{ $beneficio->nome }}</option>
+                                <option value="{{ $beneficio->id_beneficio }}">{{ $beneficio->nome }}</option>
                                 @endif
                         @endforeach
                     </select>
@@ -112,7 +112,7 @@
                             <label for="">Horario</label>
                     <select id="lista-horario" class="form-control has-feedback-left" id="horario_id" name="horario_id">
                            @foreach ($horarios as $hrs)
-                                @if($aditivo->horario_id == $hrs->id)
+                                @if($aditivo->horario_id == $hrs->id_horario)
                                     <option value="{{$aditivo->horario_id}}">{{ $hrs->descricao }}</option>
                                 @endif
                         @endforeach
@@ -124,7 +124,7 @@
                     <label for="">Atividade</label>
                     <select id="lista-atividade" class="form-control has-feedback-left" id="atividade_id" name="atividade_id">
                            @foreach ($atividades as $ativ)
-                                @if($aditivo->atividade_id == $ativ->id)
+                                @if($aditivo->atividade_id == $ativ->id_atividade)
                                     <option value="{{$aditivo->atividade_id}}">{{ $ativ->nome }}</option>
                                 @endif
                         @endforeach
@@ -136,10 +136,10 @@
                         <label for="">Setor</label>
                     <select class="form-control has-feedback-left" name="setor_id">
                         @foreach ($setores as $setor)
-                            @if ($aditivo->setor_id == $setor->id )
+                            @if ($aditivo->setor_id == $setor->id_setor )
                                 <option value="{{ $aditivo->setor_id }}">{{ $setor->nome }}</option>
                             @else
-                                <option value="{{ $setor->id }}">{{ $setor->nome }}</option>
+                                <option value="{{ $setor->id_setor }}">{{ $setor->nome }}</option>
                             @endif
                         @endforeach
                     </select>
@@ -149,9 +149,9 @@
                 <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
                     <label for="">Orientador</label>
                     @foreach ($orientador as $or)
-                        @if ($aditivo->orientador_id == $or->id)
+                        @if ($aditivo->orientador_id == $or->id_orientador)
                         <input type="text" value="{{$or->nome}}" class="form-control has-feedback-left" placeholder="Atividades:">
-                        <input type="hidden" name="orientador_id" value="{{$or->id}}">
+                        <input type="hidden" name="orientador_id" value="{{$or->id_orientador}}">
                         <span class="fa fa-bars form-control-feedback left" aria-hidden="true"></span>
                         @endif
                     @endforeach
@@ -159,9 +159,9 @@
                 <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
                     <label for="">Supervisor</label>
                     @foreach ($supervisor as $sup)
-                        @if ($aditivo->supervisor_id == $sup->id)
+                        @if ($aditivo->supervisor_id == $sup->id_supervisor)
                             <input type="text" value="{{$sup->nome}}" class="form-control has-feedback-left" placeholder="Atividades:">
-                            <input type="hidden" name="supervisor_id" value="{{$sup->id}}">
+                            <input type="hidden" name="supervisor_id" value="{{$sup->id_supervisor}}">
                             <span class="fa fa-bars form-control-feedback left" aria-hidden="true"></span>
                         @endif
                     @endforeach
@@ -169,9 +169,9 @@
                     <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
                         <label for="">Seguro</label>
                         @foreach ($apolices as $apolice)
-                            @if ($aditivo->apolice_id == $apolice->id)
+                            @if ($aditivo->apolice_id == $apolice->id_seguradora)
                             <input type="text" value="{{$apolice->nome}}" class="form-control has-feedback-left" readonly>
-                            <input type="hidden" name="apolice_id" value="{{$apolice->id}}">
+                            <input type="hidden" name="apolice_id" value="{{$apolice->id_seguradora}}">
                             <span class="fa fa-bars form-control-feedback left" aria-hidden="true"></span>
                             @endif
                         @endforeach

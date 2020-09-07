@@ -110,17 +110,17 @@ class TceContratoController extends Controller
         $atividades = Atividade::all();
 
         $tceContrato = DB::table('tce_contrato')
-            ->join('estagiario', 'estagiario.id', '=', 'tce_contrato.estagiario_id')
-            ->join('empresa', 'empresa.id', '=', 'tce_contrato.empresa_id')
-            ->join('instituicao', 'instituicao.id', '=', 'tce_contrato.instituicao_id')
+            ->join('estagiario', 'estagiario.id_estagiario', '=', 'tce_contrato.estagiario_id')
+            ->join('empresa', 'empresa.id_empresa', '=', 'tce_contrato.empresa_id')
+            ->join('instituicao', 'instituicao.id_instituicao', '=', 'tce_contrato.instituicao_id')
             ->select(
                 'estagiario.nome',
-                'estagiario.id',
+                'estagiario.id_estagiario',
                 'estagiario.curso',
                 'empresa.nome_fantasia',
-                'empresa.id AS empresa_id',
+                'empresa.id_empresa',
                 'instituicao.nome_instituicao',
-                'instituicao.id As instituicao_id',
+                'instituicao.id_instituicao',
                 'tce_contrato.bolsa',
                 'tce_contrato.data_inicio',
                 'tce_contrato.data_fim',
@@ -134,9 +134,9 @@ class TceContratoController extends Controller
                 'tce_contrato.supervisor_id',
                 'tce_contrato.orientador_id',
                 'tce_contrato.atividade_id',
-                'tce_contrato.id As tceId'
+                'tce_contrato.id_tce_contrato'
             )
-            ->where('tce_contrato.id', '=', $id)
+            ->where('tce_contrato.id_tce_contrato', '=', $id)
             ->get();
 
         return view('tce_contrato.show', compact('tceContrato', 'orientador', 'supervisor', 'atividades', $tceContrato));
@@ -152,10 +152,10 @@ class TceContratoController extends Controller
     {
 
         $tceContrato = DB::table('tce_contrato')
-            ->join('estagiario', 'estagiario.id', '=', 'tce_contrato.estagiario_id')
-            ->join('empresa', 'empresa.id', '=', 'tce_contrato.empresa_id')
-            ->join('instituicao', 'instituicao.id', '=', 'tce_contrato.instituicao_id')
-            ->where('tce_contrato.id', '=', $id)
+            ->join('estagiario', 'estagiario.id_estagiario', '=', 'tce_contrato.estagiario_id')
+            ->join('empresa', 'empresa.id_empresa', '=', 'tce_contrato.empresa_id')
+            ->join('instituicao', 'instituicao.id_instituicao', '=', 'tce_contrato.instituicao_id')
+            ->where('tce_contrato.id_tce_contrato', '=', $id)
             ->get();
 
         $motivos = Motivo::all();
@@ -224,9 +224,9 @@ class TceContratoController extends Controller
     public function tceAjax($id)
     {
         $contrato = DB::table('estagiario')
-            ->join('empresa', 'empresa.id', '=', 'estagiario.empresa_id')
-            ->join('instituicao', 'instituicao.id', '=', 'estagiario.instituicao_id')
-            ->where("estagiario.id", $id)
+            ->join('empresa', 'empresa.id_empresa', '=', 'estagiario.empresa_id')
+            ->join('instituicao', 'instituicao.id_instituicao', '=', 'estagiario.instituicao_id')
+            ->where("estagiario.id_estagiario", $id)
             ->select("nome_fantasia", "nome_instituicao", "empresa_id", "instituicao_id")
             ->get();
         return json_encode($contrato);
@@ -242,9 +242,9 @@ class TceContratoController extends Controller
     public function horarioAjax($id)
     {
         $horarios = DB::table('horario')
-            ->join('empresa', 'empresa.id', '=', 'horario.empresa_id')
-            ->where("empresa.id", $id)
-            ->select("descricao", "horario.id")
+            ->join('empresa', 'empresa.id_empresa', '=', 'horario.empresa_id')
+            ->where("empresa.id_empresa", $id)
+            ->select("descricao", "horario.id_horario")
             ->get();
         return json_encode($horarios);
 
@@ -252,9 +252,9 @@ class TceContratoController extends Controller
     public function atividadeAjax($id)
     {
         $atividades = DB::table('atividade')
-            ->join('empresa', 'empresa.id', '=', 'atividade.empresa_id')
-            ->where("empresa.id", $id)
-            ->select("nome", "atividade.id")
+            ->join('empresa', 'empresa.id_empresa', '=', 'atividade.empresa_id')
+            ->where("empresa.id_empresa", $id)
+            ->select("nome", "atividade.id_atividade")
             ->get();
         return json_encode($atividades);
 
@@ -264,12 +264,12 @@ class TceContratoController extends Controller
     {
 
         $tceContrato = DB::table('tce_contrato')
-            ->join('estagiario', 'estagiario.id', '=', 'tce_contrato.estagiario_id')
-            ->join('empresa', 'empresa.id', '=', 'tce_contrato.empresa_id')
-            ->join('instituicao', 'instituicao.id', '=', 'tce_contrato.instituicao_id')
+            ->join('estagiario', 'estagiario.id_estagiario', '=', 'tce_contrato.estagiario_id')
+            ->join('empresa', 'empresa.id_empresa', '=', 'tce_contrato.empresa_id')
+            ->join('instituicao', 'instituicao.id_instituicao', '=', 'tce_contrato.instituicao_id')
             ->select('estagiario.nome',
                 'estagiario.nome',
-                'tce_contrato.id',
+                'tce_contrato.id_tce_contrato',
                 'tce_contrato.estagiario_id',
                 'tce_contrato.empresa_id',
                 'tce_contrato.instituicao_id',
@@ -280,17 +280,17 @@ class TceContratoController extends Controller
                 'empresa.nome_fantasia',
                 'instituicao.nome_instituicao'
             )
-            ->where('tce_contrato.id', '=', $id)
+            ->where('tce_contrato.id_tce_contrato', '=', $id)
             ->get();
 
-        $tce = DB::table('tce_contrato')->where('id', $id)->get()->first();
-        $supervisor = DB::table('supervisor')->where('id', $tce->supervisor_id)->get()->first();
-        $horarios = DB::table('horario')->where('id', $tce->horario_id)->get()->first();
-        $seguros = DB::table('seguradora')->where('id', $tce->apolice_id)->get()->first();
-        $setores = DB::table('setor')->where('id', $tce->setor_id)->get()->first();
-        $beneficios = DB::table('beneficio')->where('id', $tce->beneficio_id)->get()->first();
-        $orientadores = DB::table('orientador')->where('id', $tce->orientador_id)->get()->first();
-        $atividades = DB::table('atividade')->where('id', $tce->atividade_id)->get()->first();
+        $tce = DB::table('tce_contrato')->where('id_tce_contrato', $id)->get()->first();
+        $supervisor = DB::table('supervisor')->where('id_supervisor', $tce->supervisor_id)->get()->first();
+        $horarios = DB::table('horario')->where('id_horario', $tce->horario_id)->get()->first();
+        $seguros = DB::table('seguradora')->where('id_seguradora', $tce->apolice_id)->get()->first();
+        $setores = DB::table('setor')->where('id_setor', $tce->setor_id)->get()->first();
+        $beneficios = DB::table('beneficio')->where('id_beneficio', $tce->beneficio_id)->get()->first();
+        $orientadores = DB::table('orientador')->where('id_orientador', $tce->orientador_id)->get()->first();
+        $atividades = DB::table('atividade')->where('id_atividade', $tce->atividade_id)->get()->first();
 
         return view('tce_contrato.fields_edit', compact('atividades', 'orientadores', 'tceContrato', 'motivos', 'supervisor', 'horarios', 'seguros', 'beneficios', 'setores'));
     }

@@ -90,7 +90,7 @@
                                     <select class="form-control has-feedback-left" name="empresa_id">
                                         <option>Selecione Unidade Concedente</option>
                                         @foreach ($empresas as $empresa)
-                                        <option value="{{ $empresa->id }}">{{ $empresa->nome_fantasia }}</option>
+                                        <option value="{{ $empresa->id_empresa }}">{{ $empresa->nome_fantasia }}</option>
                                         @endforeach
                                     </select>
                                     <span class="fa fa-graduation-cap form-control-feedback left"
@@ -175,7 +175,7 @@
                                     <select class="form-control has-feedback-left" name="curso">
                                         <option>Selecione um Curso</option>
                                         @foreach ($cursos as $key)
-                                        <option value="{{ $key->nome }}">{{ $key->nome }}</option>
+                                        <option value="{{ $key->nome_curso }}">{{ $key->nome_curso }}</option>
                                         @endforeach
                                     </select>
                                     <span class="fa fa-graduation-cap form-control-feedback left"
@@ -202,7 +202,7 @@
                                     <select class="form-control has-feedback-left" name="instituicao_id">
                                         <option>Instituição de Ensino</option>
                                         @foreach ($instituicoes as $inst)
-                                        <option value="{{ $inst->id }}">{{ $inst->nome_instituicao }}</option>
+                                        <option value="{{ $inst->id_instituicao }}">{{ $inst->nome_instituicao }}</option>
                                         @endforeach
                                     </select>
                                     <span class="fa fa-graduation-cap form-control-feedback left"

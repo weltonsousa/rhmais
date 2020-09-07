@@ -134,7 +134,7 @@
                                             <td>
                                                 @php
                                                 foreach ($estagiarios as $estagiario) {
-                                                if ($estagiario->id == $folha->estagiario_id) {
+                                                if ($estagiario->id_estagiario == $folha->estagiario_id) {
                                                 echo $estagiario->nome;
                                                 }
                                                 }
@@ -143,7 +143,7 @@
                                             <td>
                                                 @php
                                                 foreach ($empresas as $empresa) {
-                                                if ($empresa->id == $folha->empresa_id) {
+                                                if ($empresa->id_empresa == $folha->empresa_id) {
                                                 echo $empresa->nome_fantasia;
                                                 }
                                                 }
@@ -153,11 +153,11 @@
                                             <td>{{ $folha->faltas }}</td>
                                             <td class="dinheiro">{{$folha->valor_liquido}}</td>
                                              <td>
-                                                <form action="{{ route('folha_pagamento.edit', [$folha->id]) }}">
+                                                <form action="{{ route('folha_pagamento.edit', [$folha->id_folha_pagamento]) }}">
                                                 <button type="submit" class="btn btn-primary" title="Editar"><i class="fa fa-pencil"></i> </a>
                                                 </button>
                                                    @if ($folha->status != 0)
-                                                <a href="{{ route('holerite', [$folha->id]) }}" target="_blank" class="btn btn-success">
+                                                <a href="{{ route('holerite', [$folha->id_folha_pagamento]) }}" target="_blank" class="btn btn-success">
                                                     <i class="fa fa-print" title="Imprimir"></i>
                                                 </a>
                                                 @else
