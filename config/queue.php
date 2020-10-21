@@ -4,12 +4,22 @@ return [
 
     /*
     |--------------------------------------------------------------------------
+<<<<<<< HEAD
     | Default Queue Connection Name
+=======
+    | Default Queue Driver
+>>>>>>> 2215e0e2d723ef7c81cf215bf832dbb425588a3c
     |--------------------------------------------------------------------------
     |
     | Laravel's queue API supports an assortment of back-ends via a single
     | API, giving you convenient access to each back-end using the same
+<<<<<<< HEAD
     | syntax for every one. Here you may define a default connection.
+=======
+    | syntax for each one. Here you may set the default queue driver.
+    |
+    | Supported: "sync", "database", "beanstalkd", "sqs", "redis", "null"
+>>>>>>> 2215e0e2d723ef7c81cf215bf832dbb425588a3c
     |
     */
 
@@ -24,8 +34,11 @@ return [
     | is used by your application. A default configuration has been added
     | for each back-end shipped with Laravel. You are free to add more.
     |
+<<<<<<< HEAD
     | Drivers: "sync", "database", "beanstalkd", "sqs", "redis", "null"
     |
+=======
+>>>>>>> 2215e0e2d723ef7c81cf215bf832dbb425588a3c
     */
 
     'connections' => [
@@ -62,7 +75,10 @@ return [
             'connection' => 'default',
             'queue' => 'default',
             'retry_after' => 90,
+<<<<<<< HEAD
             'block_for' => null,
+=======
+>>>>>>> 2215e0e2d723ef7c81cf215bf832dbb425588a3c
         ],
 
     ],

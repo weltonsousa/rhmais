@@ -78,7 +78,11 @@ return [
     |
     */
 
+<<<<<<< HEAD
     'locale' => 'pt-BR',
+=======
+    'locale' => 'en',
+>>>>>>> 2215e0e2d723ef7c81cf215bf832dbb425588a3c
 
     /*
     |--------------------------------------------------------------------------
@@ -110,6 +114,26 @@ return [
 
     /*
     |--------------------------------------------------------------------------
+<<<<<<< HEAD
+=======
+    | Logging Configuration
+    |--------------------------------------------------------------------------
+    |
+    | Here you may configure the log settings for your application. Out of
+    | the box, Laravel uses the Monolog PHP logging library. This gives
+    | you a variety of powerful log handlers / formatters to utilize.
+    |
+    | Available Settings: "single", "daily", "syslog", "errorlog"
+    |
+    */
+
+    'log' => env('APP_LOG', 'single'),
+
+    'log_level' => env('APP_LOG_LEVEL', 'debug'),
+
+    /*
+    |--------------------------------------------------------------------------
+>>>>>>> 2215e0e2d723ef7c81cf215bf832dbb425588a3c
     | Autoloaded Service Providers
     |--------------------------------------------------------------------------
     |
@@ -146,9 +170,12 @@ return [
         Illuminate\Translation\TranslationServiceProvider::class,
         Illuminate\Validation\ValidationServiceProvider::class,
         Illuminate\View\ViewServiceProvider::class,
+<<<<<<< HEAD
         Khill\Lavacharts\Laravel\LavachartsServiceProvider::class,
         Fx3costa\LaravelChartJs\Providers\ChartjsServiceProvider::class,
         Yajra\DataTables\DataTablesServiceProvider::class,
+=======
+>>>>>>> 2215e0e2d723ef7c81cf215bf832dbb425588a3c
 
         /*
          * Package Service Providers...
@@ -162,10 +189,14 @@ return [
         // App\Providers\BroadcastServiceProvider::class,
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
+<<<<<<< HEAD
         ConsoleTVs\Charts\ChartsServiceProvider::class,
         Collective\Html\HtmlServiceProvider::class,
 
         Laracasts\Flash\FlashServiceProvider::class,
+=======
+
+>>>>>>> 2215e0e2d723ef7c81cf215bf832dbb425588a3c
     ],
 
     /*
@@ -214,6 +245,7 @@ return [
         'URL' => Illuminate\Support\Facades\URL::class,
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
+<<<<<<< HEAD
         'Lava' => Khill\Lavacharts\Laravel\LavachartsFacade::class,
         'Charts' => ConsoleTVs\Charts\Facades\Charts::class,
         'Form' => Collective\Html\FormFacade::class,
@@ -221,6 +253,8 @@ return [
         'Flash' => Laracasts\Flash\Flash::class,
         'DataTables' => Yajra\DataTables\Facades\DataTables::class,
 
+=======
+>>>>>>> 2215e0e2d723ef7c81cf215bf832dbb425588a3c
 
     ],
 

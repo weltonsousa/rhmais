@@ -14,7 +14,11 @@ class Kernel extends HttpKernel
      * @var array
      */
     protected $middleware = [
+<<<<<<< HEAD
         \App\Http\Middleware\CheckForMaintenanceMode::class,
+=======
+        \Illuminate\Foundation\Http\Middleware\CheckForMaintenanceMode::class,
+>>>>>>> 2215e0e2d723ef7c81cf215bf832dbb425588a3c
         \Illuminate\Foundation\Http\Middleware\ValidatePostSize::class,
         \App\Http\Middleware\TrimStrings::class,
         \Illuminate\Foundation\Http\Middleware\ConvertEmptyStringsToNull::class,
@@ -54,10 +58,15 @@ class Kernel extends HttpKernel
         'auth' => \Illuminate\Auth\Middleware\Authenticate::class,
         'auth.basic' => \Illuminate\Auth\Middleware\AuthenticateWithBasicAuth::class,
         'bindings' => \Illuminate\Routing\Middleware\SubstituteBindings::class,
+<<<<<<< HEAD
         'cache.headers' => \Illuminate\Http\Middleware\SetCacheHeaders::class,
         'can' => \Illuminate\Auth\Middleware\Authorize::class,
         'guest' => \App\Http\Middleware\RedirectIfAuthenticated::class,
         'signed' => \Illuminate\Routing\Middleware\ValidateSignature::class,
+=======
+        'can' => \Illuminate\Auth\Middleware\Authorize::class,
+        'guest' => \App\Http\Middleware\RedirectIfAuthenticated::class,
+>>>>>>> 2215e0e2d723ef7c81cf215bf832dbb425588a3c
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
     ];
 }
