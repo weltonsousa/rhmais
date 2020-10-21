@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-<<<<<<< HEAD
 use App\Empresa;
 use App\Estagiario;
 use App\Instituicao;
@@ -11,21 +10,12 @@ use DB;
 
 class HomeController extends Controller
 {
-=======
-class HomeController extends Controller
-{
-    /**
-     * Create a new controller instance.
-     *
-     * @return void
-     */
->>>>>>> 2215e0e2d723ef7c81cf215bf832dbb425588a3c
+
     public function __construct()
     {
         $this->middleware('auth');
     }
 
-<<<<<<< HEAD
     public function index()
     {
         $totalEstagiario = Estagiario::count();
@@ -125,15 +115,5 @@ class HomeController extends Controller
             ->options([]);
 
         return view('home.index', compact('totalEstagiario', 'totalInstituicao', 'totalEmpresa', 'chartjs4', 'chartjs1', 'chartjs2'));
-=======
-    /**
-     * Show the application dashboard.
-     *
-     * @return \Illuminate\View\View
-     */
-    public function index()
-    {
-        return view('dashboard');
->>>>>>> 2215e0e2d723ef7c81cf215bf832dbb425588a3c
     }
 }
