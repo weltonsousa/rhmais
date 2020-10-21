@@ -68,16 +68,16 @@
                                     </thead>
                                     <tbody>
                                         <tr>
-                                        <td># {{$contrato->id_cobranca}}</td>
-                                        <td>{{$contrato->nome_fantasia}}</td>
-                                        <td>{{$contrato->referencia}}</td>
-                                        <td>{{date('d/m/Y', strtotime($contrato->data_inicio))}} {{date('d/m/Y', strtotime($contrato->data_fim))}}</td>
-                                        <td>{{date('d/m/Y', strtotime($contrato->data_inicio))}} {{date('d/m/Y', strtotime($contrato->data_fim))}}</td>
-                                        <td></td>
-                                        <td>{{number_format($contrato->total_custo, 2)}}</td>
-                                        <td>{{number_format($contrato->custo_unitario, 2)}}</td>
-                                        <td></td>
-                                        <td></td>
+                                            <td># {{$contrato->id_cobranca}}</td>
+                                            <td>{{$contrato->nome_fantasia}}</td>
+                                            <td>{{$contrato->referencia}}</td>
+                                            <td>{{date('d/m/Y', strtotime($contrato->data_inicio))}} {{date('d/m/Y', strtotime($contrato->data_fim))}}</td>
+                                            <td>{{date('d/m/Y', strtotime($contrato->data_inicio))}} {{date('d/m/Y', strtotime($contrato->data_fim))}}</td>
+                                            <td></td>
+                                            <td>{{number_format($contrato->total_custo, 2)}}</td>
+                                            <td>{{number_format($contrato->custo_unitario, 2)}}</td>
+                                            <td></td>
+                                            <td></td>
                                         </tr>
                                         @endforeach
                                     </tbody>

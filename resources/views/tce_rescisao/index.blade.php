@@ -67,9 +67,10 @@
                                             <td>{{ date('d/m/Y', strtotime($resc->data_fim)) }}</td>
                                             <td>RES</td>
                                             <td>TCE Assinado Rescisão Assinada</td>
-                                            <td><a href="{{ action('PdfController@rescisaoTce', $resc->id_tce_rescisao) }}"
+                                            <td>
+                                                <a href="{{ action('PdfController@rescisaoTce', $resc->id_tce_rescisao) }}"
                                                     target="_blank" class="btn btn-primary" title="TCE Recisão"><i class="fa fa-print"></i>
-                                                    </a>
+                                                </a>
                                             </td>
                                         </tr>
                                         @endforeach

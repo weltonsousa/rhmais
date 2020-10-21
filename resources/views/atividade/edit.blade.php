@@ -32,7 +32,7 @@
                                 @csrf
                                 @method("PUT")
                                 <!-- SmartWizard html -->
-                                <div>
+                                {{-- <div> --}}
                                     <div>
                                         <div>
                                             <div id="form-step-0" role="form" data-toggle="validator">
@@ -72,5 +72,5 @@
     @include('layout.footer')
     <!-- /footer content -->
 </div>
-</div>
+{{-- </div> --}}
 @endsection

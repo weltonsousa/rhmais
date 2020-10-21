@@ -16,20 +16,9 @@
             border: 2px solid #999999;
         }
         table td.borda{
-            margin-top: 1px!important;
-            margin-bottom: 1px!important;
-            padding-top: 0px!important;
-            padding-bottom: 0px!important;
+            margin-top:-5px!important;
+            margin-bottom:-5px!important;
             border:none!important;
-        }
-        table td.topo{
-            padding-top: 0px!important;
-            padding-bottom: 0px!important;
-        }
-        table td.padding-zero{
-           padding-top: 0px!important;
-           padding-bottom: 0px!important;
-           margin-bottom: 2px!important;
         }
         body {
             font-size: 1.05rem;
@@ -39,7 +28,7 @@
 
 <body>
     <table class="table" style="max-width: 100%">
-        @foreach ($folha as $key => $data)
+        @foreach ($folhas as $key => $data)
         <tr>
             <td colspan="2">Recibo de Pagamento Bolsa-Auxílio</td>
             <td>Referência</td>
@@ -63,15 +52,15 @@
             </td>
         </tr>
         <tr>
-            <td class="padding-zero">Código</td>
-            <td class="padding-zero">Descrição</td>
-            <td class="padding-zero">Vencimentos</td>
-            <td class="padding-zero">Descontos</td>
+            <td>Código</td>
+            <td>Descrição</td>
+            <td>Vencimentos</td>
+            <td>Descontos</td>
         </tr>
         <tr>
-            <td style="padding-left: 3rem" class="topo">1</td>
-            <td class="topo">Bolsa Auxílio</td>
-            <td colspan="2" class="topo">{{$data->valor_bolsa}}</td>
+            <td style="padding-left: 3rem">#</td>
+            <td>Bolsa Auxílio</td>
+            <td colspan="2">{{$data->valor_bolsa}}</td>
         </tr>
         @foreach ($beneficio as $ben)
         <tr>
@@ -81,33 +70,27 @@
             <td class="borda">@if($ben->tipo == 2){{$ben->valor}}@endif</td>
         </tr>
         @endforeach
-        @if($data->faltas > 0)
+        @if($data->faltas) > 0)
         <tr>
-            <td  style="padding-left: 3rem" class="borda">2</td>
+            <td  style="padding-left: 3rem" class="borda">#</td>
             <td class="borda">Desconto Faltas Estagio</td>
             <td class="borda"></td>
-            {{-- <td class="borda">{{number_format($rs_falta, 2, '.', '')}}</td> --}}
             <td class="borda">{{number_format($data->valor_falta, 2, '.', '')}}</td>
         </tr>
         @endif
         <tr>
-        {{-- <td style="padding-left: 3rem">Total de vencimentos {{ number_format($rs_credito, 2, '.','')}} </td> --}}
-        <td colspan="3" style="padding: 0px 0px 0px 450px">Total de vencimentos <br>
-            <div style="text-indent: 3em;">{{ number_format($data->valor_credito, 2, '.','')}} </div></td>
-        <td style="padding: 0px 0px 0px 15px">Total de Descontos <br>
-            <div style="text-indent: 3em;">{{number_format($data->valor_desconto, 2,'.','' )}}</div></td>
+            <td style="padding-right: 3rem">Total de  {{ number_format($data->valor_credito, 2, '.','')}} </td>
+            <td colspan="3">Total de Descontos {{number_format($data->valor_desconto, 2,'.','' )}}</td>
         </tr>
         <tr>
             <td colspan="3" style="padding-right: 3rem">Valor Base Bolsa-Auxílio <br>
                  {{ $data->valor_bolsa }}
-                </td>
-            <td>(=) Valor Líquido<br>
+            </td>
+            <td>Valor Líquido<br>
                 <u>
-                    <div style="text-indent: 2em;">
-                        {{ $data->valor_liquido }}
-                    </div>
+                 {{ $data->valor_liquido }}
                 </u>
-             </td>
+            </td>
         </tr>
         <tr>
             <td colspan="2">Banco/Agência</td>
@@ -122,14 +105,14 @@
     <div>
         <div style="float: left; margin-left: 3rem">
             ____/_____/_________<br>
-                <div style="text-indent: 3em;"> Data </div>
+            Data
         </div>
         <div style="float: left; margin-left: 12rem">
          <img src="{{ public_path('/images/logo-rhmais.png') }}" alt="" width="80">
         </div>
         <div style="float: right; margin-right: 3rem">
             ______________________________________<br>
-                <div style="text-indent: 8em;"> Assinatura </div>
+            Assinatura
         </div>
     </div>
     <div class="clearfix"></div>
@@ -160,15 +143,15 @@
             </td>
         </tr>
         <tr>
-            <td class="padding-zero">Código</td>
-            <td class="padding-zero">Descrição</td>
-            <td class="padding-zero">Vencimentos</td>
-            <td class="padding-zero">Descontos</td>
+            <td>Código</td>
+            <td>Descrição</td>
+            <td>Vencimentos</td>
+            <td>Descontos</td>
         </tr>
        <tr>
-             <td style="padding-left: 3rem" class="topo">1</td>
-            <td class="topo">Bolsa Auxílio</td>
-            <td colspan="2" class="topo">{{$data->valor_bolsa}}</td>
+            <td style="padding-left: 3rem">#</td>
+            <td>Bolsa Auxílio</td>
+            <td colspan="2">{{$data->valor_bolsa}}</td>
         </tr>
         @foreach ($beneficio as $ben)
         <tr class="borda">
@@ -180,28 +163,23 @@
         @endforeach
           @if($data->faltas > 0)
         <tr>
-            <td  style="padding-left: 3rem" class="borda">2</td>
+            <td  style="padding-left: 3rem" class="borda">#</td>
             <td class="borda">Desconto Faltas Estagio</td>
             <td class="borda"></td>
-            {{-- <td class="borda">{{number_format($rs_falta, 2,'.','')}}</td> --}}
-            <td class="borda">{{number_format($data->valor_falta, 2, '.', '')}}</td>
+            <td class="borda">{{number_format($data->valor_falta, 2,'.','')}}</td>
         </tr>
         @endif
-        <tr>
-        <td colspan="3" style="padding: 0px 0px 0px 450px">Total de vencimentos <br>
-            <div style="text-indent: 3em;">{{ number_format($data->valor_credito, 2, '.','')}} </div></td>
-        <td style="padding: 0px 0px 0px 15px">Total de Descontos <br>
-            <div style="text-indent: 3em;">{{number_format($data->valor_desconto, 2,'.','' )}}</div></td>
+         <tr>
+            <td style="padding-right: 3rem">Total de  {{number_format($data->valor_credito, 2,'.','')}}</td>
+            <td colspan="3">Total de Descontos {{number_format($data->valor_desconto, 2,'.','')}}</td>
         </tr>
         <tr>
             <td colspan="3" style="padding-right: 3rem">Valor Base Bolsa-Auxílio <br>
                  {{ $data->valor_bolsa }}
                 </td>
-            <td>(=) Valor Líquido<br>
+            <td>Valor Líquido<br>
                 <u>
-                    <div style="text-indent: 2em;">
-                        {{ $data->valor_liquido }}
-                    </div>
+                 {{ $data->valor_liquido }}
                 </u>
              </td>
         </tr>
@@ -219,7 +197,7 @@
     <div>
         <div style="float: left; margin-left: 3rem">
             ____/_____/_________<br>
-            <div style="text-indent: 3em;">Data</div>
+            Data
         </div>
         <div style="float: left; margin-left: 12rem">
 
@@ -227,7 +205,7 @@
         </div>
         <div style="float: right; margin-right: 3rem">
             ______________________________________<br>
-                       <div style="text-indent: 8em;">Assinatura</div>
+            Assinatura
         </div>
     </div>
 

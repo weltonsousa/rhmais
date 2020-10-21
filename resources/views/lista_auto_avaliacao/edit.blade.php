@@ -82,7 +82,7 @@
                                                             Desenvolvidas:</label>
                                                         <textarea class="form-control" placeholder="observação"
                                                             name="obs">
-                                                </textarea>
+                                                        </textarea>
                                                     </div>
 
                                                     <div class="col-md-12 col-sm-6 col-xs-12 form-group has-feedback">

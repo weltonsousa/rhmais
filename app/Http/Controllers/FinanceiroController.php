@@ -24,7 +24,7 @@ class FinanceiroController extends Controller
 
         if (request('unidade_id') !== null && request('referencia') !== null) {
 
-            $folhaRescisao = DB::table('cobranca')->join('empresa', 'empresa.id', '=', 'cobranca.empresa_id')
+            $folhaRescisao = DB::table('cobranca')->join('empresa', 'empresa.id_empresa', '=', 'cobranca.empresa_id')
                 ->where("empresa_id", $unidades)
                 ->where("referencia", $referencia)
                 ->get();

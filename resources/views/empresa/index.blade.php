@@ -55,30 +55,30 @@
                       <tbody>
                         @foreach($empresas as $empresa)
                          <tr>
-                          <td>{{$empresa->nome_fantasia}}</td>
-                          <td>{{$empresa->cidade}}</td>
-                          <td>{{$empresa->telefone}}</td>
-                          <td>{{$empresa->cnpj}}</td>
-                          <td class="dinheiro">{{ $empresa->custo_unitario }}</td>
-                          <td>
-                             @if ($empresa->ativo == '1')
-                              Sim
-                              @else
-                              Não
-                            @endif
-                          </td>
-                           <td style="width:15%;">
-                           <div class="col-md-3">
-                            <a href="{{ route('empresa.edit',[$empresa->id_empresa])}}" class="btn btn-primary" title="Editar"> <i class="fa fa-pencil"> </i> </a>
-                          </div>
-                          <form  class="col-md-3" style="margin-left:10px;" action="{{route('empresa.destroy', [$empresa->id_empresa])}}" method="POST">
-                            @csrf
-                            @method("DELETE")
-   		                    <button type="submit" class="btn btn-danger" title="Excluir" onclick="return confirm('Tem certeza que deseja deletar a empresa selecionada?')">
-                              <i class="fa fa-trash"></i>
-                              </button>
-                          </form>
-                          </td>
+                            <td>{{$empresa->nome_fantasia}}</td>
+                            <td>{{$empresa->cidade}}</td>
+                            <td>{{$empresa->telefone}}</td>
+                            <td>{{$empresa->cnpj}}</td>
+                            <td class="dinheiro">{{ $empresa->custo_unitario }}</td>
+                            <td>
+                              @if ($empresa->ativo == '1')
+                                Sim
+                                @else
+                                Não
+                              @endif
+                            </td>
+                            <td style="width:15%;">
+                              <div class="col-md-3">
+                                <a href="{{ route('empresa.edit',[$empresa->id_empresa])}}" class="btn btn-primary" title="Editar"> <i class="fa fa-pencil"> </i> </a>
+                              </div>
+                              <form  class="col-md-3" style="margin-left:10px;" action="{{route('empresa.destroy', [$empresa->id_empresa])}}" method="POST">
+                                @csrf
+                                @method("DELETE")
+                              <button type="submit" class="btn btn-danger" title="Excluir" onclick="return confirm('Tem certeza que deseja deletar a empresa selecionada?')">
+                                  <i class="fa fa-trash"></i>
+                                  </button>
+                              </form>
+                            </td>
                         </tr>
                           @endforeach
                       </tbody>

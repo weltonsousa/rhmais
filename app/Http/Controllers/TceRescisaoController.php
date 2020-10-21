@@ -84,7 +84,7 @@ class TceRescisaoController extends Controller
             DB::update('update tce_contrato set ativo = 2 where estagiario_id = ?', [$request->get('estagiario_id')]);
             DB::update('update recesso set ativo = 2 where estagiario_id = ?', [$request->get('estagiario_id')]);
             DB::update('update plano_estagio set ativo = 2 where estagiario_id = ?', [$request->get('estagiario_id')]);
-            DB::update('update estagiario set ativo = 2 where id = ?', [$request->get('estagiario_id')]);
+            DB::update('update estagiario set ativo = 2 where id_estagiario = ?', [$request->get('estagiario_id')]);
         }
         $tce->save();
 

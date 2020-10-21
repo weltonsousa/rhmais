@@ -53,7 +53,6 @@
                         <br>
                         <div class="x_panel">
                             <div class="x_title">
-
                                 <h2>Informe de Faturamento</h2>
                                 <div class="clearfix"></div>
                             </div>
@@ -141,15 +140,19 @@
                                                         class="fa fa-star"></i> </a>
                                             </td>
                                             <td>VALOR <BR> SOMA <BR> % <BR> CONTRATO<BR> ESTAGIARIO</td>
-                                                <td><a href="{{ route('financeiro.infos', [$contrato->id_cobranca]) }}"
-                                                    class="btn btn-primary" title="Detalhes"><i class="fa fa-bars"></i></a></td>
+                                            <td>
+                                                <a href="{{ route('financeiro.infos', [$contrato->id_cobranca]) }}"
+                                                    class="btn btn-primary" title="Detalhes"><i class="fa fa-bars"></i></a>
+                                            </td>
                                                       @if ($contrato->situacao == 1)
-                                                <td><a href="{{ action('PdfController@generateFechamento', $contrato->empresa_id) }}" target="_blank" class="btn btn-warning" title="Imprimir"> <i class="fa fa-print"></i> </a><td>
+                                            <td>
+                                                <a href="{{ action('PdfController@generateFechamento', $contrato->empresa_id) }}" target="_blank" class="btn btn-warning" title="Imprimir"> <i class="fa fa-print"></i> </a><td>
                                                     @else
-                                                <td><div  class="btn btn-warning" title="Imprimir"> <i class="fa fa-print"></i> </div><td>
+                                            <td>
+                                                <div  class="btn btn-warning" title="Imprimir"> <i class="fa fa-print"></i> </div><td>
                                                     @endif
                                             </td>
-                                        </td>
+                                            </td>
                                         </tr>
                                         @endforeach
                                     </tbody>

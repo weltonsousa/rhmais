@@ -42,7 +42,7 @@
                                             <th>Supervisor
                                                 <input type="text" class="form-control" style="width:100px;">
                                             </th>
-                                            <th>Qtd. Realizada</th>
+                                            {{-- <th>Qtd. Realizada</th> --}}
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -51,7 +51,7 @@
                                             <td>LIFE ACADEMIA BRASIL EIRELI- EPP - ACADEMIA LIFE GYM</td>
                                             <td>10/09/2018 31/12/2019</td>
                                             <td>LUCIELENA NISTA</td>
-                                            <td style="width:5%;">2</td>
+                                            {{-- <td style="width:5%;">2</td> --}}
                                         </tr>
                                     </tbody>
                                 </table>

@@ -12,7 +12,6 @@
         </div>
         @include('layout.menu.menutop')
         <!-- page content -->
-        <!-- page content -->
         <div class="right_col" role="main">
             <div class="">
                 <!-- <a href="{{url('cidade/exportar')}}">Print  PDF</a> -->
@@ -22,24 +21,28 @@
                         @include('layout.alerta.flash-message')
                         <div class="x_panel">
                             <div class="x_title">
-                                <a href="{{route('atividade.create')}}" class="btn btn-success pull-right"> <i
+                                 <a href="{{route('atividade.create')}}" class="btn btn-success pull-right"> <i
                                         class="fa fa-list"> </i> Novo</a>
+                                {{-- <!-- Botão para acionar modal -->
+                                    <button type="button" class="btn btn-success pull-right" data-toggle="modal" data-target="#modalExemplo">
+                                     <i class="fa fa-list"> </i> Novo
+                                    </button> --}}
                                 <h2>Atividades Relacionadas aos Setores - Listagem</h2>
                                 <div class="clearfix"></div>
                             </div>
                             <div class="x_content">
-                                <table class="table table-striped list table-bordered">
-                                    <thead>
-                                        <tr>
-                                            <th>Nome da Atividade
-                                                <input type="text" class="form-control">
-                                            </th>
-                                            <th>Unidade
-                                                <input type="text" class="form-control">
-                                            </th>
-                                            <th>Opções</th>
-                                        </tr>
-                                    </thead>
+                            <table class="table table-striped list table-bordered">
+                                <thead>
+                                    <tr>
+                                        <th>Nome da Atividade
+                                            <input type="text" class="form-control">
+                                        </th>
+                                        <th>Unidade
+                                            <input type="text" class="form-control">
+                                        </th>
+                                        <th>Opções</th>
+                                    </tr>
+                                </thead>
                                     <tbody>
                                         <tr>
                                             @foreach ($atividades as $atividade)
@@ -61,22 +64,22 @@
                                                         <i class="fa fa-trash"></i>
                                                     </button>
                                                 </form>
+                                                </div>
                                             </div>
-                                          </div>
-                                      </td>
-                                  </tr>
-                        @endforeach
-                        </tbody>
-                        </table>
+                                             </td>
+                                        </tr>
+                                    @endforeach
+                                    </tbody>
+                            </table>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 </div>
-</div>
 <!-- /page content -->
-
+{{-- @include('atividade.modal_add') --}}
 <!-- footer content -->
 @include('layout.footer')
 <!-- /footer content -->

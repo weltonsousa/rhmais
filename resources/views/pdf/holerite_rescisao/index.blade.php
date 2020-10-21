@@ -14,7 +14,6 @@
         table,
         tr {
             border: 2px solid #999999;
-            /* padding: 20px; */
         }
         table td.borda{
             margin-top:-5px!important;
@@ -24,7 +23,6 @@
         body {
             font-size: 1.05rem;
         }
-
     </style>
 </head>
 
@@ -60,7 +58,7 @@
             <td>Descontos</td>
         </tr>
         <tr>
-             <td style="padding-left: 3rem">#</td>
+            <td style="padding-left: 3rem">#</td>
             <td>Bolsa Auxílio</td>
             <td colspan="2">{{$data->valor_bolsa}}</td>
         </tr>
@@ -72,27 +70,27 @@
             <td class="borda">@if($ben->tipo == 2){{$ben->valor}}@endif</td>
         </tr>
         @endforeach
-        @if(count($faltas) > 0)
+        @if($data->faltas) > 0)
         <tr>
             <td  style="padding-left: 3rem" class="borda">#</td>
             <td class="borda">Desconto Faltas Estagio</td>
             <td class="borda"></td>
-            <td class="borda">{{number_format($rs_falta, 2, '.', '')}}</td>
+            <td class="borda">{{number_format($data->valor_falta, 2, '.', '')}}</td>
         </tr>
         @endif
         <tr>
-            <td style="padding-right: 3rem">Total de  {{ number_format($rs_credito, 2, '.','')}} </td>
-        <td colspan="3">Total de Descontos {{number_format($rs_debito,2,'.','' )}}</td>
+            <td style="padding-right: 3rem">Total de  {{ number_format($data->valor_credito, 2, '.','')}} </td>
+            <td colspan="3">Total de Descontos {{number_format($data->valor_desconto, 2,'.','' )}}</td>
         </tr>
         <tr>
             <td colspan="3" style="padding-right: 3rem">Valor Base Bolsa-Auxílio <br>
                  {{ $data->valor_bolsa }}
-                </td>
+            </td>
             <td>Valor Líquido<br>
                 <u>
                  {{ $data->valor_liquido }}
                 </u>
-             </td>
+            </td>
         </tr>
         <tr>
             <td colspan="2">Banco/Agência</td>
@@ -101,7 +99,6 @@
         <tr>
             <td colspan="4">Mensagem: </td>
         </tr>
-
     </table>
 
     <div class="clearfix"></div>
@@ -123,7 +120,6 @@
     <hr style="border: dotted 1px black">
 
     <table class="table" style="max-width: 100%">
-
         <tr>
             <td colspan="2">Recibo de Pagamento Bolsa-Auxílio</td>
             <td>Referência</td>
@@ -153,7 +149,7 @@
             <td>Descontos</td>
         </tr>
        <tr>
-             <td style="padding-left: 3rem">#</td>
+            <td style="padding-left: 3rem">#</td>
             <td>Bolsa Auxílio</td>
             <td colspan="2">{{$data->valor_bolsa}}</td>
         </tr>
@@ -165,17 +161,17 @@
             <td class="borda">@if($ben->tipo == 2){{$ben->valor}}@endif</td>
         </tr>
         @endforeach
-          @if(count($faltas) > 0)
+          @if($data->faltas > 0)
         <tr>
             <td  style="padding-left: 3rem" class="borda">#</td>
             <td class="borda">Desconto Faltas Estagio</td>
             <td class="borda"></td>
-            <td class="borda">{{number_format($rs_falta, 2,'.','')}}</td>
+            <td class="borda">{{number_format($data->valor_falta, 2,'.','')}}</td>
         </tr>
         @endif
-             <tr>
-            <td style="padding-right: 3rem">Total de  {{number_format($rs_credito, 2,'.','')}}</td>
-        <td colspan="3">Total de Descontos {{number_format($rs_debito, 2,'.','')}}</td>
+         <tr>
+            <td style="padding-right: 3rem">Total de  {{number_format($data->valor_credito, 2,'.','')}}</td>
+            <td colspan="3">Total de Descontos {{number_format($data->valor_desconto, 2,'.','')}}</td>
         </tr>
         <tr>
             <td colspan="3" style="padding-right: 3rem">Valor Base Bolsa-Auxílio <br>
@@ -214,5 +210,4 @@
     </div>
 
 </body>
-
 </html>

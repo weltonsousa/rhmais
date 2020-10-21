@@ -152,7 +152,7 @@
                                             <td class="dinheiro">{{ $folha->valor_bolsa }}</td>
                                             <td>{{ $folha->faltas }}</td>
                                             <td class="dinheiro">{{$folha->valor_liquido}}</td>
-                                             <td>
+                                            <td>
                                                 <form action="{{ route('folha_pagamento.edit', [$folha->id_folha_pagamento]) }}">
                                                 <button type="submit" class="btn btn-primary" title="Editar"><i class="fa fa-pencil"></i> </a>
                                                 </button>

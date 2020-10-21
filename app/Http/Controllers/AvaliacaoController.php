@@ -28,27 +28,27 @@ class AvaliacaoController extends Controller
             ->join('estagiario', 'tce_contrato.estagiario_id', '=', 'estagiario.id_estagiario')
             ->get();
 
-        $instituicoes = DB::table('tce_contrato')
-            ->join('empresa', 'tce_contrato.empresa_id', '=', 'empresa.id_empresa')
-            ->get();
-
         $empresas = DB::table('empresa')
             ->select(
                 'empresa.razao_social',
                 'empresa.nome_fantasia',
-                'empresa.cnpj',
-                'empresa.insc_estadual',
-                'empresa.telefone',
-                'empresa.id_empresa',
-                'empresa.cidade',
-                'empresa.estado'
+                // 'empresa.cnpj',
+                // 'empresa.insc_estadual',
+                // 'empresa.telefone',
+                'empresa.id_empresa'
+                // 'empresa.cidade',
+                // 'empresa.estado'
             )
             ->get();
 
+        // $avaliacoes = Avaliacao::all('estagiario_id');
+
+
         return view('auto_avaliacao.index', [
             'estagiarios' => $estagiarios,
-            'instituicoes' => $instituicoes,
+            // 'instituicoes' => $instituicoes,
             'empresas' => $empresas,
+            // 'avaliacoes' => $avaliacoes,
         ]);
 
     }
@@ -84,12 +84,19 @@ class AvaliacaoController extends Controller
         $estagiarios = DB::table('estagiario')->get();
         $orientadores = DB::table('orientador')->get();
 
+        // $qAvaliacao = DB::table('avaliacao')->join('estagiario', 'estagiario.id_estagiario', '=', 'avaliacao.estagiario_id')
+        //     ->select(DB::raw('count(*) AS qtd, estagiario.id_estagiario', 'ativo'))
+        //     ->groupBy('estagiario.id_estagiario')
+        // // ->where('tce_contrato.ativo', 1)
+        //     ->get();
+
+
         return view('lista_auto_avaliacao.index', [
             'avaliacoes' => $avaliacoes,
             'empresas' => $empresas,
             'instituicoes' => $instituicoes,
             'estagiarios' => $estagiarios,
-            'orientadores' => $orientadores,
+            'orientadores' => $orientadores
         ]);
     }
 

@@ -38,8 +38,7 @@
                                                 <input type="text" class="form-control">
                                             </th>
                                             <th>TCE Início/Fim</th>
-                                            <th>Qtd. Realizada
-                                            </th>
+                                            {{-- <th>Qtd. Realizada</th> --}}
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -54,7 +53,13 @@
                                                 @endforeach
                                             </td>
                                             <td>{{date('d/m/Y', strtotime($estagiario->data_inicio)) }} / {{date('d/m/Y', strtotime ($estagiario->data_fim)) }}</td>
-                                            <td style="width:5%;">2</td>
+                                            {{-- <td style="width:5%;">
+                                                  @foreach ($avaliacoes as $avaliacao)
+                                                    @if($estagiario->id_estagiario == $avaliacao->estagiario_id)
+                                                            {{$avaliacao->qtd}}
+                                                    @endif
+                                                @endforeach
+                                            </td> --}}
                                         </tr>
                                         @endforeach
                                     </tbody>

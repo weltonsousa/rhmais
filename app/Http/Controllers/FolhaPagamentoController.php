@@ -61,7 +61,7 @@ class FolhaPagamentoController extends Controller
                 if (!DB::table('folha_pagamento')->where([['estagiario_id', '=', $estagiario->id_estagiario], ['referencia', '=', date("Y/m")]])->get()->first()) {
                     $contrato_do_estagiario = DB::table('tce_contrato')->where('estagiario_id', $estagiario->id_estagiario)->where('ativo', 1)->get()->first();
                     if ($contrato_do_estagiario) {
-                        DB::insert('insert into folha_pagamento (referencia, estagiario_id, empresa_id, valor_bolsa, faltas, valor_liquido, status, created_at, updated_at) values (?, ?, ?, ?, ?, ?, ?, ?, ?)', [date("Y/m"), $estagiario->id, $estagiario->empresa_id, $contrato_do_estagiario->bolsa, 0, $contrato_do_estagiario->bolsa, 0, date("Y-m-d H:i:s"), date("Y-m-d H:i:s")]);
+                        DB::insert('insert into folha_pagamento (referencia, estagiario_id, empresa_id, valor_bolsa, faltas, valor_liquido, status, created_at, updated_at) values (?, ?, ?, ?, ?, ?, ?, ?, ?)', [date("Y/m"), $estagiario->id_estagiario, $estagiario->empresa_id, $contrato_do_estagiario->bolsa, 0, $contrato_do_estagiario->bolsa, 0, date("Y-m-d H:i:s"), date("Y-m-d H:i:s")]);
                     }
                 }
             }
@@ -138,8 +138,9 @@ class FolhaPagamentoController extends Controller
 
             DB::update('update folha_pagamento set valor_liquido = ?, valor_desconto = ?, valor_credito = ?, valor_falta = ?, status =1 where id_folha_pagamento = ?', [$resultado, $valor_debito, $valor_credito, $faltaMes, $folha->id_folha_pagamento]);
 
-            return redirect('folha_pagamento')
+            return redirect()->route('folha_pagamento.index', ['referencia' => $folha->referencia, 'unidade_id' => $folha->empresa_id])
                 ->with('success', 'ATUALIZADO COM SUCESSO');
+
         }
     }
 

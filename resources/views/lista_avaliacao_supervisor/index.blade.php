@@ -53,23 +53,23 @@
                                         <tr>
                                             <td>
                                                 @foreach ($estagiarios as $estagiario)
-                                                @if ($estagiario->id == $avaliacao->estagiario_id)
-                                                {{$estagiario->nome}}
-                                                @endif
+                                                    @if ($estagiario->id == $avaliacao->estagiario_id)
+                                                        {{$estagiario->nome}}
+                                                    @endif
                                                 @endforeach
                                             </td>
                                             <td style="width:24%;">
                                                 @foreach ($empresas as $empresa)
-                                                @if ($empresa->id == $avaliacao->empresa_id)
-                                                {{$empresa->nome_fantasia}}
-                                                @endif
+                                                    @if ($empresa->id == $avaliacao->empresa_id)
+                                                      {{$empresa->nome_fantasia}}
+                                                    @endif
                                                 @endforeach
                                             </td>
                                             <td>
                                                 @foreach ($orientadores as $orientador)
-                                                @if ($orientador->id == $avaliacao->supervisor)
-                                                {{$orientador->nome}}
-                                                @endif
+                                                    @if ($orientador->id == $avaliacao->supervisor)
+                                                        {{$orientador->nome}}
+                                                    @endif
                                                 @endforeach
                                             </td>
                                             <td>{{date('d/m/Y', strtotime($avaliacao->periodo_avaliativo))}}</td>
@@ -82,26 +82,25 @@
                                             </td>
                                             <td style="width:24%;">
                                                 <div class="col-md-3">
-                                                    <a href="{{route('assinar.avaliacao.supervisor', [$avaliacao->id])}}"
-                                                        class="btn btn-primary">
+                                                    <a href="{{route('assinar.avaliacao.supervisor', [$avaliacao->id])}}" class="btn btn-primary">
                                                         <i class="fa fa-star" title="Marcar como assinado"> </i> </a>
                                                 </div>
                                                 <a href="/editar_avaliacao_supervisor" class="btn btn-primary">
                                                     <i class="fa fa-pencil" title="Editar"> </i> </a>
-                            </div>
-                            <a href="{{route('deletar.avaliacao.supervisor', [$avaliacao->id])}}"
-                                class="btn btn-danger" title="Excluir">
-                                <i class="fa fa-trash"></i>
-                            </a>
-                            </button>
-                            </form>
-                            <div class="col-md-3">
-                                <a href="#" class="btn btn-warning" title="Imprimir"> <i class="fa fa-print"> </i> </a>
-                            </div>
-                            </td>
-                            </tr>
-                            @endforeach
-                            </tbody>
+                                                    </div>
+                                                    <a href="{{route('deletar.avaliacao.supervisor', [$avaliacao->id])}}"
+                                                        class="btn btn-danger" title="Excluir">
+                                                        <i class="fa fa-trash"></i>
+                                                    </a>
+                                                    </button>
+                                                    </form>
+                                                    <div class="col-md-3">
+                                                        <a href="#" class="btn btn-warning" title="Imprimir"> <i class="fa fa-print"> </i> </a>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                         @endforeach
+                                    </tbody>
                             </table>
                         </div>
                     </div>

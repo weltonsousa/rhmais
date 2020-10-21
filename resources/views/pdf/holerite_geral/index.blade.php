@@ -7,13 +7,10 @@
     <title>Holerite - Estagiario</title>
     <link rel="stylesheet" href="{{ public_path('/css/bootstrap.min.css') }}">
     <style>
-         /* div.page_break + div.page_break{
-             page-break-before: always;
-
-            } */
         table,
         tr {
             border: 2px solid #999999;
+             table-layout: fixed;
         }
         table td.borda{
             margin-top: 1px !important;
@@ -36,19 +33,20 @@
         }
          @page {
             margin-top: 10px !important;
-            /* padding: 0px 0px 0px 0px !important; */
         }
         .margem{
             margin-bottom: 20px !important;
         }
+        #rodape {
+	position: absolute;
+	bottom: 0;
+	}
     </style>
 </head>
 
 <body>
-      {{-- <div style="display: inline-block;"></div> --}}
     <div>
-           @foreach ($folha as $key => $data)
-    <table>
+        @foreach ($folha as $key => $data)
         <table class="table" style="max-width: 100%;">
             <tr>
                 <td colspan="2">Recibo de Pagamento Bolsa-Auxílio</td>
@@ -95,13 +93,13 @@
             @endforeach
             {{-- @if(count($data->faltas) > 0) --}}
               @if($data->faltas > 0)
-                <tr>
-                    <td  style="padding-left: 3rem" class="borda">2</td>
-                    <td class="borda">Desconto Faltas Estagio</td>
-                    <td class="borda"></td>
-                    {{-- <td class="borda">{{number_format($rs_falta, 2, '.', '')}}</td> --}}
-                    <td class="borda">{{number_format($data->valor_falta, 2, '.', '')}}</td>
-                </tr>
+            <tr>
+                <td  style="padding-left: 3rem" class="borda">2</td>
+                <td class="borda">Desconto Faltas Estagio</td>
+                <td class="borda"></td>
+                {{-- <td class="borda">{{number_format($rs_falta, 2, '.', '')}}</td> --}}
+                <td class="borda">{{number_format($data->valor_falta, 2, '.', '')}}</td>
+            </tr>
              @endif
             <tr>
             {{-- <td style="padding-left: 3rem">Total de vencimentos {{ number_format($rs_credito, 2, '.','')}} </td> --}}
@@ -129,30 +127,28 @@
             <tr>
                 <td colspan="4"  class="topo">Mensagem: </td>
             </tr>
-            <tr>
-                <td>
-                    <div style="float: left; margin-left: 3rem">
-                            ____/_____/_________<br>
-                        <div style="text-indent: 3em;">Data</div>
-                    </div>
-                    </td>
-                    <td align="center">
-                        <img  src="{{ public_path('/images/logo-rhmais.png') }}" alt="" width="80">
-                    </td>
-                    <td colspan="2">
-                     <div style="float: right; margin-right: 3rem">
-                            ______________________________________<br>
-                           <div style="text-indent: 8em;">Assinatura</div>
-                     </div>
-                    </td>
-            </tr>
         </table>
 
-     <hr style="border: dotted 1px black">
+          <div class="clearfix"></div>
+            <div>
+                <div style="float: left; margin-left: 3rem">
+                    ____/_____/_________<br>
+                    <div style="text-indent: 3em;">Data</div>
+                </div>
+                <div style="float: left; margin-left: 12rem">
 
-      {{-- <div style="display: inline-block;"></div> --}}
+                <img src="{{ public_path('images/logo-rhmais.png') }}" alt="" width="80">
+                </div>
+                <div style="float: right; margin-right: 3rem">
+                    ______________________________________<br>
+                            <div style="text-indent: 8em;">Assinatura</div>
+                </div>
+            </div>
+            <div class="clearfix"></div>
 
-        <table class="table" style="max-width: 100%">
+         <hr style="border: dotted 1px black">
+
+    <table class="table" style="max-width: 100%">
         <tr>
             <td colspan="2">Recibo de Pagamento Bolsa-Auxílio</td>
             <td>Referência</td>
@@ -231,26 +227,27 @@
         <tr>
             <td colspan="4"  class="topo">Mensagem: </td>
         </tr>
-        <tr>
-            <td>
-                     <div style="float: left; margin-left: 3rem">
-                            ____/_____/_________<br>
-                        <div style="text-indent: 3em;">Data</div>
-                    </div>
-                    </td>
-                    <td align="center">
-                        <img src="{{ public_path('/images/logo-rhmais.png') }}" alt="" width="80">
-                    </td>
-                    <td colspan="2">
-                     <div style="float: right; margin-right: 3rem">
-                            ______________________________________<br>
-                           <div style="text-indent: 8em;">Assinatura</div>
-                     </div>
-                    </td>
-        </tr>
     </table>
-    <div style="margin-bottom: 500px"></div>
- @endforeach
+       <div class="clearfix"></div>
+            <div>
+                <div style="float: left; margin-left: 3rem">
+                    ____/_____/_________<br>
+                    <div style="text-indent: 3em;">Data</div>
+                </div>
+                <div style="float: left; margin-left: 12rem">
+
+                <img src="{{ public_path('images/logo-rhmais.png') }}" alt="" width="80">
+                </div>
+                <div style="float: right; margin-right: 3rem">
+                    ______________________________________<br>
+                            <div style="text-indent: 8em;">Assinatura</div>
+                </div>
+            </div>
+              <div class="clearfix"></div>
+
+              <div style="margin-bottom: 300px"></div>
+             @endforeach
 </div>
+
 </body>
 </html>

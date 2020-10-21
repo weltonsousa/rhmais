@@ -22,8 +22,6 @@
                     <form action="">
                         <div class="col-md-4">
                             <br>
-                            {{-- <button class="btn btn-primary">Lista Branco</button>
-                <button class="btn btn-primary">Lista Preenchida</button> --}}
                         </div>
                     </form>
                     <br>

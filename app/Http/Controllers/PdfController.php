@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\BeneficioEstagiario;
 use App\Cau;
 use App\Empresa;
 use App\Instituicao;
@@ -144,15 +143,15 @@ class PdfController extends Controller
 
         $rhmais = Rhmais::all();
 
-        $beneficios = DB::table('beneficio_estagiario')->where('folha_id', '=', $id)->get();
-        $credito = BeneficioEstagiario::where('folha_id', '=', $id)->where('tipo', '=', 1)->sum('valor');
-        $debito = BeneficioEstagiario::where('folha_id', '=', $id)->where('tipo', '=', 2)->sum('valor');
+        // $beneficios = DB::table('beneficio_estagiario')->where('folha_id', '=', $id)->get();
+        // $credito = BeneficioEstagiario::where('folha_id', '=', $id)->where('tipo', '=', 1)->sum('valor');
+        // $debito = BeneficioEstagiario::where('folha_id', '=', $id)->where('tipo', '=', 2)->sum('valor');
         $data = DB::table('folha_pagamento')->where('id_folha_pagamento', $id)->select('valor_bolsa', 'faltas')->get();
         $faltas = DB::table('folha_pagamento')->where('id_folha_pagamento', $id)->pluck('faltas');
 
-        foreach ($data as $da) {
-            $falta = $da->faltas;
-        }
+        // foreach ($data as $da) {
+        //     $falta = $da->faltas;
+        // }
 
         $data = [
             'folha' => $folha, 'beneficio' => $beneficio,
@@ -237,9 +236,10 @@ class PdfController extends Controller
             'empresas' => $empresas,
             'estagiarios' => $estagiarios,
         ];
-        $pdf = PDF::loadView('pdf.holerite_rescisao.index', $data);
+        $pdf = PDF::loadView('pdf.holerite_rescisao_geral.index', $data);
         return $pdf->stream('holerite-rescisao.pdf');
     }
+
     // Holerite Rescisao Estagirio
     public function holeriteRescisao($id)
     {
@@ -256,21 +256,37 @@ class PdfController extends Controller
             ->where('folha_rescisao.id_folha_rescisao', '=', $id)
             ->get();
 
+        $beneficio = DB::table('beneficio_estagiario')
+            ->join('beneficio', 'beneficio_estagiario.beneficio_id', '=', 'beneficio.id_beneficio')
+            ->join('folha_rescisao', 'beneficio_estagiario.folha_id', '=', 'folha_rescisao.id_folha_rescisao')
+            ->select('beneficio.nome_beneficio', 'beneficio_estagiario.valor', 'beneficio_estagiario.tipo', 'beneficio_estagiario.beneficio_id')
+            ->where('folha_rescisao.id_folha_rescisao', '=', $id)
+            ->get();
+
         $rhmais = Rhmais::all();
 
-        $beneficio = [];
-        $faltas = [];
-        $rs_credito = 2.00;
-        $rs_debito = 2.00;
+        // $beneficios = DB::table('beneficio_estagiario')->where('folha_id', '=', $id)->get();
+        // $credito = BeneficioEstagiario::where('folha_id', '=', $id)->where('tipo', '=', 1)->sum('valor');
+        // $debito = BeneficioEstagiario::where('folha_id', '=', $id)->where('tipo', '=', 2)->sum('valor');
+        $data = DB::table('folha_pagamento')->where('id_folha_pagamento', $id)->select('valor_bolsa', 'faltas')->get();
+        $faltas = DB::table('folha_pagamento')->where('id_folha_pagamento', $id)->pluck('faltas');
+
+        // foreach ($data as $da) {
+        //     $falta = $da->faltas;
+        // }
+
+        // $beneficio = [];
+        // $faltas = [];
+        // $rs_credito = 2.00;
+        // $rs_debito = 2.00;
 
         $data = [
             'tceRescisao' => $tceRescisao,
             'folhaRescisao' => $folhaRescisao,
-            'rhmais' => $rhmais,
             'beneficio' => $beneficio,
+            'rhmais' => $rhmais,
             'faltas' => $faltas,
-            'rs_credito' => $rs_credito,
-            'rs_debito' => $rs_debito,
+
         ];
         $pdf = PDF::loadView('pdf.holerite_rescisao.index', $data);
         return $pdf->stream('holerite-rescisao.pdf');
