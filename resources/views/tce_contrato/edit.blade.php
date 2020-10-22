@@ -100,7 +100,7 @@
                                                     <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
                                                            @foreach ($apolices as $apolice)
                                                             @if ($tce->apolice_id == $apolice->id_seguradora)
-                                                        <input type="text" value="{{$apolice->nome}}"  class="form-control has-feedback-left"
+                                                        <input type="text" value="{{$apolice->nome_seguradora}}"  class="form-control has-feedback-left"
                                                             placeholder="Apolice / Seguradora" >
                                                             <input type="hidden" name="apolice_id" value="{{$apolice->id_seguradora}}">
                                                             @endif
@@ -112,7 +112,7 @@
                                                         <label for="">Beneficio</label>
                                                             @foreach ($beneficios as $ben)
                                                                 @if ($tce->beneficio_id == $ben->id_beneficio)
-                                                    <textarea class="form-control" placeholder="Beneficio">{{$ben->nome}}</textarea>
+                                                    <textarea class="form-control" placeholder="Beneficio">{{$ben->nome_beneficio}}</textarea>
                                                         <input type="hidden" name="beneficio_id" value="{{$ben->id_beneficio}}">
                                                         @endif
                                                         @endforeach
@@ -121,7 +121,7 @@
                                                         <label for="">Atividade </label>
                                                            @foreach ($atividades as $ativ)
                                                                 @if ($tce->atividade_id == $ativ->id_atividade)
-                                                            <textarea class="form-control" placeholder="Atividade">{{$ativ->nome}}</textarea>
+                                                            <textarea class="form-control" placeholder="Atividade">{{$ativ->nome_atividade}}</textarea>
                                                             <input type="hidden" name="atividade_id" value="{{$ativ->id_atividade}}">
                                                             @endif
                                                         @endforeach
@@ -130,7 +130,7 @@
                                                           <label for="">Supervisor</label>
                                                            @foreach ($supervisor as $sup)
                                                                 @if ($tce->supervisor_id == $sup->id_supervisor)
-                                                           <input type="text" value="{{$sup->nome}}" class="form-control has-feedback-left"
+                                                           <input type="text" value="{{$sup->nome_supervisor}}" class="form-control has-feedback-left"
                                                             placeholder="Supervisor">
                                                       <input type="hidden" name="supervisor_id" value="{{$sup->id_supervisor}}">
                                                         <span class="fa fa-user form-control-feedback left" aria-hidden="true"></span>
@@ -141,7 +141,7 @@
                                                         <label for=""> Motivo </label>
                                                         <select class="form-control has-feedback-left" name="motivo_id">
                                                               @foreach ($motivos as $motivo)
-                                                            <option value="{{ $motivo->id_motivo }}">{{ $motivo->nome }}</option>
+                                                            <option value="{{ $motivo->id_motivo }}">{{ $motivo->nome_motivo }}</option>
                                                                 @endforeach
                                                         </select>
                                                         <span class="fa fa-bars form-control-feedback left"
