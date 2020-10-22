@@ -45,11 +45,7 @@ return [
             'port' => env('DB_PORT', '3306'),
             'database' => env('DB_DATABASE', 'rhmais'),
             'username' => env('DB_USERNAME', 'root'),
-<<<<<<< HEAD
             'password' => env('DB_PASSWORD', ''),
-=======
-            'password' => env('DB_PASSWORD', 'admin'),
->>>>>>> 2215e0e2d723ef7c81cf215bf832dbb425588a3c
             'unix_socket' => env('DB_SOCKET', ''),
             'charset' => 'utf8mb4',
             'collation' => 'utf8mb4_unicode_ci',

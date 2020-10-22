@@ -9,7 +9,6 @@
 | routes are loaded by the RouteServiceProvider within a group which
 | contains the "web" middleware group. Now create something great!
 |
-<<<<<<< HEAD
  */
 
 Auth::routes();
@@ -115,34 +114,3 @@ Route::get('lista_avaliacao_supervisor', ['uses' => 'AvaliacaoController@lista_a
 /*Empresa */
 Route::resource('rhmais', 'RhmaisController');
 Route::post('rhmais/{id}', 'RhmaisController@update');
-=======
-*/
-
-Route::get('/', function () {
-    return view('auth.login');
-});
-
-Route::get('/usuarios', function () {
-    return view('cadastros.usuarios');
-});
-
-Route::get('/instituicao', function () {
-    return view('cadastros.instituicao');
-});
-
-Route::get('/concedente', function () {
-    return view('cadastros.concedente');
-});
-
-Auth::routes();
-
-Route::get('/home', 'HomeController@index')->name('home');
-
-Route::group(['middleware' => 'auth'], function () {
-	Route::resource('user', 'UserController', ['except' => ['show']]);
-	Route::get('profile', ['as' => 'profile.edit', 'uses' => 'ProfileController@edit']);
-	Route::put('profile', ['as' => 'profile.update', 'uses' => 'ProfileController@update']);
-	Route::put('profile/password', ['as' => 'profile.password', 'uses' => 'ProfileController@password']);
-});
-
->>>>>>> 2215e0e2d723ef7c81cf215bf832dbb425588a3c
