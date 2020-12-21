@@ -19,7 +19,7 @@ class UserController extends Controller
     public function index()
     {
         $users = DB::table('users')->paginate(5);
-        return view('user_sistema.index', compact('users', $users));
+        return view('user_sistema.index', compact('users'));
     }
 
     public function create()
@@ -30,42 +30,62 @@ class UserController extends Controller
     public function store(Request $request, User $users)
     {
 
-        if (request('id') == 0) {
-            $this->validate(request(), [
-                'name' => 'required',
-                'email' => 'required|email',
-                'password' => 'required|confirmed',
-            ]);
-            DB::beginTransaction();
-            $user = User::create([
-                "name" => request('name'),
-                "email" => request('email'),
-                "password" => bcrypt(request('password')),
-            ]);
-            DB::commit();
-        } else {
+        // if (request('id') == 0) {
+        //     $this->validate(request(), [
+        //         'name' => 'required',
+        //         'email' => 'required|email',
+        //         'password' => 'required|confirmed',
+        //     ]);
+        //     DB::beginTransaction();
+        //     $user = User::create([
+        //         "name" => request('name'),
+        //         "email" => request('email'),
+        //         "password" => bcrypt(request('password')),
+        //     ]);
+        //     DB::commit();
+        // } else {
 
-            $this->validate(request(), [
-                'name' => 'required',
-                'email' => 'required|email',
-                'password' => 'required|confirmed',
-            ]);
-            DB::beginTransaction();
-            $user = User::whereId(request('id'))->firstOrFail();
-            if ($user) {
-                $user->name = request('name');
-                $user->email = request('email');
-                $user->password = bcrypt(request('password'));
-                $user->save();
-            }
-            DB::commit();
+        //     $this->validate(request(), [
+        //         'name' => 'required',
+        //         'email' => 'required|email',
+        //         'password' => 'required|confirmed',
+        //     ]);
+        //     DB::beginTransaction();
+        //     $user = User::whereId(request('id'))->firstOrFail();
+        //     if ($user) {
+        //         $user->name = request('name');
+        //         $user->email = request('email');
+        //         $user->password = bcrypt(request('password'));
+        //         $user->save();
+        //     }
+        //     DB::commit();
+        // }
+        // return redirect()->route('user_sistema.index');
+
+        if ($request->has("e_id_user")) {
+            $user = User::find($request->e_id_user);
+            $user->name = $request->e_name;
+            $user->email = $request->e_email;
+            $user->password = bcrypt($request->e_password);
+
+            $user->save();
+            return "2";
+
+        } else {
+            $user = new User();
+            $user->name = $request->name;
+            $user->email = $request->email;
+            $user->password = bcrypt($request->password);
+            $user->save();
+            return "1";
         }
-        return redirect()->route('user_sistema.index');
+
     }
 
-    public function show(User $users)
+    public function show($id)
     {
-        return view('user_sistema.show', compact('users', $users));
+        $user = User::find($id);
+        return $user;
     }
 
     /**
@@ -106,17 +126,25 @@ class UserController extends Controller
     public function destroy(Request $request)
     {
 
-        $message = "";
-        try {
-            DB::table('users')->where('id', $request->_id)->delete();
+        // $message = "";
+        // try {
+        //     DB::table('users')->where('id', $request->_id)->delete();
 
-            $message = 'usuário excluído com sucesso';
-        } catch (\Exception $e) {
-            DB::rollback();
-            $message = $e->getMessage();
-        }
-        Flash::success('Usuário deletado com sucesso.');
-        return redirect(route('user_sistema.index'));
-        return $this->index()->with(['success' => $message, 'users' => User::all()]);
+        //     $message = 'usuário excluído com sucesso';
+        // } catch (\Exception $e) {
+        //     DB::rollback();
+        //     $message = $e->getMessage();
+        // }
+        // Flash::success('Usuário deletado com sucesso.');
+        // return redirect(route('user_sistema.index'));
+        // return $this->index()->with(['success' => $message, 'users' => User::all()]);
+
+        // User::destroy($id);
+        return "2";
+    }
+
+    public function carregarUser()
+    {
+        return User::all();
     }
 }

@@ -22,7 +22,8 @@ class CauController extends Controller
     public function index()
     {
         $caus = Cau::all();
-        return view('cau_convenio.index', compact('caus'));
+        $empresas = Empresa::all();
+        return view('cau_convenio.index', compact('caus', 'empresas'));
     }
 
     /**
@@ -44,24 +45,37 @@ class CauController extends Controller
      */
     public function store(Request $request)
     {
-        $request->validate([
-            'empresa_id' => 'required|unique:cau',
-        ]);
+        // $request->validate([
+        //     'empresa_id' => 'required|unique:cau',
+        // ]);
 
-        $date_inicio = $request->get('data_inicio');
-        $date_fim = $request->get('data_fim');
-        $date_doc = $request->get('data_doc');
+        // $date_inicio = $request->get('data_inicio');
+        // $date_fim = $request->get('data_fim');
+        // $date_doc = $request->get('data_doc');
 
-        $cau = new cau();
-        $cau->empresa_id = $request->get('empresa_id');
-        $cau->data_inicio = Carbon::createFromFormat('d/m/Y', $date_inicio)->format('Y-m-d');
-        $cau->data_fim = Carbon::createFromFormat('d/m/Y', $date_fim)->format('Y-m-d');
-        $cau->data_doc = Carbon::createFromFormat('d/m/Y', $date_doc)->format('Y-m-d');
-        $cau->obs = $request->get('obs');
-        $cau->save();
+        if ($request->has('e_id_cau')) {
+            $cau = Cau::find($request->e_id_cau);
+            $cau->empresa_id = $request->e_empresa_id;
+            $cau->data_inicio = Carbon::createFromFormat('d/m/Y', $request->e_data_inicio)->format('Y-m-d');
+            $cau->data_fim = Carbon::createFromFormat('d/m/Y', $request->e_data_fim)->format('Y-m-d');
+            $cau->data_doc = Carbon::createFromFormat('d/m/Y', $request->e_data_doc)->format('Y-m-d');
+            $cau->obs = $request->e_obs;
+            $cau->save();
 
-        $request->session()->flash('success', 'CADASTRADO COM SUCESSO');
-        return redirect('cau_convenio');
+            return "2";
+        } else {
+            $cau = new cau();
+            $cau->empresa_id = $request->empresa_id;
+            $cau->data_inicio = Carbon::createFromFormat('d/m/Y', $request->data_inicio)->format('Y-m-d');
+            $cau->data_fim = Carbon::createFromFormat('d/m/Y', $request->data_fim)->format('Y-m-d');
+            $cau->data_doc = Carbon::createFromFormat('d/m/Y', $request->data_doc)->format('Y-m-d');
+            $cau->obs = $request->obs;
+            $cau->save();
+
+            return "1";
+        }
+        // $request->session()->flash('success', 'CADASTRADO COM SUCESSO');
+        // return redirect('cau_convenio');
     }
 
     /**
@@ -77,6 +91,11 @@ class CauController extends Controller
         return view('cau_convenio.edit', compact('cau', 'empresas'));
     }
 
+    public function show($id)
+    {
+        $cau = Cau::with('empresa')->find($id);
+        return $cau;
+    }
     /**
      * Update the specified resource in storage.
      *
@@ -123,5 +142,10 @@ class CauController extends Controller
     {
         DB::update('update cau set situacao = 1 where id_cau = ?', [$id]);
         return redirect('cau_convenio');
+    }
+
+    public function carregarCau()
+    {
+        return Cau::with('empresa')->get();
     }
 }

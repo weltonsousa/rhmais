@@ -48,4 +48,13 @@ class Estagiario extends Model
         return $this->belongsTo('App\Rescisao');
     }
 
+    /**
+     * The attributes that should be cast.
+     *
+     * @var array
+     */
+    protected $casts = [
+        'data_nascimento' => 'datetime: d/m/Y',
+        'termino_curso' => 'datetime: d/m/Y',
+    ];
 }

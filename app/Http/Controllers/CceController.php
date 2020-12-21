@@ -22,7 +22,8 @@ class CceController extends Controller
     public function index()
     {
         $cces = Cce::all();
-        return view('cce_convenio.index', compact('cces'));
+        $instituicoes = Instituicao::all();
+        return view('cce_convenio.index', compact('cces', 'instituicoes'));
     }
 
     /**
@@ -77,6 +78,11 @@ class CceController extends Controller
         return view('cce_convenio.edit', compact('cce', 'instituicoes'));
     }
 
+    public function show($id)
+    {
+        $cce = Cce::with('instituicao')->find($id);
+        return $cce;
+    }
     /**
      * Update the specified resource in storage.
      *
@@ -124,5 +130,10 @@ class CceController extends Controller
     {
         DB::update('update cce set situacao = 1 where id_cce = ?', [$id]);
         return redirect('cce_convenio');
+    }
+
+    public function carregarCce()
+    {
+        return Cce::with('instituicao')->get();
     }
 }

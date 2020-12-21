@@ -40,17 +40,33 @@ class MotivoController extends Controller
      */
     public function store(Request $request)
     {
-        $request->validate([
-            'nome' => 'required',
-        ]);
+        // $request->validate([
+        //     'nome' => 'required',
+        // ]);
 
-        $motivo = new Motivo();
-        $motivo->nome_motivo = $request->get('nome');
-        $motivo->descricao = $request->get('descricao');
-        $motivo->save();
+        // $motivo = new Motivo();
+        // $motivo->nome_motivo = $request->get('nome');
+        // $motivo->descricao = $request->get('descricao');
+        // $motivo->save();
 
-        return redirect()->route('motivo.index')
-            ->with('success', 'CADASTRADO COM SUCESSO');
+        // return redirect()->route('motivo.index')
+        //     ->with('success', 'CADASTRADO COM SUCESSO');
+
+        if ($request->has("e_id_motivo")) {
+            $motivo = Motivo::find($request->e_id_motivo);
+            $motivo->nome_motivo = $request->e_nome;
+            $motivo->descricao = $request->e_descricao;
+            $motivo->save();
+            return "2";
+
+        } else {
+            $motivo = new Motivo();
+            $motivo->nome_motivo = $request->nome;
+            $motivo->descricao = $request->descricao;
+            $motivo->save();
+            return "1";
+        }
+
     }
 
     /**
@@ -63,6 +79,12 @@ class MotivoController extends Controller
     {
         $motivo = Motivo::find($id);
         return view('motivo.edit', compact('motivo', $motivo));
+    }
+
+    public function show($id)
+    {
+        $motivo = Motivo::find($id);
+        return $motivo;
     }
 
     /**
@@ -93,10 +115,18 @@ class MotivoController extends Controller
      * @param  \App\Motivo  $motivo
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Request $request, Motivo $motivo)
+    public function destroy(Request $request, $id)
     {
-        $motivo->delete();
-        $request->session()->flash('warning', 'REMOVIDO COM SUCESSO');
-        return redirect('motivo');
+        // $motivo->delete();
+        // $request->session()->flash('warning', 'REMOVIDO COM SUCESSO');
+        // return redirect('motivo');
+
+        Motivo::delete($id);
+        return "1";
+    }
+
+    public function carregarMotivo()
+    {
+        return Motivo::all();
     }
 }

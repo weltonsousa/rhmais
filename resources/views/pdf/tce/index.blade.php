@@ -410,13 +410,13 @@
         rescindido a qualquer momento por qualquer uma das partes sem ônus, multas ou aviso prévio através do Termo de
         Rescisão ou podendo ser prorrogado através de Termo Aditivo.</p>
     @endforeach
-        @foreach ($horarios as $hor)
-    <p class="text-justify"> <strong> CLÁUSULA 3ª </strong> - As atividades de estágio se farão de <strong> {{$hor->descricao}}, perfazendo 30
+        {{-- @foreach ($horarios as $hor) --}}
+    <p class="text-justify"> <strong> CLÁUSULA 3ª </strong> - As atividades de estágio se farão de <strong> {{$tce->horario}}, perfazendo 30
             horas semanais </strong>. A jornada deverá ser compatível com o horário escolar do Estudante, sendo que
         durante as férias ou
         recessos escolares, outra jornada de atividades poderá ser estabelecida entre as partes.
     </p>
-@endforeach
+{{-- @endforeach --}}
     <p class="text-justify"> <strong> CLÁUSULA 4ª </strong> - O estagiário tem direito a <strong> férias remuneradas
         </strong> de 30 (trinta) dias, após doze meses de estágio na mesma
         Empresa ou, o proporcional ao tempo de estágio, se menos de um ano.</p>
@@ -427,19 +427,19 @@
         ÚNICO - As atividades poderão ser ampliadas, reduzidas, alteradas, substituídas de acordo com a necessidade,
         sendo as
         atividades inicialmente desenvolvidas pelo estudante: </p>
-        @foreach ($atividades as $ativ)
-    <p class="text-justify"><strong>{{$ativ->nome_atividade}}</strong>
+        {{-- @foreach ($atividades as $ativ) --}}
+    <p class="text-justify"><strong>{{$tce->atividade}}</strong>
     </p>
-    @endforeach
+    {{-- @endforeach --}}
        @foreach ($tceContrato as $tce)
     <p class="text-justify"> <strong> CLÁUSULA 6ª </strong> - A Unidade Concedente remunerará em <strong
            >R$ {{ $tce->bolsa }} </strong>, o Estudante, a título de bolsa-
         auxílio, quantia esta que será paga a partir do mês subsequente ao vencimento,
         @endforeach
-        @foreach ($beneficios as $ben)
-        <strong> mais
-            {{$ben->nome_beneficio}} </strong>. O valor estabelecido
-            @endforeach
+                {{-- @foreach ($beneficios as $ben) --}}
+
+         mais <strong> {{$tce->beneficio}} </strong>. O valor estabelecido
+            {{-- @endforeach --}}
         poderá variar segundo a sua frequência mensal, grau de escolaridade, atividades desempenhadas, entendimento
         entre as partes
         ou outro motivo qualquer.</p>

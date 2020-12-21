@@ -1,33 +1,33 @@
 @extends('layout/app')
-@section('titulo','Cadastro de Estagiarios | RH MAIS')
+@section('titulo', 'Cadastro de Estagiarios | RH MAIS')
 @section('conteudo')
-<div class="container body">
-    <div class="main_container">
-        <div class="col-md-3 left_col">
-            <div class="left_col scroll-view">
-                @include('layout.menu.menu')
-                <!-- /menu profile quick info -->
-                <br />
-                @include('layout.menu.sidebar')
-                <!-- /sidebar menu -->
+    <div class="container body">
+        <div class="main_container">
+            <div class="col-md-3 left_col">
+                <div class="left_col scroll-view">
+                    @include('layout.menu.menu')
+                    <!-- /menu profile quick info -->
+                    <br />
+                    @include('layout.menu.sidebar')
+                    <!-- /sidebar menu -->
+                </div>
             </div>
-        </div>
-        @include('layout.menu.menutop')
-        <!-- page content -->
-        <div class="right_col" role="main">
-            <div class="clearfix"></div>
-            <div class="row">
-                <div class="col-md-12 col-sm-12 col-xs-12">
-                    @include('layout.alerta.flash-message')
-                    @include('estagiario.fields')
+            @include('layout.menu.menutop')
+            <!-- page content -->
+            <div class="right_col" role="main">
+                <div class="clearfix"></div>
+                <div class="row">
+                    <div class="col-md-12 col-sm-12 col-xs-12">
+                        @include('layout.alerta.flash-message')
+                        @include('estagiario.fields')
+                    </div>
                 </div>
             </div>
         </div>
+        <!-- /page content -->
+        <!-- footer content -->
+        @include('layout.footer')
+        <!-- /footer content -->
     </div>
-    <!-- /page content -->
-    <!-- footer content -->
-    @include('layout.footer')
-    <!-- /footer content -->
-</div>
-</div>
+    </div>
 @endsection

@@ -53,7 +53,7 @@ class FolhaPagamentoController extends Controller
 
         } else {
 
-            $unidades = DB::table('cau')->join('empresa', 'empresa.id_empresa', '=', 'cau.empresa_id')->select('empresa.id_empresa as empresa_id', 'empresa.nome_fantasia', 'cau.data_inicio', 'cau.data_fim', 'cau.situacao', 'cau.id_cau')->get();
+            $unidades = DB::table('cau')->join('empresa', 'empresa.id_empresa', '=', 'cau.empresa_id')->select('empresa.id_empresa', 'empresa.nome_fantasia', 'cau.data_inicio', 'cau.data_fim', 'cau.situacao', 'cau.id_cau')->get();
             $estagiarios = DB::table('estagiario')->get();
             $contratos = DB::table("tce_contrato")->get();
 

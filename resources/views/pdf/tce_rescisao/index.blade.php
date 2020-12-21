@@ -278,19 +278,19 @@
         @endforeach
     </p>
     <p class="text-justify">
-        @foreach ($motivos as $mot)
+        {{-- @foreach ($motivos as $mot) --}}
             <span class="fonte-10">
-        2) Motivo da Rescisão : <strong>  {{$mot->nome_motivo}} </strong>
+        2) Motivo da Rescisão : <strong>  {{$tce->motivo}} </strong>
             </span>
-        @endforeach
+        {{-- @endforeach --}}
 
     </p>
     <p class="text-justify">
-        @foreach($atividades as $ativ)
+        {{-- @foreach($atividades as $ativ) --}}
            <span class="fonte-10">
-        3) Atividade do Estagiário(a): <strong>{{$ativ->nome_atividade}}</strong>
+        3) Atividade do Estagiário(a): <strong>{{$tce->atividade}}</strong>
            </span>
-        @endforeach
+        {{-- @endforeach --}}
     </p>
     @foreach($tceRescisao as $tce)
     <p class="pull-right"> Campinas, {{ date('d/m/Y', strtotime($tce->data_doc))}}.</p>

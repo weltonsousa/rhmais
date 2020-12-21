@@ -31,7 +31,7 @@
                                 <select name="unidade_id" id="unidade-id" class="form-control">
                                     <option value=""> Todas as Unidades</option>
                                     @foreach ($unidades as $unidade)
-                                    <option value="{{$unidade->empresa_id}}"> {{$unidade->nome_fantasia}}</option>
+                                    <option value="{{$unidade->id_empresa}}"> {{$unidade->nome_fantasia}}</option>
                                     @endforeach
                                 </select>
                             </div>

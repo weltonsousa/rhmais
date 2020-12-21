@@ -7,7 +7,7 @@
             <li class="{{ (request()->is('estagiario/index')) ? 'active' : '' }}"><a><i class="fa fa-edit"></i>
                     Cadastros <span class="fa fa-chevron-down"></span></a>
                 <ul class="nav child_menu">
-                    <li><a href="/estagiario">Estagiarios</a></li>
+                    <li><a href="/estagiario">Estagiários</a></li>
                     <li><a href="/instituicao">Instituição de Ensino</a></li>
                     <li><a href="/empresa">Empresas Parceiras</a></li>
                 </ul>

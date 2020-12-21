@@ -45,7 +45,7 @@
 
                                                     <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
                                                         <select class="form-control has-feedback-left" name="nivel">
-                                                            <option value="SELECION NÍVEL">SELECION NÍVEL</option>
+                                                            <option value="SELECION NÍVEL">SELECIONE NÍVEL</option>
                                                             <option value="FUNDAMENTAL - NF">FUNDAMENTAL - NF</option>
                                                             <option value="NÍVEL MÉDIO - NM">NÍVEL MÉDIO - NM</option>
                                                             <option value="NÍVEL MÉDIO TÉCNICO - MT">NÍVEL MÉDIO TÉCNICO - MT</option>

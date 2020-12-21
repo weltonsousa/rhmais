@@ -1,212 +1,219 @@
 @extends('layout/app')
-@section('titulo','Rescisões Processados - Agente Integração | RH MAIS')
+@section('titulo', 'Rescisões Processados - Agente Integração | RH MAIS')
 @section('conteudo')
-<div class="container body">
-    <div class="main_container">
-        <div class="col-md-3 left_col">
-            <div class="left_col scroll-view">
-                @include('layout.menu.menu')
-                <br />
-                @include('layout.menu.sidebar')
+    <div class="container body">
+        <div class="main_container">
+            <div class="col-md-3 left_col">
+                <div class="left_col scroll-view">
+                    @include('layout.menu.menu')
+                    <br />
+                    @include('layout.menu.sidebar')
+                </div>
             </div>
-        </div>
-        @include('layout.menu.menutop')
-        <!-- page content -->
+            @include('layout.menu.menutop')
+            <!-- page content -->
 
-        <!-- JQuery -->
-        <script src="{{URL::asset('js/jquery.min.js')}}"></script>
+            <!-- JQuery -->
+            <script src="{{ URL::asset('js/jquery.min.js') }}"></script>
 
-        <!-- page content -->
-        <div class="right_col" role="main">
-            <div class="">
-                <!-- <a href="{{url('estagiario/exportar')}}">Print  PDF</a> -->
-                <div class="clearfix"></div>
+            <!-- page content -->
+            <div class="right_col" role="main">
+                <div class="">
+                    <!-- <a href="{{ url('estagiario/exportar') }}">Print  PDF</a> -->
+                    <div class="clearfix"></div>
 
-                <div class="row">
-                    <div class="col-md-12 col-sm-12 col-xs-12">
-                        <form action="{{route('processarRescisao')}}" id="frm-rescisao" method="POST">
-                            @csrf
-                            <div class="col-md-2">
-                                <label for="">Unidade</label>
-                                <select name="unidade_id" id="unidade-id" class="form-control">
-                                    <option value=""> Todas as Unidades</option>
-                                     @foreach ($unidades as $unidade)
-                                    <option  value="{{$unidade->empresa_id}}"> {{$unidade->nome_fantasia}}</option>
-                                    @endforeach
-                                </select>
-                            </div>
-                            <div class="col-md-2">
-                                <label for="">Período</label>
-                                <select name="referencia" id="referencia" class="form-control">
-                                    <option value=""> Periodo Ano</option>
-                                    @foreach ($periodos as $periodo)
-                                     <option value="{{$periodo->referencia}}"> {{$periodo->referencia}}
-                                    @endforeach
-                                </select>
-                            </div>
-                            <div class="col-md-2">
-                                <label for="">Dias Úteis</label>
-                                <select name="" class="form-control">
-                                      <option> 01</option>
-                                    <option> 02</option>
-                                    <option> 03</option>
-                                    <option> 04</option>
-                                    <option> 05</option>
-                                    <option> 06</option>
-                                    <option> 07</option>
-                                    <option> 08</option>
-                                    <option> 09</option>
-                                    <option> 10</option>
-                                    <option> 11</option>
-                                    <option> 12</option>
-                                    <option> 13</option>
-                                    <option> 14</option>
-                                    <option> 15</option>
-                                    <option> 16</option>
-                                    <option> 17</option>
-                                    <option> 18</option>
-                                    <option> 19</option>
-                                    <option> 20</option>
-                                    <option> 21</option>
-                                    <option> 22</option>
-                                    <option> 23</option>
-                                    <option> 24</option>
-                                    <option> 25</option>
-                                    <option> 26</option>
-                                    <option> 27</option>
-                                    <option> 28</option>
-                                    <option> 29</option>
-                                    <option> 30</option>
-                                    <option> 31</option>
-                                </select>
-                            </div>
-                            <div class="col-md-4">
-                                <br>
-                                <button type="submit" class="btn btn-primary" name="processar" id="processar">Processar</button>
-                                <button type="submit" class="btn btn-primary" name="grecibo" id="grecibo">G. Recibo</button>
-                                <button type="submit" class="btn btn-primary" name="grelacao" id="grelacao">G. Relação</button>
-                                {{-- <a href="{{route('listar-rescisao')}}" class="btn btn-danger">Recisões</a> --}}
-                            </div>
-                        </form>
-                        <br>
-                        <div class="x_panel">
-                            <div class="x_title">
-
-                                <h2>Rescisões Processados - Agente Integração</h2>
-                                <div class="clearfix"></div>
-                            </div>
-                            <div class="x_content">
-                                <table class="table table-striped list  table-bordered" style="zoom:0.9;">
-                                    <thead>
-                                        <tr>
-                                            <th>Folha do Mês</th>
-                                            <th>Referência
-                                                <input type="text" class="form-control" style="width:100px;">
-                                            </th>
-                                            <th>Estagiario
-                                                <input type="text" class="form-control">
-                                            </th>
-                                            <th>Un. Concedente
-                                                <input type="text" class="form-control">
-                                            </th>
-                                            <th>Valor da Bolsa
-                                                <input type="text" class="form-control" style="width:100px;">
-                                            </th>
-                                            <th>Valor Liquido
-                                                <input type="text" class="form-control" style="width:100px;">
-                                            </th>
-                                            <th>Opções</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                            @foreach ($folhas as $folha)
-                                            <td>
-                                                @if ($folha->status == 0)
-                                              <button type="button" class="btn btn-warning">Pendente</button>
-                                                @else
-                                                 <button type="button" class="btn btn-success">Gerado</button>
-                                                @endif
-                                            </td>
-                                            <td>{{ $folha->referencia }}</td>
-                                            <td>
-                                                @php
-                                                foreach ($estagiarios as $estagiario) {
-                                                if ($estagiario->id_estagiario == $folha->estagiario_id) {
-                                                echo $estagiario->nome;
-                                                }
-                                                }
-                                                @endphp
-                                            </td>
-                                            <td>
-                                                @php
-                                                foreach ($empresas as $empresa) {
-                                                if ($empresa->id_empresa == $folha->empresa_id) {
-                                                echo $empresa->nome_fantasia;
-                                                }
-                                                }
-                                                @endphp
-                                            </td>
-                                            <td>{{ $folha->valor_bolsa }}</td>
-                                            <td>{{ $folha->valor_liquido }}</td>
-                                            <td>
-                                                <form action="{{ route('folha_rescisao.edit', [$folha->id_folha_pagamento]) }}">
-                                                <button type="submit" class="btn btn-primary" title="Gerar Rescisão"><i class="fa fa-pencil"></i> </a>
-                                                </button>
-                                                </form>
-                                            </td>
-                                        </tr>
+                    <div class="row">
+                        <div class="col-md-12 col-sm-12 col-xs-12">
+                            @include('layout.alerta.flash-message')
+                            <form action="{{ route('processarRescisao') }}" id="frm-rescisao" method="POST">
+                                @csrf
+                                <div class="col-md-2">
+                                    <label for="">Unidade</label>
+                                    <select name="unidade_id" id="unidade-id" class="form-control">
+                                        <option value=""> Todas as Unidades</option>
+                                        @foreach ($unidades as $unidade)
+                                            <option value="{{ $unidade->empresa_id }}"> {{ $unidade->nome_fantasia }}
+                                            </option>
                                         @endforeach
-                                    </tbody>
-                                </table>
+                                    </select>
+                                </div>
+                                <div class="col-md-2">
+                                    <label for="">Período</label>
+                                    <select name="referencia" id="referencia" class="form-control">
+                                        <option value=""> Periodo Ano</option>
+                                        @foreach ($periodos as $periodo)
+                                            <option value="{{ $periodo->referencia }}"> {{ $periodo->referencia }}
+                                        @endforeach
+                                    </select>
+                                </div>
+                                <div class="col-md-2">
+                                    <label for="">Dias Úteis</label>
+                                    <select name="" class="form-control">
+                                        <option> 01</option>
+                                        <option> 02</option>
+                                        <option> 03</option>
+                                        <option> 04</option>
+                                        <option> 05</option>
+                                        <option> 06</option>
+                                        <option> 07</option>
+                                        <option> 08</option>
+                                        <option> 09</option>
+                                        <option> 10</option>
+                                        <option> 11</option>
+                                        <option> 12</option>
+                                        <option> 13</option>
+                                        <option> 14</option>
+                                        <option> 15</option>
+                                        <option> 16</option>
+                                        <option> 17</option>
+                                        <option> 18</option>
+                                        <option> 19</option>
+                                        <option> 20</option>
+                                        <option> 21</option>
+                                        <option> 22</option>
+                                        <option> 23</option>
+                                        <option> 24</option>
+                                        <option> 25</option>
+                                        <option> 26</option>
+                                        <option> 27</option>
+                                        <option> 28</option>
+                                        <option> 29</option>
+                                        <option> 30</option>
+                                        <option> 31</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-4">
+                                    <br>
+                                    <button type="submit" class="btn btn-primary" name="processar"
+                                        id="processar">Processar</button>
+                                    <button type="submit" class="btn btn-primary" name="grecibo" id="grecibo">G.
+                                        Recibo</button>
+                                    <button type="submit" class="btn btn-primary" name="grelacao" id="grelacao">G.
+                                        Relação</button>
+                                </div>
+                            </form>
+                            <br>
+                            <div class="x_panel">
+                                <div class="x_title">
+
+                                    <h2>Rescisões Processados - Agente Integração</h2>
+                                    <div class="clearfix"></div>
+                                </div>
+                                <div class="x_content">
+                                    <table class="table table-striped list  table-bordered" style="zoom:0.9;">
+                                        <thead>
+                                            <tr>
+                                                <th>Folha do Mês</th>
+                                                <th>Referência
+                                                    <input type="text" class="form-control" style="width:100px;">
+                                                </th>
+                                                <th>Estagiario
+                                                    <input type="text" class="form-control">
+                                                </th>
+                                                <th>Un. Concedente
+                                                    <input type="text" class="form-control">
+                                                </th>
+                                                <th>Valor da Bolsa
+                                                    <input type="text" class="form-control" style="width:100px;">
+                                                </th>
+                                                <th>Valor Liquido
+                                                    <input type="text" class="form-control" style="width:100px;">
+                                                </th>
+                                                <th>Opções</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                @foreach ($folhas as $folha)
+                                                    <td>
+                                                        @if ($folha->status == 0)
+                                                            <button type="button" class="btn btn-warning">Pendente</button>
+                                                        @else
+                                                            <button type="button" class="btn btn-success">Gerado</button>
+                                                        @endif
+                                                    </td>
+                                                    <td>{{ $folha->referencia }}</td>
+                                                    <td>
+                                                        @php
+                                                        foreach ($estagiarios as $estagiario) {
+                                                        if ($estagiario->id_estagiario == $folha->estagiario_id) {
+                                                        echo $estagiario->nome;
+                                                        }
+                                                        }
+                                                        @endphp
+                                                    </td>
+                                                    <td>
+                                                        @php
+                                                        foreach ($empresas as $empresa) {
+                                                        if ($empresa->id_empresa == $folha->empresa_id) {
+                                                        echo $empresa->nome_fantasia;
+                                                        }
+                                                        }
+                                                        @endphp
+                                                    </td>
+                                                    <td>{{ $folha->valor_bolsa }}</td>
+                                                    <td>{{ $folha->valor_liquido }}</td>
+                                                    <td>
+                                                        <form
+                                                            action="{{ route('folha_rescisao.edit', [$folha->id_folha_pagamento]) }}">
+                                                            <button type="submit" class="btn btn-primary"
+                                                                title="Gerar Rescisão"><i class="fa fa-pencil"></i> </a>
+                                                            </button>
+                                                        </form>
+                                                    </td>
+                                            </tr>
+                                            @endforeach
+                                        </tbody>
+                                    </table>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
+
+        <!-- /page content -->
+
+        <!-- footer content -->
+        @include('layout.footer')
+        <!-- /footer content -->
     </div>
+    </div>
+    <script>
+        var und = [];
+        var ref = [];
 
-    <!-- /page content -->
+        $('#unidade-id').bind('change', function() {
+            und = $(this).val();
+        });
 
-    <!-- footer content -->
-    @include('layout.footer')
-    <!-- /footer content -->
-</div>
-</div>
-<script>
-    var und = [];
-    var ref = [];
+        $('#referencia').bind('change', function() {
+            ref = $(this).val();
+        });
 
-    $('#unidade-id').bind('change', function(){
-    und = $(this).val();
-    });
-
-    $('#referencia').bind('change', function(){
-    ref = $(this).val();
-    });
-
-        $('#grecibo').click(function(e){
-            if(und > 0 && ref != null){
-                $('#frm-rescisao').attr("action", '{{route('grecibo-rescisao')}}').attr( 'target','_blank' );
-            }else {
+        $('#grecibo').click(function(e) {
+            if (und > 0 && ref != null) {
+                $('#frm-rescisao').attr("action", '{{ route('grecibo-rescisao') }}').attr('target', '_blank');
+            } else {
                 e.preventDefault();
                 alert("Escolha ao lado");
             }
         });
 
-        $('#processar').click(function(){
+        $('#processar').click(function() {
             $('#frm-rescisao').removeAttr('target');
-            $('#frm-rescisao').attr("action", '{{route('processarRescisao')}}');
+            $('#frm-rescisao').attr("action", '{{ route('processarRescisao') }}');
         });
 
-        $('#grelacao').click(function(e){
-            if(und > 0 && ref != null){
-            $('#frm-rescisao').attr("action", '{{route('grelacao-rescisao')}}').attr( 'target','_blank' );
-            }else {
+        $('#grelacao').click(function(e) {
+            if (und > 0 && ref != null) {
+                $('#frm-rescisao').attr("action", '{{ route('grelacao-rescisao') }}').attr('target', '_blank');
+            } else {
                 e.preventDefault();
                 alert("Escolha ao lado");
             }
         });
-</script>
+
+    </script>
 @endsection

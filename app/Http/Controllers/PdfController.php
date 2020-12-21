@@ -143,15 +143,8 @@ class PdfController extends Controller
 
         $rhmais = Rhmais::all();
 
-        // $beneficios = DB::table('beneficio_estagiario')->where('folha_id', '=', $id)->get();
-        // $credito = BeneficioEstagiario::where('folha_id', '=', $id)->where('tipo', '=', 1)->sum('valor');
-        // $debito = BeneficioEstagiario::where('folha_id', '=', $id)->where('tipo', '=', 2)->sum('valor');
         $data = DB::table('folha_pagamento')->where('id_folha_pagamento', $id)->select('valor_bolsa', 'faltas')->get();
         $faltas = DB::table('folha_pagamento')->where('id_folha_pagamento', $id)->pluck('faltas');
-
-        // foreach ($data as $da) {
-        //     $falta = $da->faltas;
-        // }
 
         $data = [
             'folha' => $folha, 'beneficio' => $beneficio,
@@ -250,12 +243,6 @@ class PdfController extends Controller
             ->where('folha_rescisao.id_folha_rescisao', '=', $id)
             ->get();
 
-        $tceRescisao = DB::table('estagiario')
-            ->join('tce_rescisao', 'estagiario.id_estagiario', '=', 'tce_rescisao.estagiario_id')
-            ->join('folha_rescisao', 'estagiario.id_estagiario', '=', 'folha_rescisao.estagiario_id')
-            ->where('folha_rescisao.id_folha_rescisao', '=', $id)
-            ->get();
-
         $beneficio = DB::table('beneficio_estagiario')
             ->join('beneficio', 'beneficio_estagiario.beneficio_id', '=', 'beneficio.id_beneficio')
             ->join('folha_rescisao', 'beneficio_estagiario.folha_id', '=', 'folha_rescisao.id_folha_rescisao')
@@ -265,28 +252,15 @@ class PdfController extends Controller
 
         $rhmais = Rhmais::all();
 
-        // $beneficios = DB::table('beneficio_estagiario')->where('folha_id', '=', $id)->get();
-        // $credito = BeneficioEstagiario::where('folha_id', '=', $id)->where('tipo', '=', 1)->sum('valor');
-        // $debito = BeneficioEstagiario::where('folha_id', '=', $id)->where('tipo', '=', 2)->sum('valor');
         $data = DB::table('folha_pagamento')->where('id_folha_pagamento', $id)->select('valor_bolsa', 'faltas')->get();
         $faltas = DB::table('folha_pagamento')->where('id_folha_pagamento', $id)->pluck('faltas');
 
-        // foreach ($data as $da) {
-        //     $falta = $da->faltas;
-        // }
-
-        // $beneficio = [];
-        // $faltas = [];
-        // $rs_credito = 2.00;
-        // $rs_debito = 2.00;
-
         $data = [
-            'tceRescisao' => $tceRescisao,
+            // 'tceRescisao' => $tceRescisao,
             'folhaRescisao' => $folhaRescisao,
             'beneficio' => $beneficio,
             'rhmais' => $rhmais,
             'faltas' => $faltas,
-
         ];
         $pdf = PDF::loadView('pdf.holerite_rescisao.index', $data);
         return $pdf->stream('holerite-rescisao.pdf');
@@ -445,23 +419,23 @@ class PdfController extends Controller
             ->where('tce_rescisao.id_tce_rescisao', '=', $id)
             ->get();
 
-        $horarios = DB::table('horario')
-            ->join('tce_rescisao', 'horario.id_horario', '=', 'tce_rescisao.horario_id')
-            ->select('horario.descricao')
-            ->where('tce_rescisao.id_tce_rescisao', '=', $id)
-            ->get();
+        // $horarios = DB::table('horario')
+        //     ->join('tce_rescisao', 'horario.id_horario', '=', 'tce_rescisao.horario_id')
+        //     ->select('horario.descricao')
+        //     ->where('tce_rescisao.id_tce_rescisao', '=', $id)
+        //     ->get();
 
-        $atividades = DB::table('atividade')
-            ->join('tce_rescisao', 'atividade.id_atividade', '=', 'tce_rescisao.atividade_id')
-            ->select('atividade.nome_atividade')
-            ->where('tce_rescisao.id_tce_rescisao', '=', $id)
-            ->get();
+        // $atividades = DB::table('atividade')
+        //     ->join('tce_rescisao', 'atividade.id_atividade', '=', 'tce_rescisao.atividade_id')
+        //     ->select('atividade.nome_atividade')
+        //     ->where('tce_rescisao.id_tce_rescisao', '=', $id)
+        //     ->get();
 
-        $seguros = DB::table('seguradora')
-            ->join('tce_rescisao', 'seguradora.id_seguradora', '=', 'tce_rescisao.apolice_id')
-            ->select('seguradora.nome_seguradora')
-            ->where('tce_rescisao.id_tce_rescisao', '=', $id)
-            ->get();
+        // $seguros = DB::table('seguradora')
+        //     ->join('tce_rescisao', 'seguradora.id_seguradora', '=', 'tce_rescisao.apolice_id')
+        //     ->select('seguradora.nome_seguradora')
+        //     ->where('tce_rescisao.id_tce_rescisao', '=', $id)
+        //     ->get();
 
         $supervisores = DB::table('supervisor')
             ->join('tce_rescisao', 'supervisor.id_supervisor', '=', 'tce_rescisao.supervisor_id')
@@ -469,33 +443,36 @@ class PdfController extends Controller
             ->where('tce_rescisao.id_tce_rescisao', '=', $id)
             ->get();
 
-        $beneficios = DB::table('beneficio')
-            ->join('tce_rescisao', 'beneficio.id_beneficio', '=', 'tce_rescisao.beneficio_id')
-            ->select('beneficio.nome_beneficio')
-            ->where('tce_rescisao.id_tce_rescisao', '=', $id)
-            ->get();
+        // $beneficios = DB::table('beneficio')
+        //     ->join('tce_rescisao', 'beneficio.id_beneficio', '=', 'tce_rescisao.beneficio_id')
+        //     ->select('beneficio.nome_beneficio')
+        //     ->where('tce_rescisao.id_tce_rescisao', '=', $id)
+        //     ->get();
 
         $tceRescisao = DB::table('tce_rescisao')
-            ->select(
-                'tce_rescisao.data_inicio',
-                'tce_rescisao.data_fim',
-                'tce_rescisao.bolsa',
-                'tce_rescisao.data_doc',
-                'tce_rescisao.ultimo_dia',
-                'tce_rescisao.created_at')
+        // ->select(
+        //     'tce_rescisao.data_inicio',
+        //     'tce_rescisao.data_fim',
+        //     'tce_rescisao.bolsa',
+        //     'tce_rescisao.data_doc',
+        //     'tce_rescisao.ultimo_dia',
+        //     'tce_rescisao.created_at')
             ->where('tce_rescisao.id_tce_rescisao', '=', $id)
             ->get();
 
-        $motivos = DB::table('motivo')
-            ->join('tce_rescisao', 'motivo.id', '=', 'tce_rescisao.motivo_id')
-            ->select('motivo.nome_motivo')
-            ->where('tce_rescisao.id_tce_rescisao', '=', $id)
-            ->get();
+        // $motivos = DB::table('motivo')
+        //     ->join('tce_rescisao', 'motivo.id_motivo', '=', 'tce_rescisao.motivo_id')
+        //     ->select('motivo.nome_motivo')
+        //     ->where('tce_rescisao.id_tce_rescisao', '=', $id)
+        //     ->get();
 
+        // $data = ['estagiarios' => $estagiarios, 'instituicoes' => $instituicoes,
+        //     'empresas' => $empresas, 'horarios' => $horarios, 'atividades' => $atividades,
+        //     'seguros' => $seguros, 'supervisores' => $supervisores,
+        //     'tceRescisao' => $tceRescisao, 'beneficios' => $beneficios, 'motivos' => $motivos];
         $data = ['estagiarios' => $estagiarios, 'instituicoes' => $instituicoes,
-            'empresas' => $empresas, 'horarios' => $horarios, 'atividades' => $atividades,
-            'seguros' => $seguros, 'supervisores' => $supervisores,
-            'tceRescisao' => $tceRescisao, 'beneficios' => $beneficios, 'motivos' => $motivos];
+            'empresas' => $empresas, 'supervisores' => $supervisores,
+            'tceRescisao' => $tceRescisao];
         $pdf = PDF::loadView('pdf.tce_rescisao.index', $data);
         return $pdf->stream('tce-rescisao.pdf');
     }
@@ -692,23 +669,23 @@ class PdfController extends Controller
             ->where('tce_contrato.estagiario_id', '=', $id)
             ->get();
 
-        $horarios = DB::table('horario')
-            ->join('tce_contrato', 'horario.id_horario', '=', 'tce_contrato.horario_id')
-            ->select('horario.descricao')
-            ->where('tce_contrato.estagiario_id', '=', $id)
-            ->get();
+        // $horarios = DB::table('horario')
+        //     ->join('tce_contrato', 'horario.id_horario', '=', 'tce_contrato.horario_id')
+        //     ->select('horario.descricao')
+        //     ->where('tce_contrato.estagiario_id', '=', $id)
+        //     ->get();
 
-        $atividades = DB::table('atividade')
-            ->join('tce_contrato', 'atividade.id_atividade', '=', 'tce_contrato.atividade_id')
-            ->select('atividade.nome_atividade')
-            ->where('tce_contrato.estagiario_id', '=', $id)
-            ->get();
+        // $atividades = DB::table('atividade')
+        //     ->join('tce_contrato', 'atividade.id_atividade', '=', 'tce_contrato.atividade_id')
+        //     ->select('atividade.nome_atividade')
+        //     ->where('tce_contrato.estagiario_id', '=', $id)
+        //     ->get();
 
-        $seguros = DB::table('seguradora')
-            ->join('tce_contrato', 'seguradora.id_seguradora', '=', 'tce_contrato.apolice_id')
-            ->select('seguradora.nome_seguradora')
-            ->where('tce_contrato.estagiario_id', '=', $id)
-            ->get();
+        // $seguros = DB::table('seguradora')
+        //     ->join('tce_contrato', 'seguradora.id_seguradora', '=', 'tce_contrato.apolice_id')
+        //     ->select('seguradora.nome_seguradora')
+        //     ->where('tce_contrato.estagiario_id', '=', $id)
+        //     ->get();
 
         $supervisores = DB::table('supervisor')
             ->join('tce_contrato', 'supervisor.id_supervisor', '=', 'tce_contrato.supervisor_id')
@@ -722,29 +699,32 @@ class PdfController extends Controller
             ->where('tce_contrato.estagiario_id', '=', $id)
             ->get();
 
-        $beneficios = DB::table('beneficio')
-            ->join('tce_contrato', 'beneficio.id_beneficio', '=', 'tce_contrato.beneficio_id')
-            ->select('beneficio.nome_beneficio')
-            ->where('tce_contrato.estagiario_id', '=', $id)
-            ->get();
+        // $beneficios = DB::table('beneficio')
+        //     ->join('tce_contrato', 'beneficio.id_beneficio', '=', 'tce_contrato.beneficio_id')
+        //     ->select('beneficio.nome_beneficio')
+        //     ->where('tce_contrato.estagiario_id', '=', $id)
+        //     ->get();
 
         $tceContrato = DB::table('tce_contrato')
-            ->select(
-                'tce_contrato.data_inicio',
-                'tce_contrato.data_fim',
-                'tce_contrato.bolsa',
-                'tce_contrato.obrigatorio',
-                'tce_contrato.data_doc',
-                'tce_contrato.created_at')
+        // ->select(
+        //     'tce_contrato.data_inicio',
+        //     'tce_contrato.data_fim',
+        //     'tce_contrato.bolsa',
+        //     'tce_contrato.obrigatorio',
+        //     'tce_contrato.data_doc',
+        //     'tce_contrato.created_at')
             ->where('tce_contrato.estagiario_id', '=', $id)
             ->get();
 
         DB::update('update tce_contrato set assinado = 1 where estagiario_id = ?', [$id]);
 
+        // $data = ['estagiarios' => $estagiarios, 'instituicoes' => $instituicoes,
+        //     'empresas' => $empresas, 'horarios' => $horarios, 'atividades' => $atividades,
+        //     'seguros' => $seguros, 'supervisores' => $supervisores, 'orientadores' => $orientadores,
+        //     'tceContrato' => $tceContrato, 'beneficios' => $beneficios];
         $data = ['estagiarios' => $estagiarios, 'instituicoes' => $instituicoes,
-            'empresas' => $empresas, 'horarios' => $horarios, 'atividades' => $atividades,
-            'seguros' => $seguros, 'supervisores' => $supervisores, 'orientadores' => $orientadores,
-            'tceContrato' => $tceContrato, 'beneficios' => $beneficios];
+            'empresas' => $empresas, 'supervisores' => $supervisores, 'orientadores' => $orientadores,
+            'tceContrato' => $tceContrato];
         $pdf = PDF::loadView('pdf.tce.index', $data);
         return $pdf->stream('tce.pdf');
     }

@@ -41,18 +41,35 @@ class SeguradoraController extends Controller
      */
     public function store(Request $request)
     {
-        $request->validate([
-            'nome' => 'required',
-        ]);
+        // $request->validate([
+        //     'nome' => 'required',
+        // ]);
 
-        $seguradora = new Seguradora();
-        $seguradora->nome_seguradora = $request->get('nome');
-        $seguradora->n_apolice = $request->get('n_apolice');
-        $seguradora->cobertura = $request->get('cobertura');
-        $seguradora->save();
+        // $seguradora = new Seguradora();
+        // $seguradora->nome_seguradora = $request->get('nome');
+        // $seguradora->n_apolice = $request->get('n_apolice');
+        // $seguradora->cobertura = $request->get('cobertura');
+        // $seguradora->save();
 
-        return redirect()->route('seguro.index')
-            ->with('success', 'CADASTRADO COM SUCESSO.');
+        // return redirect()->route('seguro.index')
+        //     ->with('success', 'CADASTRADO COM SUCESSO.');
+        if ($request->has("e_id_seguradora")) {
+            $seguradora = Seguradora::find($request->e_id_seguradora);
+            $seguradora->nome_seguradora = $request->e_nome_seguradora;
+            $seguradora->n_apolice = $request->e_n_apolice;
+            $seguradora->cobertura = $request->e_cobertura;
+            $seguradora->save();
+            return "2";
+
+        } else {
+            $seguradora = new Seguradora();
+            $seguradora->nome_seguradora = $request->nome;
+            $seguradora->n_apolice = $request->n_apolice;
+            $seguradora->cobertura = $request->cobertura;
+            $seguradora->save();
+            return "1";
+        }
+
     }
 
     /**
@@ -89,6 +106,10 @@ class SeguradoraController extends Controller
         return redirect('seguro');
     }
 
+    public function show($id)
+    {
+        return Seguradora::find($id);
+    }
     /**
      * Remove the specified resource from storage.
      *
@@ -97,15 +118,27 @@ class SeguradoraController extends Controller
      */
     public function destroy(Request $request, $id)
     {
-        if (TceContrato::where('apolice_id', $id)->first()) {
-            $request->session()->flash('warning', 'SEGURO NÃO PODE SER REMOVIDO');
-            return redirect('seguro');
-        } else {
+        // if (TceContrato::where('apolice_id', $id)->first()) {
+        //     $request->session()->flash('warning', 'SEGURO NÃO PODE SER REMOVIDO');
+        //     return redirect('seguro');
+        // } else {
 
-            $seguro = Seguradora::find($id);
-            $seguro->delete();
-            $request->session()->flash('warning', 'REMOVIDO COM SUCESSO.');
-            return redirect('seguro');
+        //     $seguro = Seguradora::find($id);
+        //     $seguro->delete();
+        //     $request->session()->flash('warning', 'REMOVIDO COM SUCESSO.');
+        //     return redirect('seguro');
+        // }
+
+        if (TceContrato::where('apolice_id', $id)->first()) {
+            return "2";
+        } else {
+            Seguradora::destroy($id);
+            return "1";
         }
+    }
+
+    public function carregarSeguro()
+    {
+        return Seguradora::all();
     }
 }

@@ -15,4 +15,15 @@ class Cau extends Model
     {
         return $this->hasOne('App\Empresa', 'id_empresa', 'empresa_id');
     }
+
+    /**
+     * The attributes that should be cast.
+     *
+     * @var array
+     */
+    protected $casts = [
+        'data_inicio' => 'datetime: d/m/Y',
+        'data_fim' => 'datetime: d/m/Y',
+        'data_doc' => 'datetime: d/m/Y',
+    ];
 }

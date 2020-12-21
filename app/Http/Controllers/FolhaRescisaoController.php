@@ -78,15 +78,34 @@ class FolhaRescisaoController extends Controller
      */
     public function store(Request $request)
     {
-        // $request->validate([
-        //     'estagiario_id' => 'required',
-        //     'empresa_id' => 'required',
-        // ]);
+
+        $request->validate([
+            'estagiario_id' => 'required',
+            'empresa_id' => 'required',
+        ]);
 
         $rescisao = new FolhaRescisao();
-        $rescisao->estagiario_id = $request->get('estagiario_id');
-        $rescisao->empresa_id = $request->get('empresa_id');
-        $rescisao->valor_bolsa = $request->get('valor_bolsa');
+        $rescisao->estagiario_id = $request->estagiario_id;
+        $rescisao->empresa_id = $request->empresa_id;
+        $rescisao->valor_bolsa = $request->valor_bolsa;
+        $rescisao->referencia = $request->referencia;
+        $rescisao->empresa_id = $request->empresa_id;
+        $rescisao->folha_id = $request->folha_id;
+        $rescisao->valor_bolsa = $request->valor_bolsa;
+        $rescisao->valor_liquido = $request->valor_liquido;
+        $rescisao->valor_desconto = $request->valor_desconto;
+        $rescisao->valor_credito = $request->valor_credito;
+        $rescisao->valor_falta = $request->valor_falta;
+        $rescisao->faltas = $request->faltas;
+        $rescisao->status = 1;
+        $rescisao->ativo = 1;
+        $rescisao->save();
+
+        DB::update('update folha_pagamento set status =1 where id_folha_pagamento = ?', [$request->folha_id]);
+
+        return redirect()->route('folha_rescisao.index')
+            ->with('success', 'CADASTRADO COM SUCESSO.');
+
     }
 
     /**

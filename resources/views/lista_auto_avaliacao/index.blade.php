@@ -92,9 +92,12 @@
                                                         <a href="/editar_avaliacao_estagiario" class="btn btn-primary">
                                                             <i class="fa fa-pencil" title="Editar"> </i> </a>
                                                     </div>
-                                                    <a href="{{route('deletar.avaliacao.estagiario', [$avaliacao->id_avaliacao])}}" class="btn btn-danger" title="Excluir">
+                                                    <a href="#" class="btn btn-danger" title="Excluir">
                                                         <i class="fa fa-trash"></i>
                                                     </a>
+                                                    {{-- <a href="{{route('deletar.avaliacao.estagiario', [$avaliacao->id_avaliacao])}}" class="btn btn-danger" title="Excluir">
+                                                        <i class="fa fa-trash"></i>
+                                                    </a> --}}
                                                     <div class="col-md-3">
                                                         <a href="#" class="btn btn-warning" title="Imprimir"> <i class="fa fa-print"> </i> </a>
                                                     </div>

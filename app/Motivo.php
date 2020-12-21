@@ -10,4 +10,5 @@ class Motivo extends Model
 
     protected $primaryKey = 'id_motivo';
     protected $table = 'motivo';
+    protected $dates = ['deleted_at'];
 }

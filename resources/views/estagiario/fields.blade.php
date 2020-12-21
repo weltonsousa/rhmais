@@ -23,66 +23,66 @@
                             <div class="row" style="width:960px; margin: 0 auto;">
                                 <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
                                     <input type="text" class="form-control has-feedback-left"
-                                        placeholder="Nome Completo" name="nome" value="{{old('nome')}}" required>
+                                        placeholder="Nome Completo" name="nome" value="{{ old('nome') }}" required>
                                     <span class="fa fa-user form-control-feedback left" aria-hidden="true"></span>
                                 </div>
                                 <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
                                     <input type="text" class="form-control has-feedback-left" placeholder="Email"
-                                        name="email" value="{{old('email')}}" required>
+                                        name="email" value="{{ old('email') }}" required>
                                     <span class="fa fa-envelope form-control-feedback left" aria-hidden="true"></span>
                                 </div>
                                 <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
                                     <input type="text" maxlength="12" class="form-control rg has-feedback-left"
-                                        placeholder="RG" name="rg" value="{{old('rg')}}"required>
+                                        placeholder="RG" name="rg" value="{{ old('rg') }}" required>
                                     <span class="fa fa-newspaper-o form-control-feedback left"
                                         aria-hidden="true"></span>
                                 </div>
                                 <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
                                     <input type="text" maxlength="14" class="form-control cpf has-feedback-left"
-                                        placeholder="CPF" name="cpf" value="{{old('cpf')}}" required>
+                                        placeholder="CPF" name="cpf" value="{{ old('cpf') }}" required>
                                     <span class="fa fa-newspaper-o form-control-feedback left"
                                         aria-hidden="true"></span>
                                 </div>
                                 <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
                                     <input type="text" class="form-control telefone has-feedback-left"
-                                        placeholder="Telefone" name="telefone" value="{{old('telefone')}}">
+                                        placeholder="Telefone" name="telefone" value="{{ old('telefone') }}">
                                     <span class="fa fa-phone form-control-feedback left" aria-hidden="true"></span>
                                 </div>
 
                                 <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
                                     <input type="text" class="form-control telefone has-feedback-left"
-                                        placeholder="Celular" name="celular" value="{{old('celular')}}">
+                                        placeholder="Celular" name="celular" value="{{ old('celular') }}">
                                     <span class="fa fa-phone form-control-feedback left" aria-hidden="true"></span>
                                 </div>
                                 <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
                                     <input type="text" class="form-control nascimento has-feedback-left"
                                         placeholder="Data de Nascimento" name="data_nascimento"
-                                        value="{{old('data_nascimento')}}" required>
+                                        value="{{ old('data_nascimento') }}" required>
                                     <span class="fa fa-calendar form-control-feedback left" aria-hidden="true"></span>
                                 </div>
                                 <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
                                     <input type="text" class="form-control has-feedback-left" placeholder="Bairro"
-                                        name="bairro" value="{{old('bairro')}}">
+                                        name="bairro" value="{{ old('bairro') }}">
                                     <span class="fa fa-map-marker form-control-feedback left" aria-hidden="true"></span>
                                 </div>
                                 <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
                                     <input type="text" class="form-control has-feedback-left" placeholder="Endereço"
-                                        name="rua" value="{{old('rua')}}">
+                                        name="rua" value="{{ old('rua') }}">
                                     <span class="fa fa-map-marker form-control-feedback left" aria-hidden="true"></span>
                                 </div>
                                 <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
                                     <input type="text" maxlength="20" class="form-control has-feedback-left"
-                                        placeholder="Complemento" name="complemento" value="{{old('complemento')}}">
+                                        placeholder="Complemento" name="complemento" value="{{ old('complemento') }}">
                                     <span class="fa fa-map-marker form-control-feedback left" aria-hidden="true"></span>
                                 </div>
                                 <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
                                     <input type="text" maxlength="20" class="form-control cep has-feedback-left"
-                                        placeholder="CEP" name="cep" value="{{old('cep')}}">
+                                        placeholder="CEP" name="cep" value="{{ old('cep') }}">
                                     <span class="fa fa-map-marker form-control-feedback left" aria-hidden="true"></span>
                                 </div>
                                 <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
                                     <input type="text" class="form-control has-feedback-left" placeholder="Numero"
-                                        name="numero" value="{{old('numero')}}">
+                                        name="numero" value="{{ old('numero') }}">
                                     <span class="fa fa-user form-control-feedback left" aria-hidden="true"></span>
                                 </div>
                                 @include('layout.selects.estado-cidade')
@@ -90,7 +90,8 @@
                                     <select class="form-control has-feedback-left" name="empresa_id">
                                         <option>Selecione Unidade Concedente</option>
                                         @foreach ($empresas as $empresa)
-                                        <option value="{{ $empresa->id_empresa }}">{{ $empresa->nome_fantasia }}</option>
+                                            <option value="{{ $empresa->id_empresa }}">{{ $empresa->nome_fantasia }}
+                                            </option>
                                         @endforeach
                                     </select>
                                     <span class="fa fa-graduation-cap form-control-feedback left"
@@ -107,32 +108,32 @@
                                 </div>
                                 <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
                                     <input type="text" class="form-control has-feedback-left" placeholder="Filiação Pai"
-                                        name="pai" value="{{old('pai')}}">
+                                        name="pai" value="{{ old('pai') }}">
                                     <span class="fa fa-user form-control-feedback left" aria-hidden="true"></span>
                                 </div>
                                 <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
                                     <input type="text" class="form-control has-feedback-left" placeholder="Filiação Mãe"
-                                        name="mae" value="{{old('mae')}}">
+                                        name="mae" value="{{ old('mae') }}">
                                     <span class="fa fa-user form-control-feedback left" aria-hidden="true"></span>
                                 </div>
                                 <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
                                     <input type="text" class="form-control has-feedback-left" placeholder="Ctps"
-                                        name="ctps" value="{{old('ctps')}}">
+                                        name="ctps" value="{{ old('ctps') }}">
                                     <span class="fa fa-user form-control-feedback left" aria-hidden="true"></span>
                                 </div>
                                 <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
                                     <input type="text" class="form-control has-feedback-left" placeholder="Série Ctps"
-                                        name="serie_ctps" value="{{old('serie_ctps')}}">
+                                        name="serie_ctps" value="{{ old('serie_ctps') }}">
                                     <span class="fa fa-user form-control-feedback left" aria-hidden="true"></span>
                                 </div>
                                 <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
                                     <input type="text" class="form-control has-feedback-left" placeholder="Número PIS"
-                                        name="numero_pis" value="{{old('numero_pis')}}">
+                                        name="numero_pis" value="{{ old('numero_pis') }}">
                                     <span class="fa fa-user form-control-feedback left" aria-hidden="true"></span>
                                 </div>
                                 <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
                                     <select class="form-control has-feedback-left" name="nacionalidade"
-                                        value="{{old('nacionalidade')}}">
+                                        value="{{ old('nacionalidade') }}">
                                         <option>Selecione Nacionalidade</option>
                                         <option>Brasileiro(a)</option>
                                     </select>
@@ -141,7 +142,7 @@
                                 </div>
                                 <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
                                     <input type="text" class="form-control has-feedback-left"
-                                        value="{{Auth::user()->name}}" readonly placeholder="Responsável"
+                                        value="{{ Auth::user()->name }}" readonly placeholder="Responsável"
                                         name="pessoa_responsavel">
                                     <span class="fa fa-user form-control-feedback left" aria-hidden="true"></span>
                                 </div>
@@ -165,7 +166,7 @@
                                     <select class="form-control has-feedback-left" name="nivel">
                                         <option>Selecione um nível</option>
                                         @foreach ($cursos as $key)
-                                        <option value="{{ $key->nivel }}">{{ $key->nivel }}</option>
+                                            <option value="{{ $key->nivel }}">{{ $key->nivel }}</option>
                                         @endforeach
                                     </select>
                                     <span class="fa fa-graduation-cap form-control-feedback left"
@@ -175,7 +176,7 @@
                                     <select class="form-control has-feedback-left" name="curso">
                                         <option>Selecione um Curso</option>
                                         @foreach ($cursos as $key)
-                                        <option value="{{ $key->nome_curso }}">{{ $key->nome_curso }}</option>
+                                            <option value="{{ $key->nome_curso }}">{{ $key->nome_curso }}</option>
                                         @endforeach
                                     </select>
                                     <span class="fa fa-graduation-cap form-control-feedback left"
@@ -202,22 +203,22 @@
                                     <select class="form-control has-feedback-left" name="instituicao_id">
                                         <option>Instituição de Ensino</option>
                                         @foreach ($instituicoes as $inst)
-                                        <option value="{{ $inst->id_instituicao }}">{{ $inst->nome_instituicao }}</option>
+                                            <option value="{{ $inst->id_instituicao }}">{{ $inst->nome_instituicao }}
+                                            </option>
                                         @endforeach
                                     </select>
                                     <span class="fa fa-graduation-cap form-control-feedback left"
                                         aria-hidden="true"></span>
                                 </div>
-
                                 <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
                                     <input type="text" class="form-control data has-feedback-left"
                                         placeholder="Data de Término do Curso" name="termino_curso"
-                                        value="{{old('termino_curso')}}">
+                                        value="{{ old('termino_curso') }}">
                                     <span class="fa fa-calendar form-control-feedback left" aria-hidden="true"></span>
                                 </div>
-                                  <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
+                                <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
                                     <input type="text" class="form-control has-feedback-left" placeholder="Matricula"
-                                        name="matricula" value="{{old('matricula')}}">
+                                        name="matricula" value="{{ old('matricula') }}">
                                     <span class="fa fa-user form-control-feedback left" aria-hidden="true"></span>
                                 </div>
                             </div>
@@ -229,22 +230,23 @@
                             <div class="row" style="width:960px; margin: 20px auto;">
                                 <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
                                     <input type="text" class="form-control has-feedback-left"
-                                        placeholder="Banco/Agência" name="banco" value="{{old('banco')}}">
+                                        placeholder="Banco/Agência" name="banco" value="{{ old('banco') }}">
                                     <span class="fa fa-bank form-control-feedback left" aria-hidden="true"></span>
                                 </div>
                                 <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
                                     <input type="text" class="form-control has-feedback-left" placeholder="Conta"
-                                        name="conta" value="{{old('conta')}}">
+                                        name="conta" value="{{ old('conta') }}">
                                     <span class="fa fa-bars form-control-feedback left" aria-hidden="true"></span>
                                 </div>
                                 <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
                                     <input type="text" class="form-control has-feedback-left"
-                                        placeholder="Código da vaga" name="codigo_vaga" value="{{old('codigo_vaga')}}">
+                                        placeholder="Código da vaga" name="codigo_vaga"
+                                        value="{{ old('codigo_vaga') }}">
                                     <span class="fa fa-barcode form-control-feedback left" aria-hidden="true"></span>
                                 </div>
                                 <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
-                                    <input type="password" class="form-control has-feedback-left" placeholder="Criar Senha"
-                                        name="senha" value="{{old('senha')}}">
+                                    <input type="password" class="form-control has-feedback-left"
+                                        placeholder="Criar Senha" name="senha" value="{{ old('senha') }}">
                                     <span class="fa fa-key form-control-feedback left" aria-hidden="true"></span>
                                 </div>
                                 <div class="col-md-12 col-sm-12 col-xs-12 form-group has-feedback">

@@ -14,7 +14,7 @@
 Auth::routes();
 Route::get('/', 'HomeController@index')->name('index');
 Route::get('/home', 'HomeController@index')->name('index');
-Route::post('/home', 'HomeController@index')->name('index');
+// Route::post('/home', 'HomeController@index')->name('index');
 Route::get('/home/grafico', 'HomeController@grafico');
 Route::get('infos/{id}', ['uses' => 'FinanceiroController@infos', 'as' => 'financeiro.infos']);
 Route::get('cau_assinado/{id}', ['uses' => 'CauController@assinado', 'as' => 'cau_convenio.assinar']);
@@ -49,6 +49,8 @@ Route::resource('financeiro', 'FinanceiroController');
 Route::resource('avaliacao_supervisor', 'AvaliacaoSuperController');
 Route::resource('folha_pagamento', 'FolhaPagamentoController');
 Route::resource('folha_rescisao', 'FolhaRescisaoController');
+Route::resource('cau', 'CauController');
+Route::resource('cce', 'CceController');
 
 /* Requisicao ajax */
 Route::get('horario-ajax/ajax/{id}', array('as' => 'horario-ajax.ajax', 'uses' => 'TceContratoController@horarioAjax'));
@@ -67,14 +69,14 @@ Route::get('beneficio_estagiario/{id}', ['uses' => 'AjaxController@beneficio_est
 Route::get('find-ajax/pdf/{id}', array('as' => 'find-ajax.ajax', 'uses' => 'TceAditivoController@contratoAditivoTce'));
 
 /*Gerar PDF*/
-Route::get('cau/{id}', 'PdfController@cau');
+Route::get('cau-pdf/{id}', 'PdfController@cau');
 Route::get('cce/{id}', 'PdfController@cce');
 Route::get('estagio/{id}', 'PdfController@planoEstagio');
 Route::get('avaliacao-pdf', 'PdfController@generateAvaliacao');
 Route::get('fechamento-pdf/{id}', 'PdfController@generateFechamento');
 Route::get('/tce-pdf/{id}', 'PdfController@contratoTce');
 Route::get('/aditivo-pdf/{id}', 'PdfController@contratoAditivoTce');
-Route::get('rescisao/{id}', 'PdfController@rescisaoTce');
+Route::get('rescisao-pdf/{id}', 'PdfController@rescisaoTce');
 Route::get('holerite_rescisao/{id}', 'PdfController@holeriteRescisao')->name('holerite_rescisao');
 Route::get('holerite/{id}', 'PdfController@holerite')->name('holerite');
 Route::post('grecibo', 'PdfController@holeriteEmpresa')->name('grecibo');
@@ -95,22 +97,30 @@ Route::resource('plano_estagio', 'PlanoEstagioController');
 Route::get('lista_recesso', 'RecessoController@recessoList');
 Route::get('lista_auto_avaliacao', ['uses' => 'AvaliacaoController@lista_avaliacao', 'as' => 'lista_auto_avaliacao']);
 
-Route::get('deletar_avaliacao_estagiario/{id}', [
-    'uses' => 'AvaliacaoController@deletar_avaliacao_estagiario',
-    'as' => 'deletar.avaliacao.estagiario',
-]);
-
 Route::get('assinar_avaliacao_estagiario/{id}', ['uses' => 'AvaliacaoController@assinar_avaliacao_estagiario', 'as' => 'assinar.avaliacao.estagiario']);
-
-Route::get('deletar_avaliacao_supervisor/{id}', [
-    'uses' => 'AvaliacaoController@deletar_avaliacao_supervisor',
-    'as' => 'deletar.avaliacao.supervisor',
-]);
-
 Route::get('assinar_avaliacao_supervisor/{id}', ['uses' => 'AvaliacaoController@assinar_avaliacao_supervisor', 'as' => 'assinar.avaliacao.supervisor']);
-
 Route::get('lista_avaliacao_supervisor', ['uses' => 'AvaliacaoController@lista_avaliacao', 'as' => 'lista_avaliacao_supervisor']);
 
 /*Empresa */
 Route::resource('rhmais', 'RhmaisController');
 Route::post('rhmais/{id}', 'RhmaisController@update');
+
+/*Nova versão */
+Route::get('modal', 'CursoController@index');
+Route::get('setor-lista', 'SetorController@carregarSetor');
+Route::get('curso-lista', 'CursoController@carregarCurso');
+Route::get('motivo-lista', 'MotivoController@carregarMotivo');
+Route::get('seguro-lista', 'SeguradoraController@carregarSeguro');
+Route::get('user-lista', 'UserController@carregarUser');
+Route::get('beneficio-lista', 'BeneficioController@carregarBeneficio');
+Route::get('atividade-lista', 'AtividadeController@carregarAtividade');
+Route::get('horario-lista', 'HorarioController@carregarHorario');
+Route::get('orientador-lista', 'OrientadorController@carregarOrientador');
+Route::get('supervisor-lista', 'SupervisorController@carregarSupervisor');
+Route::get('instituicao-lista', 'InstituicaoController@carregarInstituicao');
+Route::get('empresa-lista', 'EmpresaController@carregarEmpresa');
+Route::get('estagiario-lista', 'EstagiarioController@carregarEstagiario');
+Route::get('tceContrato-lista', 'TceContratoController@carregarTceContrato');
+Route::get('tceRescisao-lista', 'TceRescisaoController@carregarRescisao');
+Route::get('cau-lista', 'CauController@carregarCau');
+Route::get('cce-lista', 'CceController@carregarCce');

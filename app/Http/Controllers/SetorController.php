@@ -41,18 +41,35 @@ class SetorController extends Controller
      */
     public function store(Request $request)
     {
-        $request->validate([
-            'nome' => 'required',
-        ]);
 
-        $setor = new Setor();
-        $setor->nome_setor = $request->get('nome');
-        $setor->sigla = $request->get('sigla');
+        // $request->validate([
+        //     'nome' => 'required',
+        // ]);
 
-        $setor->save();
+        // $setor = new Setor();
+        // $setor->nome_setor = $request->get('nome');
+        // $setor->sigla = $request->get('sigla');
 
-        return redirect()->route('setor.index')
-            ->with('success', 'CADASTRADO COM SUCESSO');
+        // $setor->save();
+
+        // return redirect()->route('setor.index')
+        //     ->with('success', 'CADASTRADO COM SUCESSO');
+
+        if ($request->has("e_id_setor")) {
+            $setor = Setor::find($request->e_id_setor);
+            $setor->nome_setor = $request->e_nome_setor;
+            $setor->sigla = $request->e_sigla;
+            $setor->save();
+            return "2";
+
+        } else {
+            $setor = new Setor();
+            $setor->nome_setor = $request->nome_setor;
+            $setor->sigla = $request->sigla;
+            $setor->save();
+            return "1";
+        }
+
     }
 
     /**
@@ -89,6 +106,12 @@ class SetorController extends Controller
         return redirect('setor');
     }
 
+    public function show($id)
+    {
+        $setor = Setor::find($id);
+        return $setor;
+    }
+
     /**
      * Remove the specified resource from storage.
      *
@@ -97,14 +120,21 @@ class SetorController extends Controller
      */
     public function destroy(Request $request, $id)
     {
+        // if (TceContrato::where('setor_id', $id)->first()) {
+        //     $request->session()->flash('warning', 'SETOR NÃO PODE SER REMOVIDO');
+        //     return redirect('setor');
+        // } else {
+        //     $setor = Setor::find($id);
+        //     $setor->delete();
+        //     $request->session()->flash('warning', 'REMOVIDO COM SUCESSO');
+        //     return redirect('setor');
+        // }
+
         if (TceContrato::where('setor_id', $id)->first()) {
-            $request->session()->flash('warning', 'SETOR NÃO PODE SER REMOVIDO');
-            return redirect('setor');
+            return "2";
         } else {
-            $setor = Setor::find($id);
-            $setor->delete();
-            $request->session()->flash('warning', 'REMOVIDO COM SUCESSO');
-            return redirect('setor');
+            Setor::destroy($id);
+            return "1";
         }
     }
 
@@ -112,5 +142,16 @@ class SetorController extends Controller
     {
         $setor = Setor::pluck('nome_setor', 'id_setor');
         return json_encode($setor);
+    }
+
+    public function editar($id)
+    {
+        $setor = Setor::find($id);
+        return response()->json($setor);
+    }
+
+    public function carregarSetor()
+    {
+        return Setor::All();
     }
 }

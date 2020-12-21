@@ -32,7 +32,17 @@ class TceContratoController extends Controller
     public function index()
     {
         $tces = TceContrato::all();
-        return view('tce_contrato.index', compact('tces'));
+        $estagiarios = Estagiario::all();
+        $beneficios = Beneficio::all();
+        $seguros = Seguradora::all();
+        $setores = Setor::all();
+        $orientadores = Orientador::all();
+        $supervisores = Supervisor::all();
+        $atividades = Atividade::all();
+        $motivos = Motivo::all();
+        $horarios = Horario::all();
+
+        return view('tce_contrato.index', compact('tces', 'estagiarios', 'beneficios', 'seguros', 'setores', 'orientadores', 'supervisores', 'atividades', 'motivos', 'horarios'));
     }
 
     /**
@@ -62,39 +72,93 @@ class TceContratoController extends Controller
      */
     public function store(Request $request)
     {
-        $request->validate([
-            'estagiario_id' => 'required|unique:tce_contrato',
-            'empresa_id' => 'required',
-            'instituicao_id' => 'required',
-        ]);
+        // $request->validate([
+        //     'estagiario_id' => 'required|unique:tce_contrato',
+        //     'empresa_id' => 'required',
+        //     'instituicao_id' => 'required',
+        // ]);
 
-        $date_doc = $request->get('data_doc');
-        $date_inicio = $request->get('data_inicio');
-        $date_fim = $request->get('data_fim');
+        // $date_doc = $request->get('data_doc');
+        // $date_inicio = $request->get('data_inicio');
+        // $date_fim = $request->get('data_fim');
 
-        $bolsa = str_replace(',', '.', str_replace('.', '', $request->bolsa));
+        // $bolsa = str_replace(',', '.', str_replace('.', '', $request->bolsa));
 
-        $contrato = new TceContrato();
-        $contrato->estagiario_id = $request->get('estagiario_id');
-        $contrato->empresa_id = $request->get('empresa_id');
-        $contrato->instituicao_id = $request->get('instituicao_id');
-        $contrato->data_doc = Carbon::createFromFormat('d/m/Y', $date_doc)->format('Y-m-d');
-        $contrato->data_inicio = Carbon::createFromFormat('d/m/Y', $date_inicio)->format('Y-m-d');
-        $contrato->data_fim = Carbon::createFromFormat('d/m/Y', $date_fim)->format('Y-m-d');
-        $contrato->beneficio_id = $request->get('beneficio_id');
-        $contrato->apolice_id = $request->get('apolice_id');
-        $contrato->horario_id = $request->get('horario_id');
-        $contrato->setor_id = $request->get('setor_id');
-        $contrato->atividade_id = $request->get('atividade_id');
-        $contrato->orientador_id = $request->get('orientador_id');
-        $contrato->supervisor_id = $request->get('supervisor_id');
-        $contrato->bolsa = $bolsa;
-        $contrato->obrigatorio = $request->get('obrigatorio');
-        $contrato->obs = $request->get('obs');
-        $contrato->save();
+        // $contrato = new TceContrato();
+        // $contrato->estagiario_id = $request->get('estagiario_id');
+        // $contrato->empresa_id = $request->get('empresa_id');
+        // $contrato->instituicao_id = $request->get('instituicao_id');
+        // $contrato->data_doc = Carbon::createFromFormat('d/m/Y', $date_doc)->format('Y-m-d');
+        // $contrato->data_inicio = Carbon::createFromFormat('d/m/Y', $date_inicio)->format('Y-m-d');
+        // $contrato->data_fim = Carbon::createFromFormat('d/m/Y', $date_fim)->format('Y-m-d');
+        // $contrato->beneficio_id = $request->get('beneficio_id');
+        // $contrato->apolice_id = $request->get('apolice_id');
+        // $contrato->horario_id = $request->get('horario_id');
+        // $contrato->setor_id = $request->get('setor_id');
+        // $contrato->atividade_id = $request->get('atividade_id');
+        // $contrato->orientador_id = $request->get('orientador_id');
+        // $contrato->supervisor_id = $request->get('supervisor_id');
+        // $contrato->bolsa = $bolsa;
+        // $contrato->obrigatorio = $request->get('obrigatorio');
+        // $contrato->obs = $request->get('obs');
+        // $contrato->save();
 
-        return redirect()->route('tce_contrato.index')
-            ->with('success', 'CADASTRADO COM SUCESSO');
+        // return redirect()->route('tce_contrato.index')
+        //     ->with('success', 'CADASTRADO COM SUCESSO');
+
+        if ($request->has("e_id_tce_contrato")) {
+            // $data_doc = $request->data_doc;
+            // $data_inicio = $request->data_inicio;
+            // $data_fim = $request->data_fim;
+
+            $bolsa = str_replace(',', '.', $request->e_bolsa);
+
+            $contrato = TceContrato::find($request->e_id_tce_contrato);
+            $contrato->estagiario_id = $request->e_estagiario_id;
+            $contrato->empresa_id = $request->e_empresa_id;
+            $contrato->instituicao_id = $request->e_instituicao_id;
+            $contrato->data_doc = Carbon::createFromFormat('d/m/Y', $request->e_data_doc)->format('Y-m-d');
+            $contrato->data_inicio = Carbon::createFromFormat('d/m/Y', $request->e_data_inicio)->format('Y-m-d');
+            $contrato->data_fim = Carbon::createFromFormat('d/m/Y', $request->e_data_fim)->format('Y-m-d');
+            $contrato->beneficio = $request->e_beneficio;
+            $contrato->seguro = $request->e_seguro;
+            $contrato->horario = $request->e_horario;
+            $contrato->setor = $request->e_setor;
+            $contrato->atividade = $request->e_atividade;
+            $contrato->orientador_id = $request->e_orientador_id;
+            $contrato->supervisor_id = $request->e_supervisor_id;
+            $contrato->bolsa = $bolsa;
+            $contrato->obrigatorio = $request->e_obrigatorio;
+            $contrato->obs = $request->e_obs;
+            $contrato->save();
+
+            return "2";
+
+        } else {
+
+            $bolsa = str_replace(',', '.', $request->bolsa);
+
+            $contrato = new TceContrato();
+            $contrato->estagiario_id = $request->estagiario_id;
+            $contrato->empresa_id = $request->empresa_id;
+            $contrato->instituicao_id = $request->instituicao_id;
+            $contrato->data_doc = Carbon::createFromFormat('d/m/Y', $request->data_doc)->format('Y-m-d');
+            $contrato->data_inicio = Carbon::createFromFormat('d/m/Y', $request->data_inicio)->format('Y-m-d');
+            $contrato->data_fim = Carbon::createFromFormat('d/m/Y', $request->data_fim)->format('Y-m-d');
+            $contrato->beneficio = $request->beneficio;
+            $contrato->seguro = $request->seguro;
+            $contrato->horario = $request->horario;
+            $contrato->setor = $request->setor;
+            $contrato->atividade = $request->atividade;
+            $contrato->orientador_id = $request->orientador_id;
+            $contrato->supervisor_id = $request->supervisor_id;
+            $contrato->bolsa = $bolsa;
+            $contrato->obrigatorio = $request->obrigatorio;
+            $contrato->obs = $request->obs;
+            $contrato->save();
+
+            return "1";
+        }
     }
 
     /**
@@ -104,6 +168,49 @@ class TceContratoController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function show($id)
+    {
+        $tceContrato = TceContrato::with('empresa')->with('instituicao')->with('estagiario')->with('supervisor')->find($id);
+        return $tceContrato;
+
+        // $orientador = Orientador::all();
+        // $supervisor = Supervisor::all();
+        // $atividades = Atividade::all();
+
+        // $tceContrato = DB::table('tce_contrato')
+        //     ->join('estagiario', 'estagiario.id_estagiario', '=', 'tce_contrato.estagiario_id')
+        //     ->join('empresa', 'empresa.id_empresa', '=', 'tce_contrato.empresa_id')
+        //     ->join('instituicao', 'instituicao.id_instituicao', '=', 'tce_contrato.instituicao_id')
+        //     ->select(
+        //         'estagiario.nome',
+        //         'estagiario.id_estagiario',
+        //         'estagiario.curso',
+        //         'empresa.nome_fantasia',
+        //         'empresa.id_empresa',
+        //         'instituicao.nome_instituicao',
+        //         'instituicao.id_instituicao',
+        //         'tce_contrato.bolsa',
+        //         'tce_contrato.data_inicio',
+        //         'tce_contrato.data_fim',
+        //         'tce_contrato.contrato',
+        //         'tce_contrato.assinado',
+        //         'tce_contrato.data_doc',
+        //         'tce_contrato.horario_id',
+        //         'tce_contrato.apolice_id',
+        //         'tce_contrato.setor_id',
+        //         'tce_contrato.obrigatorio',
+        //         'tce_contrato.supervisor_id',
+        //         'tce_contrato.orientador_id',
+        //         'tce_contrato.atividade_id',
+        //         'tce_contrato.id_tce_contrato'
+        //     )
+        //     ->where('tce_contrato.id_tce_contrato', '=', $id)
+        //     ->get();
+
+        // return view('tce_contrato.show', compact('tceContrato', 'orientador', 'supervisor', 'atividades', $tceContrato));
+    }
+
+    //verificar o metodo show que foi mudado para aditivo.
+    public function aditivo($id)
     {
         $orientador = Orientador::all();
         $supervisor = Supervisor::all();
@@ -211,16 +318,6 @@ class TceContratoController extends Controller
 
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\TceContrato  $tceContrato
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(TceContrato $tceContrato)
-    {
-        //
-    }
     public function tceAjax($id)
     {
         $contrato = DB::table('estagiario')
@@ -246,7 +343,7 @@ class TceContratoController extends Controller
             ->where("empresa.id_empresa", $id)
             ->select("descricao", "horario.id_horario")
             ->get();
-        return json_encode($horarios);
+        return $horarios;
 
     }
     public function atividadeAjax($id)
@@ -254,9 +351,9 @@ class TceContratoController extends Controller
         $atividades = DB::table('atividade')
             ->join('empresa', 'empresa.id_empresa', '=', 'atividade.empresa_id')
             ->where("empresa.id_empresa", $id)
-            ->select("nome", "atividade.id_atividade")
+            ->select("nome_atividade", "atividade.id_atividade")
             ->get();
-        return json_encode($atividades);
+        return $atividades;
 
     }
 
@@ -293,5 +390,10 @@ class TceContratoController extends Controller
         $atividades = DB::table('atividade')->where('id_atividade', $tce->atividade_id)->get()->first();
 
         return view('tce_contrato.fields_edit', compact('atividades', 'orientadores', 'tceContrato', 'motivos', 'supervisor', 'horarios', 'seguros', 'beneficios', 'setores'));
+    }
+
+    public function carregarTceContrato()
+    {
+        return TceContrato::with("estagiario")->with("empresa")->with("instituicao")->get();
     }
 }

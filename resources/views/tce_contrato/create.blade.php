@@ -49,7 +49,7 @@
                                                             name="estagiario_id">
                                                             <option>Selecione o Estagiário</option>
                                                             @foreach ($estagiarios as  $key => $value )
-                                                           <option value="{{ $value->id }}">{{ $value->nome }}</option>
+                                                           <option value="{{ $value->id_estagiario }}">{{ $value->nome }}</option>
                                                             @endforeach
                                                         </select>
                                                         <span class="fa fa-user form-control-feedback left"
@@ -96,7 +96,7 @@
                                                         <select class="form-control has-feedback-left" name="beneficio_id">
                                                             <option>Selecione Beneficio</option>
                                                             @foreach ($beneficios as $beneficio)
-                                                            <option value="{{ $beneficio->id }}">{{ $beneficio->nome }}
+                                                            <option value="{{ $beneficio->id_beneficio }}">{{ $beneficio->nome }}
                                                             </option>
                                                             @endforeach
                                                         </select>
@@ -107,7 +107,7 @@
                                                         <select class="form-control has-feedback-left" name="apolice_id">
                                                             <option>Selecione Seguro</option>
                                                             @foreach ($seguros as $seguro)
-                                                            <option value="{{ $seguro->id }}">{{ $seguro->nome }}
+                                                            <option value="{{ $seguro->id_seguro }}">{{ $seguro->nome }}
                                                             </option>
                                                             @endforeach
                                                         </select>
@@ -126,7 +126,7 @@
                                                         <select class="form-control has-feedback-left" name="setor_id">
                                                             <option>Selecione Setor</option>
                                                             @foreach ($setores as $setor)
-                                                            <option value="{{ $setor->id }}">{{ $setor->nome }}</option>
+                                                            <option value="{{ $setor->id_setor }}">{{ $setor->nome }}</option>
                                                             @endforeach
                                                         </select>
                                                         <span class="fa fa-cube form-control-feedback left"
@@ -144,7 +144,7 @@
                                                             name="orientador_id">
                                                             <option>Orientador Estágio</option>
                                                             @foreach ($orienta as $orient)
-                                                            <option value="{{ $orient->id }}">{{ $orient->nome }}
+                                                            <option value="{{ $orient->id_orientador }}">{{ $orient->nome }}
                                                             </option>
                                                             @endforeach
                                                         </select>
@@ -156,7 +156,7 @@
                                                             name="supervisor_id">
                                                             <option>Supervisor Estagio</option>
                                                             @foreach ($super as $sup)
-                                                            <option value="{{ $sup->id }}">{{ $sup->nome }}</option>
+                                                            <option value="{{ $sup->id_supervisor }}">{{ $sup->nome }}</option>
                                                             @endforeach
                                                         </select>
                                                         <span class="fa fa-user form-control-feedback left"

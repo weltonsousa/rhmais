@@ -20,7 +20,7 @@ class CursoController extends Controller
     public function index()
     {
         $cursos = Curso::all();
-        return view('curso.index', compact('cursos', $cursos));
+        return view('curso.index', compact('cursos'));
     }
 
     /**
@@ -41,18 +41,34 @@ class CursoController extends Controller
      */
     public function store(Request $request)
     {
-        $request->validate([
-            'nome' => 'required',
-            'nivel' => 'required',
-        ]);
+        // $request->validate([
+        //     'nome' => 'required',
+        //     'nivel' => 'required',
+        // ]);
 
-        $cursos = new Curso();
-        $cursos->nome_curso = $request->get('nome');
-        $cursos->nivel = $request->get('nivel');
-        $cursos->save();
+        // $cursos = new Curso();
+        // $cursos->nome_curso = $request->get('nome');
+        // $cursos->nivel = $request->get('nivel');
+        // $cursos->save();
 
-        return redirect()->route('curso.index')
-            ->with('success', 'Cadastrado com sucesso.');
+        // return redirect()->route('curso.index')
+        //     ->with('success', 'Cadastrado com sucesso.');
+
+        if ($request->has("e_id_curso")) {
+            $curso = Curso::find($request->e_id_curso);
+            $curso->nome_curso = $request->e_nome_curso;
+            $curso->nivel = $request->e_nivel;
+            $curso->save();
+            return "2";
+
+        } else {
+            $curso = new Curso();
+            $curso->nome_curso = $request->nome_curso;
+            $curso->nivel = $request->nivel;
+            $curso->save();
+            return "1";
+        }
+
     }
 
     /**
@@ -90,6 +106,12 @@ class CursoController extends Controller
         return redirect('curso');
     }
 
+    public function show($id)
+    {
+        $curso = Curso::find($id);
+        return $curso;
+    }
+
     /**
      * Remove the specified resource from storage.
      *
@@ -98,9 +120,18 @@ class CursoController extends Controller
      */
     public function destroy(Request $request, $id)
     {
-        $curso = Curso::find($id);
-        $curso->delete();
-        $request->session()->flash('warning', 'REMOVIDO COM SUCESSO');
-        return redirect('curso');
+        // $curso = Curso::find($id);
+        // $curso->delete();
+        // $request->session()->flash('warning', 'REMOVIDO COM SUCESSO');
+        // return redirect('curso');
+
+        Curso::destroy($id);
+        return "1";
+
+    }
+
+    public function carregarCurso()
+    {
+        return Curso::All();
     }
 }

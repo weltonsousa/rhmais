@@ -46,7 +46,7 @@
 <script src="{{asset('vendors/jquery/dist/jquery.min.js')}}"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.15/jquery.mask.js"></script>
 <!-- Bootstrap -->
-<script src="{{asset('vendors/bootstrap/dist/js/bootstrap.min.js')}}"></script>
+ <script src="{{asset('vendors/bootstrap/dist/js/bootstrap.min.js')}}"></script>
 <!-- FastClick -->
 <script src="{{asset('vendors/wizard/dist/js/jquery.smartWizard.min.js')}}"></script>
 <script src="{{asset('vendors/validator/validator.js')}}"></script>
@@ -60,7 +60,7 @@
 <!-- gauge.js -->
 <script src="{{asset('vendors/gauge.js/dist/gauge.min.js')}}"></script>
 <!-- bootstrap-progressbar -->
-<script src="{{asset('vendors/bootstrap-progressbar/bootstrap-progressbar.min.js')}}"></script>
+ <script src="{{asset('vendors/bootstrap-progressbar/bootstrap-progressbar.min.js')}}"></script>
 <!-- iCheck -->
 <script src="{{asset('vendors/iCheck/icheck.min.js')}}"></script>
 <!-- Skycons -->

@@ -21,8 +21,9 @@ class OrientadorController extends Controller
      */
     public function index()
     {
-        $orientadores = Orientador::all();
-        return view('orientador.index', compact('orientadores'));
+        $orientador = Orientador::all();
+        $instituicoes = Instituicao::all();
+        return view('orientador.index', compact('orientador', 'instituicoes'));
     }
 
     /**
@@ -33,7 +34,7 @@ class OrientadorController extends Controller
     public function create()
     {
         $estados = DB::table("estado")->pluck("nome", "id");
-        $instituicoes = Instituicao::all(['id', 'nome_instituicao']);
+        $instituicoes = Instituicao::all(['id_instituicao', 'nome_instituicao']);
         return view('orientador.create', compact('estados', 'cursos', 'instituicoes'));
     }
 
@@ -45,32 +46,80 @@ class OrientadorController extends Controller
      */
     public function store(Request $request)
     {
-        $request->validate([
-            'nome' => 'required',
-        ]);
+        // $request->validate([
+        //     'nome' => 'required',
+        // ]);
 
-        $orientadoress = new Orientador();
-        $orientadoress->nome_orientador = $request->get('nome');
-        $orientadoress->email = $request->get('email');
-        $orientadoress->rg = $request->get('rg');
-        $orientadoress->cpf = $request->get('cpf');
-        $orientadoress->telefone = $request->get('telefone');
-        $orientadoress->celular = $request->get('celular');
-        $orientadoress->cidade = $request->get('cidade');
-        $orientadoress->estado = $request->get('estado');
-        $orientadoress->formacao = $request->get('formacao');
-        $orientadoress->cep = $request->get('cep');
-        $orientadoress->rua = $request->get('rua');
-        $orientadoress->bairro = $request->get('bairro');
-        $orientadoress->cep = $request->get('cep');
-        $orientadoress->numero = $request->get('numero');
-        $orientadoress->complemento = $request->get('complemento');
-        $orientadoress->cargo = $request->get('cargo');
-        $orientadoress->instituicao_id = $request->get('instituicao_id');
-        $orientadoress->save();
+        // $orientador = new Orientador();
+        // $orientador->nome_orientador = $request->get('nome');
+        // $orientador->email = $request->get('email');
+        // $orientador->rg = $request->get('rg');
+        // $orientador->cpf = $request->get('cpf');
+        // $orientador->telefone = $request->get('telefone');
+        // $orientador->celular = $request->get('celular');
+        // $orientador->cidade = $request->get('cidade');
+        // $orientador->estado = $request->get('estado');
+        // $orientador->formacao = $request->get('formacao');
+        // $orientador->cep = $request->get('cep');
+        // $orientador->rua = $request->get('rua');
+        // $orientador->bairro = $request->get('bairro');
+        // $orientador->cep = $request->get('cep');
+        // $orientador->numero = $request->get('numero');
+        // $orientador->complemento = $request->get('complemento');
+        // $orientador->cargo = $request->get('cargo');
+        // $orientador->instituicao_id = $request->get('instituicao_id');
+        // $orientador->save();
 
-        return redirect()->route('orientador.index')
-            ->with('success', 'CADASTRADOR COM SUCESSO.');
+        // return redirect()->route('orientador.index')
+        //     ->with('success', 'CADASTRADOR COM SUCESSO.');
+
+        if ($request->has("e_id_orientador")) {
+            $orientador = Orientador::find($request->e_id_orientador);
+            $orientador->nome_orientador = $request->e_nome;
+            $orientador->email = $request->e_email;
+            $orientador->rg = $request->e_rg;
+            $orientador->cpf = $request->e_cpf;
+            $orientador->telefone = $request->e_telefone;
+            $orientador->celular = $request->e_celular;
+            $orientador->cidade = $request->e_cidade;
+            $orientador->estado = $request->e_estado;
+            $orientador->formacao = $request->e_formacao;
+            $orientador->cep = $request->e_cep;
+            $orientador->rua = $request->e_rua;
+            $orientador->bairro = $request->e_bairro;
+            $orientador->cep = $request->e_cep;
+            $orientador->numero = $request->e_numero;
+            $orientador->complemento = $request->e_complemento;
+            $orientador->cargo = $request->e_cargo;
+            $orientador->instituicao_id = $request->e_instituicao_id;
+            $orientador->save();
+
+            return "2";
+
+        } else {
+            $orientador = new Orientador();
+            $orientador->nome_orientador = $request->nome;
+            $orientador->email = $request->email;
+            $orientador->rg = $request->rg;
+            $orientador->cpf = $request->cpf;
+            $orientador->telefone = $request->telefone;
+            $orientador->celular = $request->celular;
+            $orientador->cidade = $request->cidade;
+            $orientador->estado = $request->estado;
+            $orientador->formacao = $request->formacao;
+            $orientador->cep = $request->cep;
+            $orientador->rua = $request->rua;
+            $orientador->bairro = $request->bairro;
+            $orientador->cep = $request->cep;
+            $orientador->numero = $request->numero;
+            $orientador->complemento = $request->complemento;
+            $orientador->cargo = $request->cargo;
+            $orientador->instituicao_id = $request->instituicao_id;
+            $orientador->save();
+
+            return "1";
+        }
+
     }
 
     /**
@@ -79,9 +128,18 @@ class OrientadorController extends Controller
      * @param  \App\Orientador  $orientador
      * @return \Illuminate\Http\Response
      */
-    public function show(Orientador $orientador)
+    public function show($id)
     {
-        //
+        // $orientador = DB::table('orientador')
+        //     ->join('instituicao', 'orientador.instituicao_id', '=', 'instituicao.id_instituicao')
+        //     ->where('orientador.id_orientador', '=', $id)
+        //     ->select('orientador.*', 'instituicao.nome_instituicao')
+        //     ->get();
+
+        $orientador = Orientador::with('instituicao')->find($id);
+
+        return $orientador;
+
     }
 
     /**
@@ -111,25 +169,25 @@ class OrientadorController extends Controller
             'nome' => 'required',
         ]);
 
-        $orientadoress = Orientador::find($id);
-        $orientadoress->nome_orientador = $request->get('nome');
-        $orientadoress->email = $request->get('email');
-        $orientadoress->rg = $request->get('rg');
-        $orientadoress->cpf = $request->get('cpf');
-        $orientadoress->telefone = $request->get('telefone');
-        $orientadoress->celular = $request->get('celular');
-        $orientadoress->cidade = $request->get('cidade');
-        $orientadoress->estado = $request->get('estado');
-        $orientadoress->formacao = $request->get('formacao');
-        $orientadoress->cep = $request->get('cep');
-        $orientadoress->rua = $request->get('rua');
-        $orientadoress->bairro = $request->get('bairro');
-        $orientadoress->cep = $request->get('cep');
-        $orientadoress->numero = $request->get('numero');
-        $orientadoress->complemento = $request->get('complemento');
-        $orientadoress->cargo = $request->get('cargo');
-        $orientadoress->instituicao_id = $request->get('instituicao_id');
-        $orientadoress->save();
+        $orientador = Orientador::find($id);
+        $orientador->nome_orientador = $request->get('nome');
+        $orientador->email = $request->get('email');
+        $orientador->rg = $request->get('rg');
+        $orientador->cpf = $request->get('cpf');
+        $orientador->telefone = $request->get('telefone');
+        $orientador->celular = $request->get('celular');
+        $orientador->cidade = $request->get('cidade');
+        $orientador->estado = $request->get('estado');
+        $orientador->formacao = $request->get('formacao');
+        $orientador->cep = $request->get('cep');
+        $orientador->rua = $request->get('rua');
+        $orientador->bairro = $request->get('bairro');
+        $orientador->cep = $request->get('cep');
+        $orientador->numero = $request->get('numero');
+        $orientador->complemento = $request->get('complemento');
+        $orientador->cargo = $request->get('cargo');
+        $orientador->instituicao_id = $request->get('instituicao_id');
+        $orientador->save();
 
         $request->session()->flash('success', 'ATUALIZADO COM SUCESSO');
         return redirect('orientador');
@@ -141,16 +199,22 @@ class OrientadorController extends Controller
      * @param  \App\Orientador  $orientador
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Request $request, $id)
+    public function destroy($id)
     {
+        // if (TceContrato::where('orientador_id', $id)->first()) {
+        //     $request->session()->flash('warning', 'ORIENTADOR NÃO PODE SER REMOVIDO');
+        //     return redirect('orientador');
+        // } else {
+        //     $orientador = Orientador::find($id);
+        //     $orientador->delete();
+        //     $request->session()->flash('warning', 'REMOVIDO COM SUCESSO');
+        //     return redirect('orientador');
+        // }
         if (TceContrato::where('orientador_id', $id)->first()) {
-            $request->session()->flash('warning', 'ORIENTADOR NÃO PODE SER REMOVIDO');
-            return redirect('orientador');
+            return "2";
         } else {
-            $orientador = Orientador::find($id);
-            $orientador->delete();
-            $request->session()->flash('warning', 'REMOVIDO COM SUCESSO');
-            return redirect('orientador');
+            Orientador::destroy($id);
+            return "1";
         }
     }
 
@@ -164,5 +228,15 @@ class OrientadorController extends Controller
             ->get();
 
         return json_encode($orientador);
+    }
+    public function carregarOrientador()
+    {
+        // $orientador = DB::table('orientador')
+        //     ->join('instituicao', 'orientador.instituicao_id', '=', 'instituicao.id_instituicao')
+        //     ->get();
+
+        return Orientador::with('instituicao')->get();
+
+        // return $orientador;
     }
 }
